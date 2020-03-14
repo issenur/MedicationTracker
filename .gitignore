@@ -1,0 +1,6 @@
+/mysql/backup
+/mysql/scripts
+
+/mysql/*.bat
+/mysql/*.md
+
