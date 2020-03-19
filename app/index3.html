@@ -275,20 +275,21 @@
                   <div class="row">
                     <div class="col-12">
                       <table class="table table-bordered table-hover" id="tab_logic">
-				<thead>
-					<tr >
-						<th class="text-center">
-							Doctor ID
-						</th>
-						<th class="text-center">
-							Patient ID
-						</th>
-						<th class="text-center">
-							Medication
-						</th>
-						<th class="text-center">
-							Dosage
-						</th>
+         <!--              
+        <thead>
+          <tr >
+            <th class="text-center">
+              Doctor ID
+            </th>
+            <th class="text-center">
+              Patient ID
+            </th>
+            <th class="text-center">
+              Medication
+            </th>
+            <th class="text-center">
+              Dosage
+            </th>
             <th class="text-center">
               Unit
             </th>
@@ -303,25 +304,33 @@
                     <button onclick="javascript:void(0)" id="delete_row" class="btn btn-flat btn-secondary"><b>-</b>
                       <span class="fas fa-capsules"></span>
                     </button></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr id='addr0'>
-						<td>
-						<input type="text" name='doctor0'  placeholder='Doctor ID' class="form-control"/>
-						</td>
-						<td>
-						<input type="text" name='patient0'  placeholder='Patient ID' class="form-control"/>
-						</td>
-						<td>
-						<input type="text" name='medication0' placeholder='Medication' class="form-control"/>
-						</td>
-						<td>
-						<input type="text" name='dosage0' placeholder='Dosage' class="form-control"/>
-						</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id='addr0'>
             <td>
-  					<input type="text" name='unit0' placeholder='Unit' class="form-control"/>
-						</td>
+            <input type="text" name='order0'  placeholder='OrderID' id='orderID' class="form-control"/>
+            <input type="text" name='ordertest0'  placeholder='value of OrderID' id='ordertest' class="form-control" disabled/>
+            <script>
+              var orderNum = document.getElementById("orderID").value;
+              document.getElementById(ordertest).innerHTML = orderNum;
+            </script>
+            </td>
+            <td>
+            <input type="text" name='doctor0'  placeholder='Doctor ID' class="form-control"/>
+            </td>
+            <td>
+            <input type="text" name='patient0'  placeholder='Patient ID' class="form-control"/>
+            </td>
+            <td>
+            <input type="text" name='medication0' placeholder='MedicationID' class="form-control"/>
+            </td>
+            <td>
+            <input type="text" name='dosage0' placeholder='Dosage' class="form-control"/>
+            </td>
+            <td>
+            <input type="text" name='unit0' placeholder='Unit' class="form-control"/>
+            </td>
             <td>
             <input type="text" name='type0' placeholder='Type' class="form-control"/>
             </td>
@@ -332,10 +341,90 @@
               <a id='delete_row' class="pull-right btn btn-default">Remove</a>
             </td>
           -->
-					</tr>
+          </tr>
                     <tr id='addr1'></tr>
-				</tbody>
-			</table>
+        </tbody>
+      
+      </table>
+
+      <!-- form start -->
+      <form role="form action" action="OrderController.php" method="POST">
+        
+        <div class="card-body">
+          <div class="form-group">
+            <label for="inputEmail1">OrderID</label>
+            <input type="text" class="form-control" id="orderID2" name="inputOrderID1"  placeholder="" disabled>
+          <script>
+              function genOrderNumber(numDigits) {
+                var orderNumber;
+                var n = '';
+                for(var count = 0; count < numDigits; count++) {
+                  orderNumber = Math.floor(Math.random() * 10);
+                  n += orderNumber.toString();
+                }
+                return n;
+                }
+                document.getElementById("orderID2").value = genOrderNumber(4);
+          </script>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="inputDate1">Order Creation Date</label>
+              <input type="text" class="form-control" id="orderDate1" name="inputOrderDate1"  placeholder="" disabled>
+              <script>
+                  function genOrderDate() {
+                    var orderDate = new Date();;
+                    return orderDate;
+                  }
+                  document.getElementById("orderDate1").value = genOrderDate();
+            </script>
+            </div>
+          <div class="form-group">
+            <label for="inputDoctorID1">DoctorID</label>
+            <input type="text" class="form-control" id = "doctorID" name="inputDoctorID1" placeholder="Enter your DoctorID">
+          </div>
+          <div class="form-group">
+            <label for="inputPatientID1">PatientID</label>
+            <input type="text" class="form-control" id = "patientID" name="inputPatientID1" placeholder="Enter the PatientID">
+          </div>
+          <div class="form-group">
+            <label for="inputMedicationID1">MedicationID</label>
+            <input type="text" class="form-control" id="medID" name="inputMedicationID1" placeholder="Enter a MedicationID">
+          </div>
+          <div class="form-group">
+            <label>Select Type of Medication</label>
+            <select class="form-control" id="medType" name="inputMedicationType1">
+              <option>Tablet</option>
+              <option>Gel Capsule</option>
+              <option>Hard Capsule</option>
+              <option>Liquid syrup</option>
+              <option>Inhaler</option>
+              <option>Ointment</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="inputMedicationQty1">Medication Quantity</label>
+            <input type="text" class="form-control" id="medQty" name="inputMedicationQty1" placeholder="Enter daily dose a patient would take for Medication">
+          </div>
+          <div class="form-group">
+            <label>Select Unit for Medication</label>
+            <select class="form-control" id="medUnit" name= "inputMedicationUnit1">
+              <option>grams</option>
+              <option>mg</option>
+              <option>mL</option>
+              <option>puffs</option>
+            </select>
+          </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+          <button type="submit" name= "submit" dd class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+    
+    <!-- /.card -->
+
 <!-- Old Code
                       <label>Doctor ID</label>
                       <input type="text" class="form-control" placeholder="Type Here...">
@@ -391,9 +480,11 @@
           </div>
           </div>
           <!-- /.card-body -->
+          <!-- Old code
           <div class="card-footer clearfix">
             <a href="javascript:void(0)" class="btn btn-sm btn-info float-right">Submit Order</a>
           </div>
+        -->
           <!-- /.card-footer -->
         </div>
         <!-- /.card -->
@@ -459,7 +550,7 @@
                             <td><a href="pages/examples/profile.html">7002</a></td>
                             <td>Fahim</td>
                             <td>Murshed</td>
-                            <td>10</td>
+                            <td>22</td>
                           </tr>
                           <tr>
                             <td><a href="pages/examples/profile.html">7003</a></td>
