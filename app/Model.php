@@ -22,35 +22,12 @@ class Model{
     
     }
    
-<<<<<<< HEAD
+
     
     public function addDoctorUser($user_name, $pin, $first, $last, $active) {
     
         global $conn;
-=======
-  
-    //Adds the order a Doctor makes to the DB
-    public function createOrder($order_id,$order_creationdate,$doctor_id,$patient_id,$med_id,$med_type, $med_qty, $med_unit){
 
-        $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
-
-        //INclude ordercreationdate in 
-        $sql = "INSERT INTO order(order_id,doctor_id, patient_id, caregiver_id,order_creationdate) values('$order_id''$doctor_id', '$patient_id',
-         '00000',$order_creationdate)";
-
-         //Add a Loop for each medication to be entered for 1 single orderID
-         //adminster_time can be left as optional right?
-        $sql = "INSERT INTO break_down(order_id,medication_id,med_ quantity,) values('$order_id', '$med_id', '$med_qty')";
-        
-        if(!mysqli_query($this->conn, $sql)){
-            return false;
-        }else{
-            return true;    
-        }
-    }
-
-    public function addUser($first, $last, $role, $active) {
->>>>>>> 348940d2c7473e87bcc7009eb9ce8c326b9dfbac
         
         $mdUser = new ModelUser();
         $doctor_id = $mdUser->addDoctor($first, $last, $active);
@@ -246,7 +223,3 @@ class Model{
 //echo $result;
 
 ?>
-<<<<<<< HEAD
-
-=======
->>>>>>> 348940d2c7473e87bcc7009eb9ce8c326b9dfbac
