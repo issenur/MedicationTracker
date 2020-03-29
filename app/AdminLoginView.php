@@ -1,7 +1,7 @@
 <?php
 
 include_once("Model.php");
-
+include_once("Code.php");
 include_once("Controller.php");
 $controller = new Controller();
 ?>
@@ -73,6 +73,7 @@ $controller = new Controller();
             $link=$_GET['link'];
             if ($link == '1'){
                 $controller->changeView("HomeView");
+
             }
         }
     ?>  

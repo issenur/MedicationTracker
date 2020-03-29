@@ -6,10 +6,6 @@ $password = "";
 $dbname = "medicationtracker";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-/*Purpose of this class is to make insert,update, or delete info to our DB 
- * 
- * This class includes methods that deal with User functions and Order functions
- */
 class Model{
 
     private $currentview = "";
@@ -22,12 +18,10 @@ class Model{
     
     }
    
-
     
     public function addDoctorUser($user_name, $pin, $first, $last, $active) {
     
         global $conn;
-
         
         $mdUser = new ModelUser();
         $doctor_id = $mdUser->addDoctor($first, $last, $active);
@@ -150,36 +144,45 @@ class Model{
     
     public function updateUserUsername($username, $newusername) {
     
-    global $conn;
-    $sql = "UPDATE user SET  username = '$newusername' WHERE username = $username";
-    if(!mysqli_query($this->conn, $sql)){
-    return false;
-    }else{
-    return true;    
-    }
+        global $conn;
+        $sql = "UPDATE user SET  username = '$newusername' WHERE username = $username";
+        if(!mysqli_query($this->conn, $sql)){
+            return false;
+        }else{
+            return true;    
+        }
     }
     
     public function updateUserPin($username, $pin) {
     
-    global $conn;
-    $sql = "UPDATE user SET  pin = '$pin' WHERE username = $username";
-    if(!mysqli_query($this->conn, $sql)){
-    return false;
-    }else{
-    return true;    
-    }
+        global $conn;
+        $sql = "UPDATE user SET  pin = '$pin' WHERE username = $username";
+        if(!mysqli_query($this->conn, $sql)){
+            return false;
+        }else{
+            return true;    
+        }
     }
     
-    public function updateUserRole($user_id, $role) {
     
-    global $conn;
-    $sql = "UPDATE user SET  role = '$role' WHERE user_id = $user_id";
-    if(!mysqli_query($this->conn, $sql)){
-    return false;
-    }else{
-    return true;    
+    public function doctorCreatesOrder($doctor_id, $patient_id) {
+    
+        global $conn;
+        
+        
+        //notice care_giver_id is hardcoded to 0000, there is no caregiver with
+        //this id number. It represents NULL. Which means we havent assigned a
+        //care_giver yet.
+         
+        $sql = "INSERT INTO `order` (`doctor_id`, `patient_id`, `care_giver_id`, `date`) VALUES ('$doctor_id', '$patient_id', '0000', CURDATE())";
+        if(!mysqli_query($conn, $sql)){
+            return false;
+        }else{
+            return true;
+        }
     }
-    }
+    
+   
     
     public function setCurrentView($newView) {
         
@@ -207,7 +210,15 @@ class Model{
     }
 }
 
-//$md = new Model("LoginView", 0);
+$md = new Model("LoginView", 0);
+///$result = $md->addDoctorUser("MackOdo", 2300, "Mack", "Odell", 1);
+//echo $result;
+
+//$result = $md->addPatientUser("JayJackson", 0303, "Jay", "Jackson", '1990-09-27', 1);
+//echo $result;
+
+$result = $md->doctorCreatesOrder(36, 63);
+//echo $result;
 
 //$result = $md->getCurrentView();
 //echo $result;
@@ -215,11 +226,13 @@ class Model{
 //echo $result;
 //$result = $md->removeDoctorUser("JoseNunez", 34);
 //echo $result;
-//$result = $md->addPatientUser("TyroneFFF", 1234, "Tyrone", "Taylor", '1985-08-27', 1);
+//$result = $md->addPatientUser("Unicorn", 1232, "Uni", "Corn", '1990-08-27', 1);
 //echo $result;
 //$result = $md->removePatientUser("Billy6000", 2);
 //$result = $md->addCareGiverUser("SeanCarter", 0003, "Sean", "Carter", 1, 1);
 //$result = $md->removePatientUser("IkeMink2019", 2);
 //echo $result;
 
+
 ?>
+
