@@ -1,6 +1,12 @@
 <?php
 namespace App;
-include Model.php;
+include_once("Model.php");
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "medicationtracker";
+$conn = new mysqli($servername, $username, $password, $dbname);
+$md = new Model("index3", 0); 
 
 /** Takes user input data from Model, the model returns value 
  * The purpose of this class is to do CRUD of an order
@@ -30,19 +36,11 @@ class  OrderController {
 
     
     /**Method get parameters from View, and creates an order in the DB
-     * returns a message
-     * Doctor should assign patientID here
+     * 
+     * Doctor creates an Order
      */
-    function createOrder(int $orderID, int $doctorID, int $patientID,
-     int $medicationID, int $medUnit, $medQty, int $medType, int $orderCreationDate ) { 
+    function createOrder() { 
 
-       //Get hmtl form where user types in the Order
-        //$htmlContent = file_get_contents("/medicationtracker/app/index3.html");
-        //$DOM->loadHTML($htmlContent);
-        //$tableHeader= $DOM->getElementsByTagName('th');
-        //$tableDetail = $DOM->getElementsByTagName('td');
-
-       // if ($_SERVER["REQUEST_METHOD"] == "POST"){ 
         //get order data from the Form
         if ( isset( $_POST['submit'] ) ) {  //check if submit button is clicked
             $orderID =  $_POST["inputOrder1"];
@@ -55,13 +53,11 @@ class  OrderController {
             $medType = $_POST["inputMedicationType1"];
             $medUnit = $_POST["inputMedicationUnit1"];
 
-            $orderCreationDate = $_POST["inputOrderDate1"];
+           // $orderCreationDate = $_POST["inputOrderDate1"];
 
 
             echo " Here are form data from Doctor ";
             echo  $orderID ;
-            echo "/n";
-            echo  $orderCreationDate ;
             echo "/n";
             echo  $doctorID ;
             echo "/n";
@@ -78,11 +74,11 @@ class  OrderController {
 
         }
 
-
          //NOTE**CaregiverID will be given an initial value of 0 when order is made
-        Model.createOrder($order_id,$order_creationdate,$doctor_id,$patient_id,$med_id,$med_type, $med_qty, $med_unit);
+        $md->createOrder($order_id,$doctor_id,$patient_id,$med_id, $med_qty);
 
-       Model.setView("OrderCreated.html"); //this page has function that will have Model.getOrder(), 
+        //OrderController redirects to the page where all Orders are displayed
+        $md->setCurrentView("DisplayOrdersView"); 
         
     } 
 

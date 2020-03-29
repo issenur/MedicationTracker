@@ -1,7 +1,7 @@
 <?php
 
 include_once("Model.php");
-
+include_once("Code.php");
 include_once("Controller.php");
 $controller = new Controller();
 ?>
@@ -49,7 +49,7 @@ $controller = new Controller();
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="text" name="pin"  class="form-control" placeholder="PIN NUMBER">
+        <input type="text" autocomplete="off" name="pin"  class="form-control" placeholder="PIN NUMBER">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row d-flex justify-content-center">
@@ -73,6 +73,7 @@ $controller = new Controller();
             $link=$_GET['link'];
             if ($link == '1'){
                 $controller->changeView("HomeView");
+
             }
         }
     ?>  
