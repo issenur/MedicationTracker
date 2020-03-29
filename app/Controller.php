@@ -7,7 +7,7 @@ $password = "";
 $dbname = "medicationtracker";
 $conn = new mysqli($servername, $username, $password, $dbname);
 $message = "";
-
+$md = new Model("LoginView", 0);
 class Controller{
 
    

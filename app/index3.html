@@ -1,6 +1,16 @@
+<?php
+include_once("Controller.php");
+include_once("OrderController.php");
+include_once("Model.php");
+$md = new Model("index3.php", 0); 
+$orderController = new OrderController();
+$controller = new Controller();  //class handles changing of views
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -424,7 +434,17 @@
     </div>
     
     <!-- /.card -->
+    <?php
+        global $controller;
+        global $orderController; 
 
+        //if user clicks submits, redirect to new view of all the orders
+        if(isset($_POST['submit'])){
+          
+          $orderController->createOrder();
+            
+        }
+    ?>  
 <!-- Old Code
                       <label>Doctor ID</label>
                       <input type="text" class="form-control" placeholder="Type Here...">

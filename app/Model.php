@@ -182,7 +182,29 @@ class Model{
         }
     }
     
-   
+   /**
+   * Methods adds an new Order from the Doctor into the DB
+   */
+  public function createOrder($order_id ,$doctor_id, $patient_id, $med_id, $med_qty, $adminster_time){
+       global $conn;
+  
+       $sql1 = "INSERT INTO order(doctor_id, patient_id, care_giver_id, date) values('$doctor_id', '$patient_id', '0000', CURDATE())";
+
+       $sql2 = "INSERT INTO break_down(order_id, medication_id, quantity, administer_time) values('$order_id', '$med_id', '$med_qty', '$adminster_time')";
+  
+       if(!mysqli_query($conn, $sql1)){
+           return false;
+       }else{
+           return true;   
+       }
+
+       if(!mysqli_query($conn, $sql2)){
+           return false;
+       }else{
+           return true;   
+       }
+      
+}
     
     public function setCurrentView($newView) {
         
@@ -217,7 +239,7 @@ $md = new Model("LoginView", 0);
 //$result = $md->addPatientUser("JayJackson", 0303, "Jay", "Jackson", '1990-09-27', 1);
 //echo $result;
 
-$result = $md->doctorCreatesOrder(36, 63);
+//$result = $md->doctorCreatesOrder(36, 63);
 //echo $result;
 
 //$result = $md->getCurrentView();
@@ -231,6 +253,9 @@ $result = $md->doctorCreatesOrder(36, 63);
 //$result = $md->removePatientUser("Billy6000", 2);
 //$result = $md->addCareGiverUser("SeanCarter", 0003, "Sean", "Carter", 1, 1);
 //$result = $md->removePatientUser("IkeMink2019", 2);
+
+
+//$result = $md->createOrder(7,36, 4, 1, 200.00, '22:23:05');
 //echo $result;
 
 
