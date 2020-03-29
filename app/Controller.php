@@ -6,7 +6,7 @@ $username = "root";
 $password = "";
 $dbname = "medicationtracker";
 $conn = new mysqli($servername, $username, $password, $dbname);
-
+$message = "";
 
 class Controller{
 
@@ -14,10 +14,11 @@ class Controller{
     
     function __construct() { }
     
-    public function authenticate($uname, $pin_submitted){        
+    public function authenticateAdmin($uname, $pin_submitted){        
        
         global $md;
         global $conn;
+        global $message;
         $sql = "SELECT * from admin WHERE username = '$uname'";
         $result = $conn->query($sql);
         $row = $result -> fetch_array();
@@ -27,19 +28,15 @@ class Controller{
             $md->setCurrentView("AdminView");
             
         }else{
-             $message = "invalid username or password!";
-             
+             $message = "Invalid username or password!";  
         }
-        
-        
     }
     
     
     public function changeView($viewName) {
         global $md;
         if($viewName == "AdminLoginView"){
-             $md->setCurrentView("AdminLoginView");
-             
+             $md->setCurrentView("AdminLoginView");     
         }else if($viewName == "HomeView"){
              $md->setCurrentView("HomeView");
         }else if($viewName == "AdminView"){
