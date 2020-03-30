@@ -1,12 +1,12 @@
 <?php
-namespace App;
+
 include_once("Model.php");
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "medicationtracker";
 $conn = new mysqli($servername, $username, $password, $dbname);
-$md = new Model("index3", 0); 
+$md = new Model("DoctorView", 0); 
 
 /** Takes user input data from Model, the model returns value 
  * The purpose of this class is to do CRUD of an order
