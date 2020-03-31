@@ -164,17 +164,18 @@ class Model{
         }
     }
     
-    
-    public function doctorCreatesOrder($doctor_id, $patient_id) {
+    /**
+     * Method creates an Order using the form where Doctor enters in parameters
+     */
+    public function doctorCreatesOrder($order_id,$doctor_id, $patient_id) {
     
         global $conn;
-        
         
         //notice care_giver_id is hardcoded to 0000, there is no caregiver with
         //this id number. It represents NULL. Which means we havent assigned a
         //care_giver yet.
          
-        $sql = "INSERT INTO `order` (`doctor_id`, `patient_id`, `care_giver_id`, `date`) VALUES ('$doctor_id', '$patient_id', '0000', CURDATE())";
+        $sql = "INSERT INTO `order` (`order_id`,`doctor_id`, `patient_id`, `care_giver_id`, `date`) VALUES ('$order_id','$doctor_id', '$patient_id', '0000', CURDATE())";
         if(!mysqli_query($conn, $sql)){
             return false;
         }else{
@@ -183,22 +184,15 @@ class Model{
     }
     
    /**
-   * Methods adds an new Order from the Doctor into the DB
+   * Methods adds medications to an Order
    */
-  public function createOrder($order_id ,$doctor_id, $patient_id, $med_id, $med_qty, $adminster_time){
+  public function addMeds2Order($order_id , $med_id, $med_qty){
        global $conn;
-  
-       $sql1 = "INSERT INTO order(doctor_id, patient_id, care_giver_id, date) values('$doctor_id', '$patient_id', '0000', CURDATE())";
 
-       $sql2 = "INSERT INTO break_down(order_id, medication_id, quantity, administer_time) values('$order_id', '$med_id', '$med_qty', '$adminster_time')";
+       //administertime is blank, when an order doesnt have a caregiver yet
+       $sql = "INSERT INTO break_down(order_id, medication_id, quantity, administer_time) values('$order_id', '$med_id', '$med_qty', '')";
   
-       if(!mysqli_query($conn, $sql1)){
-           return false;
-       }else{
-           return true;   
-       }
-
-       if(!mysqli_query($conn, $sql2)){
+       if(!mysqli_query($conn, $sql)){
            return false;
        }else{
            return true;   
@@ -216,6 +210,8 @@ class Model{
              header("Location: index.php");
         }else if($newView == "AdminView"){
             header("Location: AdminView.php");
+        }else if($newView == "DoctorDisplayOrders"){     //redirect to list of all orders, after new order is made
+            header("Location: DoctorDisplaysOrders.php");
         }
     }
     

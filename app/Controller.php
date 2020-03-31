@@ -41,6 +41,8 @@ class Controller{
              $md->setCurrentView("HomeView");
         }else if($viewName == "AdminView"){
           $md->setCurrentView("AdminView");
+        }else if($viewName == "DoctorDisplaysOrders"){
+          $md->setCurrentView("DoctorDisplaysOrders");
         }else{
             
         }

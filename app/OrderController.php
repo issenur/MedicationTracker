@@ -6,7 +6,9 @@ $username = "root";
 $password = "";
 $dbname = "medicationtracker";
 $conn = new mysqli($servername, $username, $password, $dbname);
+
 $md = new Model("DoctorView", 0); 
+
 
 /** Takes user input data from Model, the model returns value 
  * The purpose of this class is to do CRUD of an order
@@ -26,12 +28,7 @@ class  OrderController {
     /**Constructor which creates order object
      * this method gets params from View, creates Order instance in this class
      */
-    function construct ( int $orderID, int $doctorID, int $patientID, int $caregiverID, array $medicationIDs ){
-        
-        //instantiate the Order object
-        //$this->Order = new Order($orderID,$doctorID,$patientID,null,$medicationIDs);
-       // $ordersList.add(Order);
-    
+    function construct (){  
     }
 
     
@@ -39,46 +36,21 @@ class  OrderController {
      * 
      * Doctor creates an Order
      */
-    function createOrder() { 
+    function createOrder($order_id,$doctor_id,$patient_id,$med_id,$medQty) { 
 
-        //get order data from the Form
-        if ( isset( $_POST['submit'] ) ) {  //check if submit button is clicked
-            $orderID =  $_POST["inputOrder1"];
-            $doctorID = $_POST["inputDoctor1"];
-            $patientID = $_POST["inputPatientID1"];
-
-            //place in for loop to get all med entered
-            $medID = $_POST["inputMedicationID1"];
-            $medQty = $_POST["inputMedicationQty1"];
-            $medType = $_POST["inputMedicationType1"];
-            $medUnit = $_POST["inputMedicationUnit1"];
-
-           // $orderCreationDate = $_POST["inputOrderDate1"];
-
-
-            echo " Here are form data from Doctor ";
-            echo  $orderID ;
-            echo "/n";
-            echo  $doctorID ;
-            echo "/n";
-            echo  $patientID ;
-            echo "/n";
-            echo  $medID ;
-            echo "/n";
-            echo  $medDosage ;
-            echo "/n";
-            echo  $medType ;
-            echo "/n";
-            echo  $medUnit;
-
-
-        }
+        global $md;
+        global $conn;
+        global $controller;
 
          //NOTE**CaregiverID will be given an initial value of 0 when order is made
-        $md->createOrder($order_id,$doctor_id,$patient_id,$med_id, $med_qty);
+        $md->doctorCreatesOrder($order_id, $doctor_id,$patient_id);
+
+        //we need orderID so that meds can be added to a specific order
+        $md->addMeds2Order($order_id,$med_id,$medQty);
 
         //OrderController redirects to the page where all Orders are displayed
-        $md->setCurrentView("DisplayOrdersView"); 
+        //$md->setCurrentView("DoctorDisplaysOrders"); 
+        $controller->changeView("DoctorDisplaysOrders");
         
     } 
 
