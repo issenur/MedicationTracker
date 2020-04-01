@@ -2,7 +2,7 @@
 include_once("OrderController.php");
 include_once("DoctorInputsCode.php");
 include_once("Model.php");
-$md = new Model("LoginView", 0); 
+//$md = new Model("LoginView", 0); 
 $orderController = new OrderController();
 ?>
 
@@ -35,7 +35,7 @@ $orderController = new OrderController();
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="DoctorDashboard.php" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Log Out</a>
@@ -67,7 +67,7 @@ $orderController = new OrderController();
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="DoctorDashboard.php" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">MedicationTracker</span>
@@ -78,7 +78,7 @@ $orderController = new OrderController();
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="dist/img/doctorimage.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="dist/img/doctorimage.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">Role: Doctor</a>
@@ -91,32 +91,26 @@ $orderController = new OrderController();
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./index.html" class="nav-link">
+            <li class="nav-item">
+                <a href="./DoctorDashboard.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Admin Dashboard</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Caregiver Dashboard</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link active">
-                  <i class="far fa-check-circle nav-icon"></i>
                   <p>Doctor Dashboard</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="./DoctorAddsOrderView.php" class="nav-link active">
+                  <i class="far fa-check-circle nav-icon"></i>
+                  <p>Create An Order</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./DoctorDisplaysOrders.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Display All Orders</p>
+                </a>
+              </li>
+              
             </ul>
           </li>
           <li class="nav-item">
@@ -204,12 +198,12 @@ $orderController = new OrderController();
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Doctor Dashboard</h1>
+            <h1 class="m-0 text-dark"> Hello, Doctor! </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Doctor Dashboard</li>
+              <li class="breadcrumb-item active">Create An Order</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -221,46 +215,8 @@ $orderController = new OrderController();
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <!-- Info boxes -->
-        <div class="row">
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-cog"></i></span>
 
-              <div class="info-box-content">
-                <span class="info-box-text">Number of Pending Orders</span>
-                <span class="info-box-number">
-                  5
-                  <small>%</small>
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-
-
-
-          <!-- fix for small devices only -->
-          <div class="clearfix hidden-md-up"></div>
-
-          <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-cog"></i></span>
-              <div class="info-box-content">
-                <span class="info-box-text">Number of Complete Orders</span>
-                <span class="info-box-number">95
-                <small>%</small>
-              </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-        </div>
+        
 
         <!-- /.row -->
         <!-- TABLE: LATEST ORDERS -->
@@ -343,7 +299,7 @@ $orderController = new OrderController();
             <td>
             <input type="text" name='type0' placeholder='Type' class="form-control"/>
             </td>
-            <!--<td>
+            <<td>
               <a id="add_row" class="btn btn-default float-left">Add</a>
             </td>
             <td>
@@ -357,7 +313,7 @@ $orderController = new OrderController();
       </table>
 
       <!-- form start -->
-      <form role="form action" action="OrderController.php" method="POST">
+      <form action="" method="post">
         
         <div class="card-body">
           <div class="form-group">
@@ -426,19 +382,22 @@ $orderController = new OrderController();
           </div>
         </div>
         <!-- /.card-body -->
+        
         <div class="card-footer">
-          <button type="submit" name= "submitOrder"  class="btn btn-primary">Submit</button>
-
-
+          <button type="submit" name="submitOrder1"  class="btn btn-primary">Submit Order</button>
           <?php
-          if(isset($_GET['submitOrder'])){
+          if(isset($_GET['submitOrder1'])){
               
             $md->setCurrentView("DoctorDisplaysOrders"); //redirect to display all orders page
           }
-          ?> 
+         ?> 
         </div>
+      
       </form>
+      
     </div>
+
+    
     
     
 <!-- Old Code
@@ -669,22 +628,6 @@ $orderController = new OrderController();
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
 <!-- page script -->
-<script>
-$(document).ready(function(){
- var i=1;
-$("#add_row").click(function(){
- $('#addr'+i).html("<td><input  name='doctor"+i+"' type='text' placeholder='Doctor ID'  class='form-control input-md' Disabled></td><td><input name='patient"+i+"' type='text' placeholder='Patient ID' class='form-control input-md' disabled /> </td><td><input  name='medication"+i+"' type='text' placeholder='Medication'  class='form-control input-md'></td><td><input  name='dosage"+i+"' type='text' placeholder='Dosage'  class='form-control input-md'></td><td><input  name='unit"+i+"' type='text' placeholder='Unit'  class='form-control input-md'></td><td><input  name='type"+i+"' type='text' placeholder='Type'  class='form-control input-md'></td>");
 
- $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
- i++;
-});
-$("#delete_row").click(function(){
-  if(i>1){
-$("#addr"+(i-1)).html('');
-i--;
-}
-});
-});
-</script>
 </body>
 </html>
