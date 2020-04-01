@@ -1,7 +1,7 @@
 <?php
 include_once("Controller.php");
 include_once("Model.php");
-$md = new Model("LoginView", 0);
+$model = new Model("LoginView", 0);
 $controller = new Controller();
 ?>
 
@@ -44,7 +44,8 @@ $controller = new Controller();
   <div class="login-box-body justify-content-center" >
     <p class="login-box-msg">User Login</p>
 
-    <form action="../../index2.html" method="post">
+    <!-- Lets redirect the users to a page based on their role-->
+    <form action="../../DoctorDashboard.php" method="post">
       <div class="form-group has-feedback">
         <input type="username" name="uname" class="form-control" placeholder="USERNAME">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

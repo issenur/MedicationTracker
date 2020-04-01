@@ -1,11 +1,7 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "medicationtracker";
-$conn = new mysqli($servername, $username, $password, $dbname);
 
-class ModelUser{
+include_once("Globals.php");
+class UserModel{
     
     function __construct() {
         //Empty
@@ -41,6 +37,18 @@ class ModelUser{
         }
     }
     
+    public function activateDoctor($doctor_id){
+        
+        global $conn; 
+        $sql = "UPDATE doctor SET active = 1 WHERE doctor_id = $doctor_id";
+        
+        if(!mysqli_query($conn, $sql)){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
+    
     public function addPatient($first, $last, $date_of_birth,  $active){
         
         global $conn;
@@ -63,6 +71,19 @@ class ModelUser{
         
         global $conn; 
         $sql = "UPDATE patient SET active = 0 WHERE patient_id = $patient_id";
+        
+        if(!mysqli_query($conn, $sql)){
+            return 0;
+        }else{
+            
+            return 1;
+        }
+    }
+    
+    public function activatePatient($patient_id){
+        
+        global $conn; 
+        $sql = "UPDATE patient SET active = 1 WHERE patient_id = $patient_id";
         
         if(!mysqli_query($conn, $sql)){
             return 0;
@@ -92,7 +113,19 @@ class ModelUser{
     public function removeCareGiver($care_giver_id){
         
         global $conn; 
-        $sql = "UPDATE care_giver SET active = 0 WHERE patient_id = $care_giver_id";
+        $sql = "UPDATE care_giver SET active = 0 WHERE care_giver_id = $care_giver_id";
+        
+        if(!mysqli_query($conn, $sql)){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
+    
+     public function activateCaregiver($care_giver_id){
+        
+        global $conn; 
+        $sql = "UPDATE care_giver SET active = 1 WHERE care_giver_id = $care_giver_id";
         
         if(!mysqli_query($conn, $sql)){
             return 0;

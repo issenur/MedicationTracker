@@ -1,6 +1,14 @@
 <?php
-namespace App;
-include Model.php;
+
+include_once("Model.php");
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "medicationtracker";
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+     
+
 
 /** Takes user input data from Model, the model returns value 
  * The purpose of this class is to do CRUD of an order
@@ -20,69 +28,30 @@ class  OrderController {
     /**Constructor which creates order object
      * this method gets params from View, creates Order instance in this class
      */
-    function construct ( int $orderID, int $doctorID, int $patientID, int $caregiverID, array $medicationIDs ){
-        
-        //instantiate the Order object
-        //$this->Order = new Order($orderID,$doctorID,$patientID,null,$medicationIDs);
-       // $ordersList.add(Order);
-    
+    function construct (){  
     }
 
     
     /**Method get parameters from View, and creates an order in the DB
-     * returns a message
-     * Doctor should assign patientID here
+     * 
+     * Doctor creates an Order
      */
-    function createOrder(int $orderID, int $doctorID, int $patientID,
-     int $medicationID, int $medUnit, $medQty, int $medType, int $orderCreationDate ) { 
+    function createOrder($order_id,$doctor_id,$patient_id,$med_id,$medQty) { 
 
-       //Get hmtl form where user types in the Order
-        //$htmlContent = file_get_contents("/medicationtracker/app/index3.html");
-        //$DOM->loadHTML($htmlContent);
-        //$tableHeader= $DOM->getElementsByTagName('th');
-        //$tableDetail = $DOM->getElementsByTagName('td');
-
-       // if ($_SERVER["REQUEST_METHOD"] == "POST"){ 
-        //get order data from the Form
-        if ( isset( $_POST['submit'] ) ) {  //check if submit button is clicked
-            $orderID =  $_POST["inputOrder1"];
-            $doctorID = $_POST["inputDoctor1"];
-            $patientID = $_POST["inputPatientID1"];
-
-            //place in for loop to get all med entered
-            $medID = $_POST["inputMedicationID1"];
-            $medQty = $_POST["inputMedicationQty1"];
-            $medType = $_POST["inputMedicationType1"];
-            $medUnit = $_POST["inputMedicationUnit1"];
-
-            $orderCreationDate = $_POST["inputOrderDate1"];
-
-
-            echo " Here are form data from Doctor ";
-            echo  $orderID ;
-            echo "/n";
-            echo  $orderCreationDate ;
-            echo "/n";
-            echo  $doctorID ;
-            echo "/n";
-            echo  $patientID ;
-            echo "/n";
-            echo  $medID ;
-            echo "/n";
-            echo  $medDosage ;
-            echo "/n";
-            echo  $medType ;
-            echo "/n";
-            echo  $medUnit;
-
-
-        }
-
+        global $model;
+        $model = new Model("DoctorAddsOrderView", 1);
+        global $conn;
+        global $controller;
 
          //NOTE**CaregiverID will be given an initial value of 0 when order is made
-        Model.createOrder($order_id,$order_creationdate,$doctor_id,$patient_id,$med_id,$med_type, $med_qty, $med_unit);
+        $model->doctorCreatesOrder($order_id, $doctor_id,$patient_id);
 
-       Model.setView("OrderCreated.html"); //this page has function that will have Model.getOrder(), 
+        //we need orderID so that meds can be added to a specific order
+        $model->addMeds2Order($order_id,$med_id,$medQty);
+
+        //OrderController redirects to the page where all Orders are displayed
+        //$md->setCurrentView("DoctorDisplaysOrders"); 
+        $md->setCurrentView("DoctorDisplaysOrders");
         
     } 
 
