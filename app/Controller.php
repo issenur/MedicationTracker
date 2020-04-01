@@ -1,66 +1,98 @@
 <?php
 include_once("Model.php");
+include_once("Globals.php");
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "medicationtracker";
-$conn = new mysqli($servername, $username, $password, $dbname);
-$message = "";
-$md = new Model("LoginView", 0);
+
 class Controller{
 
-   
+    public function __construct() { }
     
-    function __construct() { }
     
-    public function authenticateAdmin($uname, $pin_submitted){        
-       
-        global $md;
-        global $conn;
-        global $message;
-        $sql = "SELECT * from admin WHERE username = '$uname'";
-        $result = $conn->query($sql);
-        $row = $result -> fetch_array();
-        $real_pin = $row['pin'];
-        
-        if($pin_submitted == $real_pin){
-            $md->setCurrentView("AdminView");
-            
-        }else{
-             $message = "Invalid username or password!";  
-        }
+    public function authenticateAdmin($input_name, $input_pin){
+        global $model;
+        $model = new Model("AdminLoginView", -1);
+        $model->authenticateAdmin($input_name, $input_pin);
+        header("Location: AdminView.php");
     }
     
+    public function addDoctorUser($user_name, $pin, $first, $last, $active) { 
+        global $model;
+        $model = new Model("AdminLoginView", -1);
+        $model->addDoctorUser($user_name, $pin, $first, $last, $active);
+        header("Location: AdminView.php");
+    }
+    
+    public function removeDoctorUser($user_name) {
+        global $model;
+        $model = new Model("AdminLoginView", -1);
+        $model->removeDoctorUser($user_name);
+        header("Location: AdminView.php");
+    }
+    
+    public function activateDoctorUser($user_name) {
+        global $model;
+        $model = new Model("AdminLoginView", -1);
+        $model->activateDoctorUser($user_name);
+        header("Location: AdminView.php");
+    }
+    
+    public function addPatientUser($user_name, $pin, $first, $last, $date_of_birth, $active) { 
+        global $model;
+        $model = new Model("AdminLoginView", -1);
+        $model->addPatientUser($user_name, $pin, $first, $last, $date_of_birth, $active);
+        header("Location: AdminView.php");
+    }
+    
+    public function removePatientUser($user_name) {
+        global $model;
+        $model = new Model("AdminLoginView", -1);
+        $model->removePatientUser($user_name);
+        header("Location: AdminView.php");
+    }
+    
+    public function activatePatientUser($user_name) {
+        global $model;
+        $model = new Model("AdminLoginView", -1);
+        $model->activatePatientUser($user_name);
+        header("Location: AdminView.php");
+    }
+    
+    public function addCaregiverUser($user_name, $pin, $first, $last, $is_nurse, $active){ 
+        global $model;
+        $model = new Model("AdminLoginView", -1);
+        $model->addCaregiverUser($user_name, $pin, $first, $last, $is_nurse, $active);
+        header("Location: AdminView.php");
+    }
+    
+    public function removeCaregiverUser($user_name) {
+        global $model;
+        $model = new Model("AdminLoginView", -1);
+        $model->removeCaregiverUser($user_name);
+        header("Location: AdminView.php");
+    }
+    
+    public function activateCaregiverUser($user_name) {
+        global $model;
+        $model = new Model("AdminLoginView", -1);
+        $model->activateCaregiverUser($user_name);
+        header("Location: AdminView.php");
+    }
     
     public function changeView($viewName) {
-        global $md;
+        global $model;
         if($viewName == "AdminLoginView"){
-             $md->setCurrentView("AdminLoginView");     
+            $model->setCurrentView("AdminLoginView");     
         }else if($viewName == "HomeView"){
-             $md->setCurrentView("HomeView");
+            $model->setCurrentView("HomeView");
         }else if($viewName == "AdminView"){
-          $md->setCurrentView("AdminView");
-        }else{
-            
-        }
+            $model->setCurrentView("AdminView");
+        }else if($viewName == "DoctorDisplaysOrders"){
+            $model->setCurrentView("DoctorDisplaysOrders");
+        }else{}
     }
 }
 
-//$md = new Model("LoginView", 0);
 
-//$result = $md->getCurrentView();
-//echo $result;
-//$result = $md->addDoctorUser("DocJohnson", 8980, "Mitchell", "Johnson", 1);
-//echo $result;
-//$result = $md->removeDoctorUser("JoseNunez", 34);
-//echo $result;
-//$result = $md->addPatientUser("TyroneFFF", 1234, "Tyrone", "Taylor", '1985-08-27', 1);
-//echo $result;
-//$result = $md->removePatientUser("Billy6000", 2);
-//$result = $md->addCareGiverUser("SeanCarter", 0003, "Sean", "Carter", 1, 1);
-//$result = $md->removePatientUser("IkeMink2019", 2);
-//echo $result;
 
 ?>
 

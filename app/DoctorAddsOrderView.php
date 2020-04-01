@@ -2,8 +2,11 @@
 include_once("OrderController.php");
 include_once("DoctorInputsCode.php");
 include_once("Model.php");
-//$md = new Model("LoginView", 0); 
-$orderController = new OrderController();
+
+include_once("Globals.php");
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -318,7 +321,7 @@ $orderController = new OrderController();
         <div class="card-body">
           <div class="form-group">
             <label for="inputEmail1">OrderID</label>
-            <input type="text" class="form-control" id="orderID2" name="inputOrderID1"  placeholder="" disabled>
+            <input type="text" class="form-control" id="orderID2" name="inputOrderID1"  placeholder="" >
           <script>
               function genOrderNumber(numDigits) {
                 var orderNumber;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 29, 2020 at 05:33 AM
+-- Generation Time: Apr 01, 2020 at 06:42 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.15
 
@@ -53,6 +53,13 @@ CREATE TABLE `break_down` (
   `administer_time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `break_down`
+--
+
+INSERT INTO `break_down` (`order_id`, `medication_id`, `quantity`, `administer_time`) VALUES
+(008494, 000001, '200.00', '00:00:00');
+
 -- --------------------------------------------------------
 
 --
@@ -96,7 +103,7 @@ CREATE TABLE `doctor` (
 
 INSERT INTO `doctor` (`doctor_id`, `first`, `last`, `active`) VALUES
 (0033, 'Lee', 'Xi', 1),
-(0034, 'Jose', 'Nunez', 0),
+(0034, 'Jose', 'Nunez', 1),
 (0035, 'Mitchell', 'Johnson', 1),
 (0036, 'Mack', 'Odell', 1);
 
@@ -139,7 +146,8 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`order_id`, `doctor_id`, `patient_id`, `care_giver_id`, `date`) VALUES
-(000006, 0036, 0063, 0000, '2020-03-28');
+(000006, 0036, 0063, 0000, '2020-03-28'),
+(008494, 0035, 0001, 0000, '2020-04-01');
 
 -- --------------------------------------------------------
 
@@ -161,7 +169,7 @@ CREATE TABLE `patient` (
 
 INSERT INTO `patient` (`patient_id`, `first`, `last`, `date_of_birth`, `active`) VALUES
 (0001, 'Abdi', 'Abdi', '1992-02-06', 1),
-(0002, 'Billy', 'Jean', '1970-12-01', 0),
+(0002, 'Billy', 'Jean', '1970-12-01', 1),
 (0004, 'Tyrone', 'Taylor', '1985-08-27', 1),
 (0063, 'Jay', 'Jackson', '1990-09-27', 1);
 
@@ -186,17 +194,16 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`username`, `pin`, `doctor_id`, `patient_id`, `care_giver_id`, `active`) VALUES
 ('AbdiAbdi@mn', 1111, NULL, 0001, NULL, 1),
-('Billy6000', 9393, NULL, 0002, NULL, 0),
+('Billy6000', 9393, NULL, 0002, NULL, 1),
 ('DocJohnson', 8980, 0035, NULL, NULL, 1),
-('IkeMink2019', 8080, NULL, NULL, 0002, 0),
+('IkeMink2019', 8080, NULL, NULL, 0002, 1),
 ('JayJackson', 0195, NULL, 0063, NULL, 1),
-('JoseNunez', 2134, 0034, NULL, NULL, 0),
+('JoseNunez', 2134, 0034, NULL, NULL, 1),
 ('LeeXi007', 2020, 0033, NULL, NULL, 1),
 ('MackOdo', 2300, 0036, NULL, NULL, 1),
 ('SamuelRay1', 1001, NULL, NULL, 0001, 1),
 ('SeanCarter', 0003, NULL, NULL, 0003, 1),
-('TyroneFFF', 1234, NULL, 0004, NULL, 1),
-('Unicorn', 1232, NULL, 0005, NULL, 1);
+('TyroneFFF', 1234, NULL, 0004, NULL, 1);
 
 --
 -- Indexes for dumped tables
@@ -281,7 +288,7 @@ ALTER TABLE `medication`
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `order_id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `order_id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8495;
 
 --
 -- AUTO_INCREMENT for table `patient`
