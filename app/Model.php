@@ -316,7 +316,7 @@ class Model{
             header("Location: index.php");
         }else if($newView == "AdminView"){
             header("Location: AdminView.php");
-        }else if($newView == "DoctorDisplayOrders"){     //redirect to list of all orders, after new order is made
+        }else if($newView == "DoctorDisplaysOrders"){     //redirect to list of all orders, after new order is made
             header("Location: DoctorDisplaysOrders.php");
         }
     }
