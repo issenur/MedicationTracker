@@ -2,7 +2,7 @@
 include_once("Controller.php");
 include_once("OrderController.php");
 include_once("Model.php");
-$md = new Model("index3.php", 0); 
+
 $orderController = new OrderController();
 $controller = new Controller();  //class handles changing of views
 ?>

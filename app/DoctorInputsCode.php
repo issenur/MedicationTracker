@@ -3,9 +3,9 @@
    include_once("OrderController.php");
 
     //get order data from the Form
-    if ( isset( $_POST['submitOrder'] ) ) {  //check if submit button is clicked
+    if (isset($_POST["submitOrder1"])) {  //check if submit button is clicked
         $orderID = $_POST["inputOrderID1"];
-        $doctorID = $_POST["inputDoctor1"];
+        $doctorID = $_POST["inputDoctorID1"];
         $patientID = $_POST["inputPatientID1"];
 
        
@@ -13,7 +13,7 @@
         $medName = $_POST["inputMedicationName1"];
         $medQty = $_POST["inputMedicationQty1"];
         $medUnit = $_POST["inputMedicationUnit1"];
- 
+        
         //create an Order
         $orderController = new OrderController();
 

@@ -7,7 +7,7 @@ $password = "";
 $dbname = "medicationtracker";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-$md = new Model("DoctorView", 0); 
+     
 
 
 /** Takes user input data from Model, the model returns value 
@@ -38,15 +38,16 @@ class  OrderController {
      */
     function createOrder($order_id,$doctor_id,$patient_id,$med_id,$medQty) { 
 
-        global $md;
+        global $model;
+        $model = new Model("DoctorAddsOrderView", 1);
         global $conn;
         global $controller;
 
          //NOTE**CaregiverID will be given an initial value of 0 when order is made
-        $md->doctorCreatesOrder($order_id, $doctor_id,$patient_id);
+        $model->doctorCreatesOrder($order_id, $doctor_id,$patient_id);
 
         //we need orderID so that meds can be added to a specific order
-        $md->addMeds2Order($order_id,$med_id,$medQty);
+        $model->addMeds2Order($order_id,$med_id,$medQty);
 
         //OrderController redirects to the page where all Orders are displayed
         //$md->setCurrentView("DoctorDisplaysOrders"); 

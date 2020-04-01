@@ -1,9 +1,9 @@
 <?php
-
 include_once("Model.php");
 include_once("Code.php");
 include_once("Controller.php");
-$controller = new Controller();
+include_once("Globals.php");
+$model = new Model("AdminLoginView", -1);
 ?>
 <!DOCTYPE html>
 <html>
@@ -66,12 +66,13 @@ $controller = new Controller();
 
     <div class="social-auth-links text-center">
      
-     <a href="?link=1" name="link1" class="text-center" >Click here to LOGIN as User</a>
+    <a href="?link=1" name="link1" class="text-center" >Click here to LOGIN as User</a>
      
     <?php
         if(isset($_GET['link'])){
             $link=$_GET['link'];
             if ($link == '1'){
+                $controller = new Controller();
                 $controller->changeView("HomeView");
 
             }
@@ -79,9 +80,6 @@ $controller = new Controller();
     ?>  
     </div>
     <!-- /.social-auth-links -->
-
-    
-
   </div>
   <!-- /.login-box-body -->
 </div>
