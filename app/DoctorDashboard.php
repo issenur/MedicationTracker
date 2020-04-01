@@ -1,7 +1,9 @@
 <?php
 
+
 include_once("Globals");
  
+
 
 ?>
 
@@ -560,4 +562,5 @@ include_once("Globals");
 <!-- page script -->
 
 </body>
+
 </html>
