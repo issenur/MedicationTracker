@@ -12,7 +12,7 @@ class Controller{
         global $model;
         $model = new Model("AdminLoginView", -1);
         $model->authenticateAdmin($input_name, $input_pin);
-        header("Location: AdminView.php");
+        
     }
     
     public function addDoctorUser($user_name, $pin, $first, $last, $active) { 
