@@ -318,6 +318,8 @@ class Model{
             header("Location: AdminView.php");
         }else if($newView == "DoctorDisplaysOrders"){     //redirect to list of all orders, after new order is made
             header("Location: DoctorDisplaysOrders.php");
+        }else if($newView =="CaregiverView"){
+          header("Location: CaregiverClaimsOrder.php");
         }
     }
     

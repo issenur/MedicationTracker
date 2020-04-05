@@ -51,7 +51,7 @@ class  OrderController {
 
         //OrderController redirects to the page where all Orders are displayed
         //$md->setCurrentView("DoctorDisplaysOrders"); 
-        $md->setCurrentView("DoctorDisplaysOrders");
+        $model->setCurrentView("DoctorDisplaysOrders");
         
     } 
 
