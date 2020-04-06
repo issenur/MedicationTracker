@@ -306,6 +306,8 @@ class Model{
     
     }
     
+   
+    
     public function setCurrentView($newView) {
         
         $this->currentView = $newView;
@@ -370,7 +372,7 @@ class Model{
 //echo $result;
 //$result = $md->removeDoctorUser("JoseNunez", 34);
 //echo $result;
-//$result = $md->addPatientUser("TyroneFFF", 1234, "Tyrone", "Taylor", '1985-08-27', 1);
+//$result = $md->addPatientUser("Unicorn", 1232, "Uni", "Corn", '1990-08-27', 1);
 //echo $result;
 //$result = $md->removePatientUser("Billy6000", 2);
 //$result = $md->addCareGiverUser("SeanCarter", 0003, "Sean", "Carter", 1, 1);
