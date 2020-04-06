@@ -4,7 +4,7 @@ include_once("Globals.php");
 class Model{
     
     private $currentview = "";
-    private $currentuser; 
+    private $currentuser ; 
     
     function __construct($currentview, $currentuser) { 
     
