@@ -388,12 +388,7 @@ include_once("Globals.php");
         
         <div class="card-footer">
           <button type="submit" name="submitOrder1"  class="btn btn-primary">Submit Order</button>
-          <?php
-          if(isset($_GET['submitOrder1'])){
-              
-            $md->setCurrentView("DoctorDisplaysOrders"); //redirect to display all orders page
-          }
-         ?> 
+           
         </div>
       
       </form>
