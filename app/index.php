@@ -1,7 +1,7 @@
 <?php
 include_once("Controller.php");
 include_once("Model.php");
-$model = new Model("LoginView", 0);
+
 $controller = new Controller();
 ?>
 

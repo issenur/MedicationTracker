@@ -1,10 +1,5 @@
 <?php
-
-
-include_once("Globals");
- 
-
-
+include_once("Globals.php");
 ?>
 
 <!DOCTYPE html>

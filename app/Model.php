@@ -1,16 +1,34 @@
 <?php
-include_once("UserModel.php");
+
 include_once("Globals.php");
 class Model{
     
     private $currentview = "";
-    private $currentuser ; 
+    private $currentauthorizationlevel = 0; 
+    private $currentuserid = 1;
     
-    function __construct($currentview, $currentuser) { 
+    private function __construct() {
     
-        $this->currentview = $currentview;
-        $this->currentuser = $currentuser;
+    }
     
+    public static function createModel() {
+        
+        $model = new Model(); 
+        return $model;
+    }
+    
+    public static function createModelWithView($currentview) {
+        
+        $model = new Model();
+        $model->currentview = $currentview;
+        return $model;
+    }
+
+    public static function createModelWithViewAndAuth($currentview, $currentauthlevel) {
+        $model = new Model();
+        $model->currentview = $currentview;
+        $model->currentauthorizationlevel = $currentauthlevel;
+        return $model;
     }
     
     public function authenticateAdmin($uname, $pin_submitted){        
@@ -24,10 +42,10 @@ class Model{
         $real_pin = $row['pin'];
         
         if($pin_submitted == $real_pin){
-            $this->setCurrentView("AdminView");
-        
+            return true;
         }else{
-            $message = "Invalid username or password!";  
+            $message = "Invalid username or password!";
+            return false;
         }
     }
     
@@ -310,73 +328,59 @@ class Model{
     
     public function setCurrentView($newView) {
         
-        $this->currentView = $newView;
+        $model->currentView = $newView;
         
         if($newView == "AdminLoginView"){
             header("Location: AdminLoginView.php");
         }else if($newView == "HomeView"){
             header("Location: index.php");
-        }else if($newView == "AdminView"){
-            header("Location: AdminView.php");
         }else if($newView == "DoctorDisplaysOrders"){     //redirect to list of all orders, after new order is made
             header("Location: DoctorDisplaysOrders.php");
         }else if($newView =="CaregiverView"){
-          header("Location: CaregiverClaimsOrder.php");
+            header("Location: CaregiverClaimsOrder.php");
+        }else if($newView =="AdminDashboard"){
+            header("Location: AdminDashboard.php");
+        }else{
+            header("Location: fail.php");
         }
     }
     
-    public function getCurrentview() {
+    public function getCurrentView() {
         return($this->currentview);
     }
     
-    public function setCurrentUser($newUser) {
-        $this->currentUser = $newUser;   
+    public function setCurrentAuthorizationLevel($auth_num) {
+        $this->currentauthorizationlevel = $auth_num;   
     }
     
-    public function getCurrentUser() {
-        return($this->currentUser);
+    public function getCurrentAuthorizationLevel() {
+        return($this->currentauthorizationlevel);
+    }
+    
+     public function setCurrentUserId($user_id) {
+        $this->setcurrentuserid = $user_id;   
+    }
+    
+    public function getCurrentUserId() {
+        return($this->currentuserid);
     }
 }
 
 
-///$result = $md->addDoctorUser("MackOdo", 2300, "Mack", "Odell", 1);
-//echo $result;
+/*$model = Model::createModelWithViewAndAuth("CaregiverDashboard", 777);
+$result = $model->getCurrentView();
+echo "Current View: " . $result . "<br>";
+$result = $model->getCurrentAuthorizationLevel();
+echo "Current Authorization Level: " . $result . "<br>";
 
-//$result = $md->addPatientUser("JayJackson", 0303, "Jay", "Jackson", '1990-09-27', 1);
-//echo $result;
+$model->setCurrentView("DoctorDashboard");
+$result = $model->getCurrentView();
+echo "Current View: " . $result . "<br>";
+$result = $model->getCurrentAuthorizationLevel();
+echo "Current Authorization Level: " . $result . "<br>";
+$model->setCurrentAuthorizationLevel(66);
+$result = $model->getCurrentAuthorizationLevel();
+echo "Current Authorization Level: " . $result . "<br>";*/
 
-//$result = $md->doctorCreatesOrder(36, 63);
-//echo $result;
-
-//$result = $md->getCurrentView();
-//echo $result;
-//$result = $md->addDoctorUser("DocJohnson", 8980, "Mitchell", "Johnson", 1);
-//echo $result;
-//$result = $md->removeDoctorUser("JoseNunez", 34);
-//echo $result;
-//$result = $md->addPatientUser("Unicorn", 1232, "Uni", "Corn", '1990-08-27', 1);
-//echo $result;
-//$result = $md->removePatientUser("Billy6000", 2);
-//$result = $md->addCareGiverUser("SeanCarter", 0003, "Sean", "Carter", 1, 1);
-//$result = $md->removePatientUser("IkeMink2019", 2);
-
-
-//$result = $md->createOrder(7,36, 4, 1, 200.00, '22:23:05');
-//echo $result;
-
-//$md = new Model("LoginView", 0);
-
-//$result = $md->getCurrentView();
-//echo $result;
-//$result = $md->addDoctorUser("DocJohnson", 8980, "Mitchell", "Johnson", 1);
-//echo $result;
-//$result = $md->removeDoctorUser("JoseNunez", 34);
-//echo $result;
-//$result = $md->addPatientUser("Unicorn", 1232, "Uni", "Corn", '1990-08-27', 1);
-//echo $result;
-//$result = $md->removePatientUser("Billy6000", 2);
-//$result = $md->addCareGiverUser("SeanCarter", 0003, "Sean", "Carter", 1, 1);
-//$result = $md->removePatientUser("IkeMink2019", 2);
-//echo $result;
 ?>
 

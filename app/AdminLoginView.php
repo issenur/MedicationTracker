@@ -1,9 +1,6 @@
 <?php
-include_once("Model.php");
-include_once("Code.php");
-include_once("Controller.php");
 include_once("Globals.php");
-$model = new Model("AdminLoginView", -1);
+include_once("AdminViewControllerHelper.php");
 ?>
 <!DOCTYPE html>
 <html>
