@@ -1,6 +1,6 @@
 <?php
     
-    include_once("Controller.php");
+    include_once("Globals.php");
     global $controller;
     
     if(isset($_GET["logout"])){
@@ -9,6 +9,12 @@
     }
     
     if(isset($_POST["enter"])){
+        
+        if($_POST["username"] == "" || $pin = $_POST["pin"]){
+            //header("Location: AdminLoginView.php");
+        }
+      
+        
         $username = $_POST["username"];
         $pin = $_POST["pin"];
         $controller->authenticateAdmin($username, $pin);

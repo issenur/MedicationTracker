@@ -39,7 +39,8 @@ class  OrderController {
     function createOrder($order_id,$doctor_id,$patient_id,$med_id,$medQty) { 
 
         global $model;
-        $model = new Model("DoctorAddsOrderView", 1);
+        $model->setCurrentAuthorizationLevel(1);
+        $model->setCurrentView("DoctorAddsOrderView");
         global $conn;
         global $controller;
 
