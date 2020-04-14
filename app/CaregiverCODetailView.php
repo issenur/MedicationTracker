@@ -1,14 +1,15 @@
 <?php
 
 include_once("Globals.php");
-
 global $model;
+session_start();
 
 if(isset($_GET['claim_order'])){
-    global $model;
-    $order_id = $_GET['claim_order'];
-    $care_giver_id = $model->getCurrentUserId();
-    }
+   $order_id = $_GET['claim_order'];
+   $_SESSION['order_id'] = $_GET['claim_order'];
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -31,21 +32,43 @@ if(isset($_GET['claim_order'])){
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-
+    
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="DoctorDashboard.php" class="brand-link">
+            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            style="opacity: .8">
+            <span class="brand-text font-weight-light">MedicationTracker</span>
+        </a>
+        
         <!-- Sidebar -->
         <div class="sidebar">
-            <!-- Sidebar user (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">        
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="dist/img/doctorimage.png" class="img-circle elevation-2" alt="User Image">
+                </div>
                 <div class="info">
-                    <a href="#" class="d-block">SESSION: Caregiver</a>
+                    <a href="#" class="d-block">Role: Caregiver</a>
                 </div>
             </div>
-        
+            
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                    with font-awesome or any other icon font library -->
+                    <li class="nav-item has-treeview menu-open">
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="./CaregiverDashboardView.php" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Caregiver Dashboard</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -58,36 +81,58 @@ if(isset($_GET['claim_order'])){
         <!-- Content Header (Page header) -->
         <section class="content-header" style="padding: 0px 0px 0px 0px" >
             <div class="container-fluid " style="padding: 0px 0px 0px 0px" >
-                <div class ="row">
+                <div class ="row" style="padding: 20px 20px 0px 20px">
                     <div class="col">
-                        <h1>Order#<?php echo $_GET['claim_order']; ?></h1>
+                        <h1>Order#
+                        <?php
+                            $order_id = $_SESSION['order_id'];
+                            echo (int)$order_id;
+                        ?>
+                        </h1>
                     </div>
                     <div class ="col-auto">
-                         <a class="btn btn-app" style="background-color:orange" style="padding: 0px 0px 0px 0px">
-                        <i  href ='CaregiverViewControllerHelper?claim='<?php $care_giver_id ?> class="fas fa-users "></i> Claim
+                    
+                        <a class="btn btn-app"  href ="CaregiverCODetailView.php?button_claim=$care_giver_id" style="background-color:orange" >
+                            <i class="fas fa-edit" type ="submit" name="button_claim"  style="background-color:orange">Click To Confirm Claim</i>
                         </a>
+                        <?php 
+                            if(isset($_GET["button_claim"])){
+                          
+                                $care_giver_id = $model->getCurrentUserId();
+                                $order_id = $_SESSION['order_id'];
+                                
+                                $sql = "UPDATE `order` SET `care_giver_id` = '$care_giver_id'  WHERE `order_id` = '$order_id'";
+                               
+                                if(!mysqli_query($conn, $sql)){
+                                    header("Location: fail.php");
+                                }else{
+                                    header("Location: CaregiverOrderConfirmView.php");
+                                }
+                            }
+                        ?>
                     </div>
                 </div>
-                <div class="row" style="min-height:71vh" style="min-width:100vw">
-                    <div class= "col" style="min-height:71vh" style="min-width:100vw">
+                <div class="row pl-5" style="min-height:69vh" style="min-width:100vw" >
+                    <div class= "col" style="min-height:69vh" style="min-width:100vw" >
                         <table id="example4" class="table table-borderless table-hover">
                             <?php
                               
                                 global $conn;
+                                global $order_id;
                                 
                                 if ($conn->connect_error) {
                                     die("Connection failed: " . $conn->connect_error);
                                 }
                                 
-                                $sql  = "select";
-                                $sql .=     "`medication`.`name` as `name`,";
-                                $sql .=     "`medication`.`physical_form` as `form`,";
-                                $sql .=     "`medication`.`units` as `units`,";
-                                $sql .=     "`break_down`.`administer_time` as `time`,";
-                                $sql .=     "`break_down`.`quantity` as `quantity`";
-                                $sql .= " from `break_down`";
-                                $sql .= " join `medication` on (`medication`.`medication_id` = `break_down`.`medication_id`)";
-                                $sql .= " where `break_down`.`order_id` = " . $_GET['claim_order'];
+                                $sql  = "SELECT";
+                                $sql .= " `medication`.`name` as `name`,";
+                                $sql .= " `medication`.`physical_form` as `form`,";
+                                $sql .= " `medication`.`units` as `units`,";
+                                $sql .= " `break_down`.`administer_time` as `time`,";
+                                $sql .= " `break_down`.`quantity` as `quantity`";
+                                $sql .= " FROM `break_down`";
+                                $sql .= " JOIN `medication` on (`medication`.`medication_id` = `break_down`.`medication_id`)";
+                                $sql .= " WHERE `break_down`.`order_id` = '$order_id'";
                                  
             
                                 $result = $conn->query($sql);
@@ -113,7 +158,7 @@ if(isset($_GET['claim_order'])){
                     </div>
                 </div>
                 <div class="row" style="min-height:15vh" style="min-width:100vw">
-                    <div class= "col" style="background-color:orange" style="min-height:15vh" style="min-width:100vw" >
+                    <div class= "col" style="background-color:orange" style="min-height:15vh" >
                         <?php
                             global $conn;
                             
@@ -125,10 +170,10 @@ if(isset($_GET['claim_order'])){
                             $sql .=     " `patient`.`first` as `first`,";
                             $sql .=     " `patient`.`last` as `last`,";
                             $sql .=     " `order`.`order_id` as `order_id`,";
-                            $sql .=     " `order`.`date` as `datefield`";
+                            $sql .=     " DATE_FORMAT(`order`.`date`, '%d-%b-%Y') as `datefield`";
                             $sql .= " from `patient`";
                             $sql .= " join `order` on (`order`.`patient_id` = `patient`.`patient_id`)";
-                            $sql .= " where `order`.`order_id` = " . $_GET['claim_order'];
+                            $sql .= " where `order`.`order_id` =  '$order_id'";
                             
                             $result = $conn->query($sql);
                             
@@ -140,7 +185,7 @@ if(isset($_GET['claim_order'])){
                                             echo "<h5>" . $row['first'] . " " . $row['last'] . "</h5>";
                                         echo "</div>";
                                         echo "<div class = 'col-auto '>";
-                                            echo "<h3>Date Created</h3>";
+                                            echo "<h3>Order Created</h3>";
                                             echo "<h5>" . $row['datefield'] . "</h5>";
                                         echo "</div>";
                                     echo "</div>";
