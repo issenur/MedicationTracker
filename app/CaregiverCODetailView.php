@@ -17,7 +17,7 @@ if(isset($_GET['claim_order'])){
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Caregiver Claims Order</title>
+  <title>Caregiver Confirms Claim</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -36,7 +36,7 @@ if(isset($_GET['claim_order'])){
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="DoctorDashboard.php" class="brand-link">
+        <a href="CaregiverDashboardView.php" class="brand-link">
             <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8">
             <span class="brand-text font-weight-light">MedicationTracker</span>
@@ -133,7 +133,7 @@ if(isset($_GET['claim_order'])){
                                 $sql .= " FROM `break_down`";
                                 $sql .= " JOIN `medication` on (`medication`.`medication_id` = `break_down`.`medication_id`)";
                                 $sql .= " WHERE `break_down`.`order_id` = '$order_id'";
-                                 
+                                $sql .= " ORDER BY `break_down`.`administer_time`";
             
                                 $result = $conn->query($sql);
                                 echo "<id='example2'>";
@@ -145,6 +145,12 @@ if(isset($_GET['claim_order'])){
                                             echo "<td>" . $row['quantity'] . $row['units']. "</td>";
                                             echo "<td>" . $row['form'] . "</td>";
                                             echo "<td>" . $row['time'] . "</td>";
+                                            echo "<td>";
+                                                echo "<div class='custom-control custom-switch custom-switch-off-danger custom-switch-on-success'>";
+                                                    echo " <input type='checkbox' class='custom-control-input' id='customSwitch3'>";
+                                                    echo " <label class='custom-control-label' for='customSwitch3' style='font-weight:normal'>completed</label>";
+                                               echo " </div>";
+                                            echo "</td>";
                                         echo "</tr>";
                                     }
                                     echo "</tbody>";

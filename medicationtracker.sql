@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2020 at 05:14 AM
+-- Generation Time: Apr 15, 2020 at 02:01 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.15
 
@@ -59,19 +59,21 @@ CREATE TABLE `break_down` (
 --
 
 INSERT INTO `break_down` (`order_id`, `medication_id`, `quantity`, `administer_time`, `completed`) VALUES
-(400001, 100000, '5.00', '18:00:00', 0),
-(400000, 100001, '1.00', '03:59:55', 0),
-(400003, 100001, '1.00', '05:21:00', 0),
-(400002, 100002, '2.00', '18:00:00', 0),
-(400003, 100002, '2.00', '21:00:00', 0),
-(400002, 100003, '10.00', '07:21:00', 0),
-(400002, 100004, '0.20', '09:20:00', 0),
-(400000, 100005, '1.00', '18:00:00', 0),
-(400000, 100006, '100.00', '05:21:00', 0),
-(400001, 100006, '200.00', '01:30:00', 0),
-(400000, 100007, '2.00', '09:23:05', 0),
+(400001, 100000, '5.00', '09:00:00', 0),
+(400000, 100001, '1.00', '09:00:00', 0),
+(400002, 100004, '0.20', '09:00:00', 0),
+(400000, 100005, '1.00', '09:00:00', 0),
+(400000, 100005, '1.00', '21:00:00', 0),
+(400002, 100005, '1.00', '09:00:00', 0),
+(400002, 100005, '1.00', '21:00:00', 0),
+(400000, 100006, '100.00', '09:00:00', 0),
+(400001, 100006, '200.00', '09:00:00', 0),
+(400000, 100007, '1.00', '09:00:00', 0),
+(400000, 100007, '1.00', '15:00:00', 0),
+(400003, 100007, '1.00', '09:00:00', 0),
+(400003, 100007, '1.00', '15:00:00', 0),
 (400000, 100008, '2.00', '15:00:00', 0),
-(400001, 100008, '150.00', '03:59:55', 0);
+(400001, 100008, '150.00', '09:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -116,10 +118,9 @@ CREATE TABLE `doctor` (
 --
 
 INSERT INTO `doctor` (`doctor_id`, `first`, `last`, `active`) VALUES
-(7000, 'Leroy', 'James', 1),
+(7000, 'Leroy', 'James', 0),
 (7001, 'Najma', 'Jama', 1),
-(7002, 'Mitchell', 'Johnson', 0),
-(7003, 'Jose', 'Nunez', 0);
+(7002, 'Jose', 'Nunez', 0);
 
 -- --------------------------------------------------------
 
@@ -140,10 +141,10 @@ CREATE TABLE `medication` (
 
 INSERT INTO `medication` (`medication_id`, `name`, `units`, `physical_form`) VALUES
 (100000, 'lidocaine patch', '%', 'Gel'),
-(100001, 'penicillin', '', 'Tablet'),
+(100001, 'furosemide', '', 'Tablet'),
 (100002, 'fluticasone', 'mcg', 'Nasal Spray'),
 (100003, 'insulin', 'ml', 'Injected'),
-(100004, 'clonidine', '%', 'Tablet'),
+(100004, 'clonidine', '%', 'Patch'),
 (100005, 'atenolol', '', 'Tablet'),
 (100006, 'albuterol', 'mcg', 'Inhaled'),
 (100007, 'omeperazol', '', 'Capsule'),
@@ -218,11 +219,10 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`username`, `pin`, `doctor_id`, `patient_id`, `care_giver_id`, `active`) VALUES
 ('Anisa2020', 2323, NULL, NULL, 5002, 1),
-('DoctorJ', 8980, 7002, NULL, NULL, 0),
 ('Farah500!', 0195, NULL, 3001, NULL, 1),
-('JoseNunez', 2134, 7003, NULL, NULL, 0),
+('JoseNunez', 2134, 7002, NULL, NULL, 0),
 ('KyleOmar', 6541, NULL, 3000, NULL, 1),
-('LeeROY1', 2020, 7000, NULL, NULL, 1),
+('LeeROY1', 2020, 7000, NULL, NULL, 0),
 ('LU8989', 1234, NULL, 3003, NULL, 1),
 ('Najma@100', 2300, 7001, NULL, NULL, 1),
 ('NinaR$007', 8080, NULL, NULL, 5001, 1),
@@ -298,19 +298,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `care_giver`
 --
 ALTER TABLE `care_giver`
-  MODIFY `care_giver_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5004;
+  MODIFY `care_giver_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5005;
 
 --
 -- AUTO_INCREMENT for table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `doctor_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7004;
+  MODIFY `doctor_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7005;
 
 --
 -- AUTO_INCREMENT for table `medication`
 --
 ALTER TABLE `medication`
-  MODIFY `medication_id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100009;
+  MODIFY `medication_id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100010;
 
 --
 -- AUTO_INCREMENT for table `order`
@@ -322,7 +322,7 @@ ALTER TABLE `order`
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `patient_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3004;
+  MODIFY `patient_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3005;
 
 --
 -- Constraints for dumped tables
