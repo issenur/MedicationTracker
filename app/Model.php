@@ -4,8 +4,9 @@ include_once("Globals.php");
 class Model{
     
     private $currentview = "";
-    private $currentauthorizationlevel = 0; 
-    private $currentuserid = 1;
+    private $currentauthorizationlevel = 0;
+    //0 for admin ,1 doctor, 2 for patient, 3 for caregiver
+    private $currentuserid = 5002;
     
     private function __construct() {
     
@@ -28,6 +29,7 @@ class Model{
         $model = new Model();
         $model->currentview = $currentview;
         $model->currentauthorizationlevel = $currentauthlevel;
+        
         return $model;
     }
     
@@ -337,9 +339,9 @@ class Model{
         }else if($newView == "DoctorDisplaysOrders"){     //redirect to list of all orders, after new order is made
             header("Location: DoctorDisplaysOrders.php");
         }else if($newView =="CaregiverView"){
-            header("Location: CaregiverClaimsOrder.php");
-        }else if($newView =="AdminDashboard"){
-            header("Location: AdminDashboard.php");
+            header("Location: CaregiverClaimsOrderView.php");
+        }else if($newView =="AdminDashboardView"){
+            header("Location: AdminDashboardView.php");
         }else{
             header("Location: fail.php");
         }

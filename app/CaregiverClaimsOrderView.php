@@ -55,19 +55,40 @@ global $model;
     
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-       
+        <!-- Brand Logo -->
+        <a href="CaregiverDashboardView.php" class="brand-link">
+            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            style="opacity: .8">
+            <span class="brand-text font-weight-light">MedicationTracker</span>
+        </a>
+        
         <!-- Sidebar -->
         <div class="sidebar">
-            <!-- Sidebar user (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">        
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="dist/img/doctorimage.png" class="img-circle elevation-2" alt="User Image">
+                </div>
                 <div class="info">
-                    <a href="#" class="d-block">SESSION: Caregiver</a>
+                    <a href="#" class="d-block">Role: Caregiver</a>
                 </div>
             </div>
-        
+            
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                    with font-awesome or any other icon font library -->
+                    <li class="nav-item has-treeview menu-open">
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="./CaregiverDashboardView.php" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Caregiver Dashboard</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -85,10 +106,11 @@ global $model;
                        <table id="example2" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>OrderID</th>
-                                    <th>Patient</th>
-                                    <th>Date</th>
+                                    <th>Order#</th>
                                     <th>Action</th>
+                                    <th>Patient</th>
+                                    <th>Age</th>
+                                    <th>Order Creation Date</th>
                                 </tr>
                             </thead>
                             <?php
@@ -99,19 +121,29 @@ global $model;
                                     die("Connection failed: " . $conn->connect_error);
                                 }
                                 
-                                $sql = "SELECT * FROM `order` WHERE `care_giver_id` = 0";
+                                $sql = "SELECT";
+                                $sql .= "`order`.`order_id` AS `order_id` ,";
+                                $sql .= "`patient`.`first` AS `pfirst` ,";
+                                $sql .= "`patient`.`last` AS `plast` ,";
+                                $sql .= " DATE_FORMAT(`date_of_birth`, '%Y') AS `pdate`,";
+                                $sql .= " DATE_FORMAT(`date`, '%d-%b-%Y') AS `date`,";
+                                $sql .= " `order`.`patient_id` AS `patient_id`";
+                                $sql .= " FROM `order` ";
+                                $sql .= " JOIN `patient` ON (`patient`.`patient_id` = `order`.`patient_id`)";
+                                $sql .= " WHERE `care_giver_id` = 0";
                                 $result = $conn->query($sql);
                                 echo "<id='example2'>";
                                 echo "<tbody>";
                                 if ($result->num_rows > 0) {
                                     while($row = $result->fetch_assoc()) {
                                         echo "<tr>";
-                                        echo "<td>" . $row['order_id'] . "</td>"; 
-                                        echo "<td>" . $row['patient_id'] . "</td>";
-                                        echo "<td>" . $row['date'] . "</td>";
+                                        echo "<td>" . (int)$row['order_id'] . "</td>";
                                         echo"<td>";
-                                        echo "<a href ='CaregiverViewControllerHelper.php?claim_order=".  $row['order_id'] ."'><button class='btn btn-primary'>Details</button>"."<a/>";
+                                        echo "<a href ='CaregiverCODetailView.php?claim_order=".  $row['order_id'] ."'><button class='btn btn-dark'>Claim Order</button>"."<a/>";
                                         echo "</td>"; 
+                                        echo "<td>" . $row['pfirst'] . " " .  $row['plast'] . "</td>";
+                                        echo "<td>" . (2020 - (int)$row['pdate']) . "</td>";
+                                        echo "<td>" . $row['date'] . "</td>";
                                         echo "</tr>";
                                     }
                                     echo "</tbody>";
