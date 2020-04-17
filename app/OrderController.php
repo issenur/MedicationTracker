@@ -1,13 +1,12 @@
 <?php
 
 include_once("Model.php");
+include_once("Order.php");
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "medicationtracker";
 $conn = new mysqli($servername, $username, $password, $dbname);
-
-     
 
 
 /** Takes user input data from Model, the model returns value 
@@ -18,7 +17,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 class  OrderController {
 
     //instance of the Model class called Order
-    //public Order $Order;
+    public $order;
 
     //get an instance of our DB for this class.
 
@@ -35,45 +34,47 @@ class  OrderController {
     /**Method get parameters from View, and creates an order in the DB
      * 
      * Doctor creates an Order
+     * param orignall medid and medqty
      */
-    function createOrder($order_id,$doctor_id,$patient_id,$med_id,$medQty) { 
+    function createOrder($order_id,$doctor_id,$patient_id) { 
 
         global $model;
         $model = new Model("DoctorAddsOrderView", 1);
         global $conn;
         global $controller;
 
-         //NOTE**CaregiverID will be given an initial value of 0 when order is made
+        //NOTE**CaregiverID will be given an initial value of 0 when order is made
         $model->doctorCreatesOrder($order_id, $doctor_id,$patient_id);
 
-        //we need orderID so that meds can be added to a specific order
-        $model->addMeds2Order($order_id,$med_id,$medQty);
+       // $model->addMeds2Order($order_id,$med_id,$medQty);
+        $this->$order = new Order($order_id,$doctor_id,$patient_id); //create Order object 
 
+        
         //OrderController redirects to the page where all Orders are displayed
-        //$md->setCurrentView("DoctorDisplaysOrders"); 
-        $model->setCurrentView("DoctorDisplaysOrders");
+        $model->setCurrentView("DoctorDisplaysOrdersView");
         
     } 
 
-    /**Method updates an Order's details?
-     *  should we
+   /** Method  adds Med info from Doctor into the Order list
+     * 
      */
-    function updateOrder($orderID, $orderIDToUpdate){
-    //check to see which attribute of an order will be updated
+    function addMeds($order_ID, $medName, $med_Qty, $med_Unit){
+
+        global $model;
+        $model = new Model("DoctorAddsOrderView", 1);
+        global $conn;
+        
+        //get the medID from the medName
+        $medID1 = $model->getMedID($medName);
+       
+        //Add meds to the Order object, and save the meds to the DB!
+        $this->order.addMeds2Order($order_ID, $medID1,$med_Qty, $med_Unit);
+
+        //make sure medif is 6 digits long
+        // $model->addMeds2Order($order_id,$med_id,$medQty);
 
     }
 
-    /**Method add additional medication via medID to an order
-     * returns boolean, succesful addition = true, failure to add = false
-     */
-    function addMeds2Order($theOrderID, array $MedicationID){
-     
-        //loop, add multipel medsto 1 order
-
-        //
-    
-
-    }
 
     /** Method  allows a caregiver to assign themselves to an order
      * 
@@ -88,10 +89,6 @@ class  OrderController {
         //}
           
     }
-    
-
-
-
 
 
     /**Method gets the caregiverID from View, and updates the status field of Order to "fufilled"
@@ -116,7 +113,6 @@ class  OrderController {
     
         //return this.order.orderDetails();
     }
-
 
 }
 ?>

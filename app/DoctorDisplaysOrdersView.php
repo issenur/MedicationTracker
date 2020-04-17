@@ -105,7 +105,7 @@ include_once("OrderController.php");
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./DoctorDisplaysOrders.php" class="nav-link active">
+                <a href="./DoctorDisplaysOrdersView.php" class="nav-link active">
                   <i class="far fa-check-circle nav-icon"></i>
                   <p>Display All Orders</p>
                 </a>
@@ -113,70 +113,7 @@ include_once("OrderController.php");
              
             </ul>
           </li>
-          
-         <?php
-
-         ?>
-
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Pages
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="DoctorDisplaysOrders.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>General Elements</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Advanced Elements</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/editors.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Editors</p>
-                </a>
-              </li>
-
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
-              <p>
-                Tables
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/tables/simple.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Simple Tables</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/data.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>DataTables</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>jsGrid</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+        
 
       </nav>
       <!-- /.sidebar-menu -->
@@ -355,110 +292,6 @@ include_once("OrderController.php");
       <!-- /.col -->
 
 
-
-            <!-- TABLE: LATEST ORDERS -->
-              <div class="col">
-                <div class="card card-secondary collapsed-card">
-                  <div class="card-header">
-                    <h3 class="card-title"><b>PATIENT LIST</b></h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                  </button>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-              </div>
-            </div>
-              <!-- /.card-header -->
-              <div class="row">
-                <div class="col-12">
-                  <div class="card">
-                    <div class="card-header">
-                      <div class="card-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                          <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body table-responsive p-0">
-                      <table class="table table-hover text-nowrap">
-                        <thead>
-                          <tr>
-                            <th>Patient ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Age</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td><a href="pages/examples/profile.html">7000</a></td>
-                            <td>Nimco</td>
-                            <td>Hussein</td>
-                            <td>21</span></td>
-                          </tr>
-                          <tr>
-                            <td><a href="pages/examples/profile.html">7001</a></td>
-                            <td>Ryan</td>
-                            <td>Bradley</td>
-                            <td>25</td>
-                          </tr>
-                          <tr>
-                            <td><a href="pages/examples/profile.html">7002</a></td>
-                            <td>Fahim</td>
-                            <td>Murshed</td>
-                            <td>22</td>
-                          </tr>
-                          <tr>
-                            <td><a href="pages/examples/profile.html">7003</a></td>
-                            <td>Isse</td>
-                            <td>Nur</td>
-                            <td>23</td>
-                          </tr>
-                          <tr>
-                            <td><a href="pages/examples/profile.html">7004</a></td>
-                            <td>Robel</td>
-                            <td>Abuhay</td>
-                            <td>24</td>
-                          </tr>
-                          <tr>
-                            <td><a href="pages/examples/profile.html">7005</a></td>
-                            <td>Alex</td>
-                            <td>Vasquez</td>
-                            <td>29</td>
-                          </tr>
-                          <tr>
-                            <td><a href="pages/examples/profile.html">7006</a></td>
-                            <td>Ismail</td>
-                            <td>Bile-Hassan</td>
-                            <td>30</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <!-- /.card-body -->
-                  </div>
-                  <!-- /.card -->
-                </div>
-              </div>
-                <div class="card-footer clearfix">
-                  <a href="javascript:void(0)" class="btn btn-sm btn-info float-right">View All Patients</a>
-                </div>
-                <!-- /.table-responsive -->
-              </div>
-              <!-- /.card-body -->
-              <!-- /.card-footer -->
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
       </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->

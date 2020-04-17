@@ -86,8 +86,8 @@ class Controller{
             $model->setCurrentView("HomeView");
         }else if($viewName == "AdminView"){
             $model->setCurrentView("AdminView");
-        }else if($viewName == "DoctorDisplaysOrders"){
-            $model->setCurrentView("DoctorDisplaysOrders");
+        }else if($viewName == "DoctorDisplaysOrdersView"){
+            $model->setCurrentView("DoctorDisplaysOrdersView");
         }else{}
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
 include_once("Globals.php");
+
+//
 class UserModel{
     
     function __construct() {

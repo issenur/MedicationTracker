@@ -107,7 +107,7 @@ include_once("Globals.php");
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./DoctorDisplaysOrders.php" class="nav-link ">
+                <a href="./DoctorDisplaysOrdersView.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Display All Orders</p>
                 </a>

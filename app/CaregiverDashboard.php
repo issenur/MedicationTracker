@@ -176,9 +176,17 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./CaregiverDashboard.html" class="nav-link active">
+                <a href="./CaregiverDashboard.php" class="nav-link active">
                   <i class="far fa-check-circle nav-icon"></i>
                   <p>Caregiver Dashboard</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="./CaregiverClaimsOrderView.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Claim Order</p>
                 </a>
               </li>
             </ul>

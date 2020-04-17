@@ -4,7 +4,7 @@ include_once("DoctorInputsCode.php");
 include_once("Model.php");
 
 include_once("Globals.php");
-
+ 
 
 
 ?>
@@ -18,6 +18,14 @@ include_once("Globals.php");
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
   <title>MedicationTracker | Doctor Dashboard</title>
+
+  <style>
+
+  div.med1 {border-style: groove;}
+  div.med2 {border-style: groove;}
+  div.med3 {border-style: groove;}
+  div.med4 {border-style: groove;}
+  </style>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -108,7 +116,7 @@ include_once("Globals.php");
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./DoctorDisplaysOrders.php" class="nav-link ">
+                <a href="./DoctorDisplaysOrdersView.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Display All Orders</p>
                 </a>
@@ -235,41 +243,84 @@ include_once("Globals.php");
               </button>
             </div>
           </div>
-          <!-- /.card-header -->
+
+         <!--
+          
+          <div class="card-body .col-2">
+            <div class="table-responsive">
+              <div class="form-group">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-2">
+                      <label>Order ID</label>
+                      <input type="text" class="form-control" id='orderID2' name="genOrderID" placeholder="Type Here...">
+                        <script>
+                        //var orderNum = document.getElementById("orderID").value;
+                        //document.getElementById(ordertest).innerHTML = orderNum;
+
+                        function genOrderNumber(numDigits) {
+                          var orderNumber;
+                          var n = '';
+                          for(var count = 0; count < numDigits; count++) {
+                            orderNumber = Math.floor(Math.random() * 10);
+                            n += orderNumber.toString();
+                          }
+                          return n;
+                          }
+                          document.getElementById("orderID2").value = genOrderNumber(6);
+                      </script>
+                    </div>
+                    <div class="col-2">
+                      <label>Doctor ID</label>
+                      <input type="text" class="form-control" name="doctorID"placeholder="Type your ID...">
+                    </div>
+                    <div class="col-2">
+                      <label>Patient ID</label>
+                      <input type="text" class="form-control" name="patientID" placeholder="Enter patientID...">
+                    </div>
+                    <div class="form-group">
+                      <label for="inputDate1">Order Creation Date</label>
+                      <input type="text" class="form-control" id="orderDate1" name="genOrderDate"  placeholder="" disabled>
+                      <script>
+                           function genOrderDate() {
+                            var orderDate = new Date();;
+                            return orderDate;
+                       }
+                  document.getElementById("orderDate1").value = genOrderDate();
+            </script>
+            </div>
+                    
+                </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+         -->
+
+
+          <!-- /.card-header 
           <div class="card-body .col-12">
             <div class="table-responsive">
               <div class="form-group">
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-12">
+                    <div class="col-12" >
                       <table class="table table-bordered table-hover" id="tab_logic">
-         <!--              
+                     
         <thead>
           <tr >
-            <th class="text-center">
-              Doctor ID
+          <th class="text-center">
+              Med ID
             </th>
             <th class="text-center">
-              Patient ID
+              Med Quantity 
             </th>
             <th class="text-center">
-              Medication
-            </th>
-            <th class="text-center">
-              Dosage
-            </th>
-            <th class="text-center">
-              Unit
-            </th>
-            <th class="text-center">
-              Type
+              Med Units
             </th>
             <th>
-                    <button onclick="javascript:void(0)" id="add_row" class="btn btn-flat btn-secondary"><b>+</b>
-                      <span class="fas fa-capsules"></span>
-                    </button></th>
-            <th>
-                    <button onclick="javascript:void(0)" id="delete_row" class="btn btn-flat btn-secondary"><b>-</b>
+                    <button onclick="javascript:void(0)" id="add_row" class="btn btn-flat btn-secondary"><b>+ Add Med</b>
                       <span class="fas fa-capsules"></span>
                     </button></th>
           </tr>
@@ -277,62 +328,58 @@ include_once("Globals.php");
         <tbody>
           <tr id='addr0'>
             <td>
-            <input type="text" name='order0'  placeholder='OrderID' id='orderID' class="form-control"/>
-            <input type="text" name='ordertest0'  placeholder='value of OrderID' id='ordertest' class="form-control" disabled/>
-            <script>
-              var orderNum = document.getElementById("orderID").value;
-              document.getElementById(ordertest).innerHTML = orderNum;
-            </script>
+            <input type="text" name='medID0'  placeholder='i.e 029202' id='medID1' class="form-control"/>
             </td>
             <td>
-            <input type="text" name='doctor0'  placeholder='Doctor ID' class="form-control"/>
+            <input type="text" name='medQ0'  placeholder='i.e 150' id='medQ1'class="form-control"/>
+            </td>
+            <td> 
+		          <select class="form-control" name="medU1" id=medU1>
+	              	<option value=g>grams</option>
+		              <option value="mg">mg</option>
+	              	<option value="mL">mL</option>
+	              	<option value="tablet">tablet</option>
+	          	</select>
             </td>
             <td>
-            <input type="text" name='patient0'  placeholder='Patient ID' class="form-control"/>
+              <button type = "button" id="remove_Medrow" class="remove"><b> - Remove Med </b>
+                <span class="fas fa-capsules"></span>
+              </button>
             </td>
-            <td>
-            <input type="text" name='medication0' placeholder='MedicationID' class="form-control"/>
-            </td>
-            <td>
-            <input type="text" name='dosage0' placeholder='Dosage' class="form-control"/>
-            </td>
-            <td>
-            <input type="text" name='unit0' placeholder='Unit' class="form-control"/>
-            </td>
-            <td>
-            <input type="text" name='type0' placeholder='Type' class="form-control"/>
-            </td>
-            <<td>
-              <a id="add_row" class="btn btn-default float-left">Add</a>
-            </td>
-            <td>
-              <a id='delete_row' class="pull-right btn btn-default">Remove</a>
-            </td>
-          -->
           </tr>
                     <tr id='addr1'></tr>
         </tbody>
-      
       </table>
+
+          
+          <div class="card-footer clearfix">
+            <button type ="button" name="submitDocOrder" id="submitOrder" class="btn btn-sm btn-info float-right">Submit Order</button>
+          </div>
+          
+        </div>
+      
+      </div>
+      -->
 
       <!-- form start -->
       <form action="" method="post">
-        
         <div class="card-body">
           <div class="form-group">
             <label for="inputEmail1">OrderID</label>
             <input type="text" class="form-control" id="orderID2" name="inputOrderID1"  placeholder="" >
           <script>
+           var orderNumber = 400004;
               function genOrderNumber(numDigits) {
-                var orderNumber;
-                var n = '';
-                for(var count = 0; count < numDigits; count++) {
-                  orderNumber = Math.floor(Math.random() * 10);
-                  n += orderNumber.toString();
+                  //var orderNumber;
+                  var n = '';
+                    for(var count = 0; count < numDigits; count++) {
+                       orderNumber = Math.floor(Math.random() * 10);
+                      n += orderNumber.toString();
+                     
+                    }
+                  return n;
                 }
-                return n;
-                }
-                document.getElementById("orderID2").value = genOrderNumber(4);
+                document.getElementById("orderID2").value = genOrderNumber(6);
           </script>
           </div>
           <div class="card-body">
@@ -355,28 +402,107 @@ include_once("Globals.php");
             <label for="inputPatientID1">PatientID</label>
             <input type="text" class="form-control" id = "patientID" name="inputPatientID1" placeholder="Enter the PatientID">
           </div>
+         <!--
           <div class="form-group">
-            <label for="inputMedicationID1">MedicationID</label>
-            <input type="text" class="form-control" id="medID" name="inputMedicationID1" placeholder="Enter a MedicationID">
+            <label for="inputMedicationID1">MedicationID 1</label>
+            <input type="text" class="form-control" id="medID1" name="inputMedicationID1" placeholder="Enter a MedicationID">
+            <label for="inputMedicationID2">MedicationID 2</label>
+            <input type="text" class="form-control" id="medID2" name="inputMedicationID2" placeholder="Enter a MedicationID">
+            <label for="inputMedicationID3">MedicationID 3</label>
+            <input type="text" class="form-control" id="medID3" name="inputMedicationID3" placeholder="Enter a MedicationID">
+            <label for="inputMedicationID4">MedicationID 4</label>
+            <input type="text" class="form-control" id="medID4" name="inputMedicationID4" placeholder="Enter a MedicationID">
           </div>
           <div class="form-group">
-            <label>Select Name of Medication</label>
-            <select class="form-control" id="medName" name="inputMedicationName1">
+            <label for="inputMedicationQty1">Medication 1 Quantity </label>
+            <input type="text" class="form-control" id="medQty1" name="inputMedicationQty1" placeholder="Enter daily dose a patient would take for Medication">
+            <label for="inputMedicationQty2">Medication 2 Quantity </label>
+            <input type="text" class="form-control" id="medQty2" name="inputMedicationQty2" placeholder="Enter daily dose a patient would take for Medication">
+            <label for="inputMedicationQty3">Medication 3 Quantity </label>
+            <input type="text" class="form-control" id="medQty3" name="inputMedicationQty3" placeholder="Enter daily dose a patient would take for Medication">
+            <label for="inputMedicationQty4">Medication 4 Quantity </label>
+            <input type="text" class="form-control" id="medQty4" name="inputMedicationQty4" placeholder="Enter daily dose a patient would take for Medication">
+          </div>
+          -->
+          
+        <div class="form-group">
+          <div class="med1">
+            <label>Medication Name</label>
+            <select class="form-control" id="med1" name= "inputMedication1">
               <option>Tylenol</option>
-              <option>Vicodin</option>
-              <option>Lunesta</option>
+              <option>Insulin</option>
               <option>Albuterol</option>
-              <option>FlexPen</option>
-              <option>Atarax</option>
+              <option>Aspirin</option>
+              <option>Lunesta</option>
+              <option>Xanax</option>
+            </select>
+            <label for="inputMedicationQty1">Medication 1 Quantity </label>
+            <input type="text" class="form-control" id="medQty1" name="inputMedicationQty1" placeholder="Enter daily dose a patient would take for Medication">
+            <div class="form-group">
+            <label>Select Unit for Medication 1</label>
+            <select class="form-control" id="medUnit1" name= "inputMedicationUnit1">
+              <option>g</option>
+              <option>mg</option>
+              <option>mL</option>
+              <option>puffs</option>
             </select>
           </div>
-          <div class="form-group">
-            <label for="inputMedicationQty1">Medication Quantity</label>
-            <input type="text" class="form-control" id="medQty" name="inputMedicationQty1" placeholder="Enter daily dose a patient would take for Medication">
+          <div class="med2">
+            <label>Medication Name</label>
+            <select class="form-control" id="med2" name= "inputMedication2">
+              <option>Tylenol</option>
+              <option>Insulin</option>
+              <option>Albuterol</option>
+              <option>Aspirin</option>
+              <option>Lunesta</option>
+              <option>Xanax</option>
+            </select>
+            <label for="inputMedicationQty1">Medication 2 Quantity </label>
+            <input type="text" class="form-control" id="medQty2" name="inputMedicationQty2" placeholder="Enter daily dose a patient would take for Medication">
+            <label>Select Unit for Medication 2</label>
+            <select class="form-control" id="medUnit2" name= "inputMedicationUnit2">
+              <option>g</option>
+              <option>mg</option>
+              <option>mL</option>
+              <option>puffs</option>
+            </select>
           </div>
-          <div class="form-group">
-            <label>Select Unit for Medication</label>
-            <select class="form-control" id="medUnit" name= "inputMedicationUnit1">
+
+          <div class="med3">
+            <label>Medication Name</label>
+            <select class="form-control" id="med3" name= "inputMedication3">
+              <option>Tylenol</option>
+              <option>Insulin</option>
+              <option>Albuterol</option>
+              <option>Aspirin</option>
+              <option>Lunesta</option>
+              <option>Xanax</option>
+            </select>
+            <label for="inputMedicationQty3">Medication 3 Quantity </label>
+            <input type="text" class="form-control" id="medQty3" name="inputMedicationQty3" placeholder="Enter daily dose a patient would take for Medication">
+            <label>Select Unit for Medication 3</label>
+            <select class="form-control" id="medUnit3" name= "inputMedicationUnit3">
+              <option>g</option>
+              <option>mg</option>
+              <option>mL</option>
+              <option>puffs</option>
+            </select>
+          </div>
+
+          <div class="med4">
+            <label>Medication Name</label>
+            <select class="form-control" id="med4" name= "inputMedication4">
+              <option>Tylenol</option>
+              <option>Insulin</option>
+              <option>Albuterol</option>
+              <option>Aspirin</option>
+              <option>Lunesta</option>
+              <option>Xanax</option>
+            </select>
+            <label for="inputMedicationQty1">Medication 4 Quantity </label>
+            <input type="text" class="form-control" id="medQty4" name="inputMedicationQty4" placeholder="Enter daily dose a patient would take for Medication">
+            <label>Select Unit for Medication 4</label>
+            <select class="form-control" id="medUnit4" name= "inputMedicationUnit4">
               <option>g</option>
               <option>mg</option>
               <option>mL</option>
@@ -384,21 +510,18 @@ include_once("Globals.php");
             </select>
           </div>
         </div>
+       
         <!-- /.card-body -->
-        
         <div class="card-footer">
           <button type="submit" name="submitOrder1"  class="btn btn-primary">Submit Order</button>
-           
         </div>
-      
       </form>
-      
     </div>
 
     
     
     
-<!-- Old Code
+<!-- Old Code 
                       <label>Doctor ID</label>
                       <input type="text" class="form-control" placeholder="Type Here...">
                     </div>
@@ -444,7 +567,7 @@ include_once("Globals.php");
                 </div>
               </div>
             </div>
-          -->
+                -->
             <!-- /.table-responsive -->
           </div>
           </div>
@@ -457,7 +580,7 @@ include_once("Globals.php");
           <div class="card-footer clearfix">
             <a href="javascript:void(0)" class="btn btn-sm btn-info float-right">Submit Order</a>
           </div>
-        -->
+                -->
           <!-- /.card-footer -->
         </div>
         <!-- /.card -->
@@ -626,6 +749,72 @@ include_once("Globals.php");
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
 <!-- page script -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<!--
+<script>
+  var html = '<tr id="addr0"><td> <input type="text" name="medID0"  placeholder="i.e 029202" id="medID1" class="form-control"/></td>';
+    html += '<td> <input type="text" name="medQ0"  placeholder="i.e 150" id="medQ1" class="form-control"/></td>';
+    html += '<td> <select class="form-control" name="medU1"> <option value=g>grams</option> <option value="mg">mg</option><option value="mL">mL</option><option value="tablet">tablet</option></select></td>';
+    html +='<td><button type = "button" id="remove_Medrow" class="remove"><b> - Remove Med </b><span class="fas fa-capsules"></span>';
+    html += '</button></td></tr>';
+    $(function(){
+    $('tbody').sortable();
 
+    //Adds row in Meds table when doctor clicks button
+    $('#add_row').click(function(){
+      $('tbody').append(html);
+    });
+
+    //Removes the selected row in the Meds table when doctor clicks button
+    $(document).on('click', '.remove', function() {
+    $(this).parents('tr').remove(); //remove the row
+        });
+
+
+//Get the values of each MedID, MedQ and the Med units selected
+ $('#submitOrder').click(function(){
+      var medIDrow= [];
+      var medQtyrow = [];
+      var medUnitrow = [];
+      
+      //Get each of the Med columns data
+      $('input[name="medID0"]').each(function(index, value){
+        medIDrow.push($(value).val());
+        
+        });
+      $('input[name="medQ0"]').each(function(index, value){
+        medQtyrow.push($(value).val());
+        });
+      $('select option:selected').each(function(index, value){
+        medUnitrow.push($(value).val());
+        });
+
+      medIDrow.pop();
+      medQtyrow.pop();
+      medUnitrow.pop(); //remove the inital g unit  
+      medUnitrow.pop(); //remove the last g
+
+   
+     
+
+      //alert("MedIDs are: " + medIDrow); //print MedIDs
+      //alert("MedQuantities are: " + medQtyrow);
+      //alert("MedUnits  are: " + medUnitrow);
+      
+
+      $.ajax({
+            url: "includes/DoctorInputsCode.php",
+            type: "POST",
+            data: {medIDarray : JSON.stringify(medIDrow), medQarray : JSON.stringify(medQtyrow), medUnitarray : JSON.stringify(medUnitrow)},
+            success : function(data){
+                  alert("Success: ");
+                }
+            }
+        });
+    });
+});
+</script>
+-->
 </body>
 </html>
