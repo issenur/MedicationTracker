@@ -50,10 +50,13 @@ $controller = new Controller();
         <input type="username" name="uname" class="form-control" placeholder="USERNAME">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
+      <form action="../../AdminDashboard.php" method="post">
+      <!-- <form action="../../back/author" method="post"> -->
       <div class="form-group has-feedback">
         <input type="pin" name="pnum" class="form-control" placeholder="PIN NUMBER">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
+
       <div class="row d-flex justify-content-center">
         
         <!-- /.col -->
