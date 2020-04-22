@@ -1,107 +1,81 @@
 <?php
-namespace App;
-include Model.php;
 
-/** Takes user input data from Model, the model returns value 
- * The purpose of this class is to do CRUD of an order
+include_once("Globals.php");
+include_once("DoctorAddsOrderView.php");
+include_once("Order.php");
+
+/**  
+ * The purpose of this class is to do CRUD of an Order object
  * 
  * 
  */ 
 class  OrderController {
 
-    //instance of the Model class called Order
-    //public Order $Order;
+   /* instance var of an OrderController */
+    public $order;
+    public $ordersList;
 
-    //get an instance of our DB for this class.
 
-
-    //get a list of All the Orders made
-    //public array $ordersList; 
     /**Constructor which creates order object
      * this method gets params from View, creates Order instance in this class
      */
-    function construct ( int $orderID, int $doctorID, int $patientID, int $caregiverID, array $medicationIDs ){
+    function construct(){
         
         //instantiate the Order object
-        //$this->Order = new Order($orderID,$doctorID,$patientID,null,$medicationIDs);
-       // $ordersList.add(Order);
+       // $this->$order= new Order($orderID,$doctorID,$patientID);
+       //create list to hold all Order objects 
+       $this->$ordersList = array();
     
     }
 
     
     /**Method get parameters from View, and creates an order in the DB
-     * returns a message
-     * Doctor should assign patientID here
+     * 
+     * Doctor creates an Order
      */
-    function createOrder(int $orderID, int $doctorID, int $patientID,
-     int $medicationID, int $medUnit, $medQty, int $medType, int $orderCreationDate ) { 
+    function createOrder($order_id,$doctor_id,$patient_id) { 
 
-       //Get hmtl form where user types in the Order
-        //$htmlContent = file_get_contents("/medicationtracker/app/index3.html");
-        //$DOM->loadHTML($htmlContent);
-        //$tableHeader= $DOM->getElementsByTagName('th');
-        //$tableDetail = $DOM->getElementsByTagName('td');
-
-       // if ($_SERVER["REQUEST_METHOD"] == "POST"){ 
-        //get order data from the Form
-        if ( isset( $_POST['submit'] ) ) {  //check if submit button is clicked
-            $orderID =  $_POST["inputOrder1"];
-            $doctorID = $_POST["inputDoctor1"];
-            $patientID = $_POST["inputPatientID1"];
-
-            //place in for loop to get all med entered
-            $medID = $_POST["inputMedicationID1"];
-            $medQty = $_POST["inputMedicationQty1"];
-            $medType = $_POST["inputMedicationType1"];
-            $medUnit = $_POST["inputMedicationUnit1"];
-
-            $orderCreationDate = $_POST["inputOrderDate1"];
+        global $model;
+        //$model = new Model("DoctorAddsOrderView", 1);
+        //global $conn;
 
 
-            echo " Here are form data from Doctor ";
-            echo  $orderID ;
-            echo "/n";
-            echo  $orderCreationDate ;
-            echo "/n";
-            echo  $doctorID ;
-            echo "/n";
-            echo  $patientID ;
-            echo "/n";
-            echo  $medID ;
-            echo "/n";
-            echo  $medDosage ;
-            echo "/n";
-            echo  $medType ;
-            echo "/n";
-            echo  $medUnit;
-
+        //validate the data
+        if(strlen($doctor_id) != 4 || strlen($patient_id) != 4){
+            $message = "Sorry the Doctor and PatientIDs must be equal to 4";
 
         }
-
-
-         //NOTE**CaregiverID will be given an initial value of 0 when order is made
-        Model.createOrder($order_id,$order_creationdate,$doctor_id,$patient_id,$med_id,$med_type, $med_qty, $med_unit);
-
-       Model.setView("OrderCreated.html"); //this page has function that will have Model.getOrder(), 
+         //check to make sure doctorID is in the DB, if so proceed
+		//check to make sure patientID is in DB, if so proceed
+        //create Order object
+        $this->$order = new Order($order_id,$doctor_id,$patient_id);
+        $this->$ordersList.add($order); //add new order to our list of orders
+  
+        //OrderController redirects to the page where all Orders are displayed
+        $model->setCurrentView("DoctorDisplaysOrdersView");
         
     } 
 
-    /**Method updates an Order's details?
-     *  should we
-     */
-    function updateOrder($orderID, $orderIDToUpdate){
-    //check to see which attribute of an order will be updated
-
-    }
 
     /**Method add additional medication via medID to an order
-     * returns boolean, succesful addition = true, failure to add = false
+     * returns boolean succesful addition = true, failure to add = false
      */
-    function addMeds2Order($theOrderID, array $MedicationID){
-     
-        //loop, add multipel medsto 1 order
+    function addMeds2Order($order_id, $medName,$medQty,$medUnit){
+        //validate medid, medQty,medUnit
+    if(strlen($medQty > 3) || strlen($medQty == 0) ) {
+        echo "Sorry the Medication Qty entered must between 1 and equal to 999";
 
-        //
+    }
+    //check if orderID is equal to this order
+    if($this->$order->getOrderID() == $order_id){
+        //add Medications to Order list and the DB as well
+        $this->$order->addMeds2Order($medName,$medQty,$medUnit);
+        return true;
+    }
+    else{
+        return false;
+    }
+        
     
 
     }
@@ -122,9 +96,6 @@ class  OrderController {
     
 
 
-
-
-
     /**Method gets the caregiverID from View, and updates the status field of Order to "fufilled"
      * 
      * order status 0 = order created
@@ -140,12 +111,15 @@ class  OrderController {
 
     }
 
-    /**Method returns an entire order details to the View
+    /**Method returns an all orders to the View
      * returns a message of order details
      */
-   function printOrderDetails(){
+   function printAllOrders(){
     
-        //return this.order.orderDetails();
+    foreach($ordersList as $value){
+       //return $value->orderDetails(); 
+    }
+       
     }
 
 

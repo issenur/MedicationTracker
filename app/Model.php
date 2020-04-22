@@ -1,111 +1,429 @@
 <?php
+include_once("Globals.php");
 
-/*Purpose of this class is to make insert,update, or delete info to our DB 
- * 
- * This class includes methods that deal with User functions and Order functions
- */
 class Model{
-    private $servername = "localhost";
-    private $username = "root";
-    private $password = "";
-    private $dbname = "medicationtracker";
-    private $currentview = "";
-    private $conn;
     
-    function __construct($currentview) {
-       $this->currentview = $currentview;
+    private $currentview = "";
+    private $currentauthorizationlevel = 0;
+    //0 for admin ,1 doctor, 2 for patient, 3 for caregiver
+    private $currentuserid = ""; //5002
+    
+    private function __construct() {
+    
+    }
+    
+    public static function createModel() {
+        
+        $model = new Model(); 
+        return $model;
+    }
+    
+    public static function createModelWithView($currentview) {
+        
+        $model = new Model();
+        $model->currentview = $currentview;
+        return $model;
+    }
+
+    public static function createModelWithViewAndAuth($currentview, $currentauthlevel) {
+        $model = new Model();
+        $model->currentview = $currentview;
+        $model->currentauthorizationlevel = $currentauthlevel;
+        
+        return $model;
+    }
+    
+    public function authenticateAdmin($uname, $pin_submitted){        
+        
+        global $model;
+        global $conn;
+        global $message;
+        $sql = "SELECT * from admin WHERE username = '$uname'";
+        $result = $conn->query($sql);
+        $row = $result -> fetch_array();
+        $real_pin = $row['pin'];
+        
+        if($pin_submitted == $real_pin){
+            return true;
+        }else{
+            $message = "Invalid username or password!";
+            return false;
+        }
+    }
+    
+    public function addDoctorUser($user_name, $pin, $first, $last, $active) {
+    
+        global $conn;
+        global $userModel;
+        $userModel = new ModelUser();
+        $doctor_id = $userModel->addDoctor($first, $last, $active);
+        
+        if($doctor_id > 0){
+        
+            $sql = "INSERT INTO user (username, pin, doctor_id, patient_id, care_giver_id , active) values('$user_name' ,'$pin', '$doctor_id', NULL, NULL,'$active')";
+        
+            if(!mysqli_query($conn, $sql)){
+                return false;
+            }else{
+                return true;
+            }
+        
+        }else{
+            return false;
+        }
+    }
+    
+    public function removeDoctorUser($user_name) {
+    
+        global $conn;
+        global $userModel;
+        $userModel = new UserModel();
+        
+        $sql = "SELECT doctor_id from user WHERE username = '$user_name'";
+        $result = $conn->query($sql);
+        $row = $result -> fetch_array();
+        $doctor_id = $row['doctor_id'];
+        $num = $userModel->removeDoctor($doctor_id);
+        
+        if($num == 1){
+        
+            $sql = "UPDATE user SET active = 0 WHERE username = '$user_name'";
+            if(!mysqli_query($conn, $sql)){
+                return false;
+            }else{
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }
+    
+    public function activateDoctorUser($user_name) {
+    
+        global $conn;
+        global $userModel;
+        $userModel = new UserModel();
+        
+        $sql = "SELECT doctor_id from user WHERE username = '$user_name'";
+        $result = $conn->query($sql);
+        $row = $result -> fetch_array();
+        $doctor_id = $row['doctor_id'];
+        $num = $userModel->activateDoctor($doctor_id);
+        
+        if($num == 1){
+        
+            $sql = "UPDATE user SET active = 1 WHERE username = '$user_name'";
+            if(!mysqli_query($conn, $sql)){
+                return false;
+            }else{
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }
+    
+    public function addPatientUser($user_name, $pin, $first, $last, $date_of_birth, $active) {
+    
+        global $conn;
+        global $userModel;
+        $userModel = new UserModel();
+        $patient_id = $modelUser->addPatient($first, $last, $date_of_birth, $active);
+        
+        if($patient_id > 0){
+        
+            $sql = "INSERT INTO user (username, pin, doctor_id, patient_id, care_giver_id , active) values('$user_name' ,'$pin', NULL, '$patient_id', NULL,'$active')";
+            
+            if(!mysqli_query($conn, $sql)){
+                return false;
+            }else{
+                return true;
+            }
+            
+        }else{
+            return false;
+        }
+    }
+    
+    public function removePatientUser($user_name) {
+    
+        global $conn;
+        global $userModel;
+        $userModel = new UserModel();
+        
+        $sql = "SELECT patient_id from user WHERE username = '$user_name'";
+        $result = $conn->query($sql);
+        $row = $result -> fetch_array();
+        $patient_id = $row['patient_id'];
+        $num = $userModel->removePatient($patient_id);
+        
+        if($num == 1){
+        
+            $sql = "UPDATE user SET active = 0 WHERE username = '$user_name'";
+            if(!mysqli_query($conn, $sql)){
+                return false;
+            }else{
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }
+    
+    public function activatePatientUser($user_name) {
+    
+        global $conn;
+        global $userModel;
+        $userModel = new UserModel();
+        
+        $sql = "SELECT patient_id from user WHERE username = '$user_name'";
+        $result = $conn->query($sql);
+        $row = $result -> fetch_array();
+        $patient_id = $row['patient_id'];
+        $num = $userModel->activatePatient($patient_id);
+        
+        if($num == 1){
+        
+            $sql = "UPDATE user SET active = 1 WHERE username = '$user_name'";
+            if(!mysqli_query($conn, $sql)){
+                return false;
+            }else{
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }
+    
+    public function addCareGiverUser($user_name, $pin, $first, $last, $is_nurse, $active) {
+    
+        global $conn;
+        global $userModel;
+        $userModel = new UserModel();
+        $care_giver_id = $userModel->addCareGiver($first, $last, $is_nurse, $active);
+        
+        if($care_giver_id > 0){
+        
+            $sql = "INSERT INTO user (username, pin, doctor_id, patient_id, care_giver_id , active) values('$user_name' ,'$pin', NULL, NULL, '$care_giver_id', '$active')";
+            
+            if(!mysqli_query($conn, $sql)){
+                return false;
+            }else{
+                return true;
+            }
+            
+        }else{
+            return false;
+        }
+    }
+    
+    public function removeCaregiverUser($user_name) {
+    
+        global $conn;
+        global $userModel;
+        $userModel = new UserModel();
+        
+        $sql = "SELECT care_giver_id from user WHERE username = '$user_name'";
+        $result = $conn->query($sql);
+        $row = $result -> fetch_array();
+        $care_giver_id = $row['care_giver_id'];
+        $num = $userModel->removeCaregiver($care_giver_id);
+        
+        if($num == 1){
+        
+            $sql = "UPDATE user SET active = 0 WHERE username = '$user_name'";
+            if(!mysqli_query($conn, $sql)){
+                return false;
+            }else{
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }
+    
+    public function activateCaregiverUser($user_name) {
+    
+        global $conn;
+        global $userModel;
+        $userModel = new UserModel();
+        
+        $sql = "SELECT care_giver_id from user WHERE username = '$user_name'";
+        $result = $conn->query($sql);
+        $row = $result -> fetch_array();
+        $care_giver_id = $row['care_giver_id'];
+        $num = $userModel->activateCaregiver($care_giver_id);
+        
+        if($num == 1){
+        
+            $sql = "UPDATE user SET active = 1 WHERE username = '$user_name'";
+            if(!mysqli_query($conn, $sql)){
+                return false;
+            }else{
+                
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }
+    
+    public function updateUserUsername($username, $newusername) {
+    
+        global $conn;
+        $sql = "UPDATE user SET  username = '$newusername' WHERE username = $username";
+        if(!mysqli_query($this->conn, $sql)){
+            return false;
+        }else{
+            return true;    
+        }
+    }
+    
+    public function updateUserPin($username, $pin) {
+    
+        global $conn;
+        $sql = "UPDATE user SET  pin = '$pin' WHERE username = $username";
+        if(!mysqli_query($this->conn, $sql)){
+            return false;
+        }else{
+            return true;    
+        }
+    }
+    
+    /**
+    * Method creates an Order using the form where Doctor enters in parameters
+    */
+    public function doctorCreatesOrder($order_id,$doctor_id, $patient_id) {
+    
+        global $conn;
+        
+        //notice care_giver_id is hardcoded to 0000, there is no caregiver with
+        //this id number. It represents NULL. Which means we havent assigned a
+        //care_giver yet.
+        
+        $sql = "INSERT INTO `order` (`order_id`,`doctor_id`, `patient_id`, `care_giver_id`, `date`) VALUES ('$order_id','$doctor_id', '$patient_id', '0000', CURDATE())";
+        if(!mysqli_query($conn, $sql)){
+           return false;
+        }else{
+           return true;
+        }
+    }
+    
+    /**
+    * Methods adds medications to an Order
+    */
+    public function addMeds2Order($order_id , $med_id, $med_qty){
+        global $conn;
+        
+        //administertime is blank, when an order doesnt have a caregiver yet
+        $sql = "INSERT INTO break_down(order_id, medication_id, quantity, administer_time) values('$order_id', '$med_id', '$med_qty', '')";
+        
+        if(!mysqli_query($conn, $sql)){
+            return false;
+        }else{
+            return true;   
+        }
+    
+    }
+
+    /**Method takes a med name and returns the associated med ID
+     * 
+     */
+    public function getMedID($medName){        
+        
+        global $model;
+        global $conn;
+        global $message;
+        $sql = "SELECT * from medication WHERE name = '$medName'";
+        $result = $conn->query($sql);
+        $row = $result -> fetch_array();
+        $real_ID = $row['medication_id'];
+        
+        return $real_ID;
+    }
+    
+     /**Method takes a patientID and returns 
+      * the patientID stored in the DB only if Patient is active
+     * 
+     */
+    public function getPatientID($patientID){        
+        
+        global $model;
+        global $conn;
+        global $message;
+        $sql = "SELECT * from patient WHERE patient_id= '$patientID'";
+        $result = $conn->query($sql);
+        $row = $result -> fetch_array();
+        $real_patientID = $row['patient_id'];
+        $real_active = $row['active'];
+        
+        //check if patient is active
+        if($real_patientID == $patientID && $real_active == 1){
+            return $real_patientID;
+        }
+        return 0;
+    }
+
+    /**Method takes a doctorID and returns 
+     * the doctorID stored in the DB only if Patient is active
+     * 
+     */
+    public function getDoctorID($doctorID){        
+        
+        global $model;
+        global $conn;
+        global $message;
+        $sql = "SELECT * from doctor WHERE doctor_id= '$doctorID'";
+        $result = $conn->query($sql);
+        $row = $result -> fetch_array();
+        $real_doctorID = $row['doctor_id'];
+        $real_active = $row['active'];
+        
+        //check if doctor is active so that they can create orders
+        if($real_doctorID == $doctorID && $real_active == 1){
+            return $real_doctorID;
+        }
+        return 0;
     }
    
-  
-    //Adds the order a Doctor makes to the DB
-    public function createOrder($order_id,$order_creationdate,$doctor_id,$patient_id,$med_id,$med_type, $med_qty, $med_unit){
-
-        $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
-
-        //INclude ordercreationdate in 
-        $sql = "INSERT INTO order(order_id,doctor_id, patient_id, caregiver_id,order_creationdate) values('$order_id''$doctor_id', '$patient_id',
-         '00000',$order_creationdate)";
-
-         //Add a Loop for each medication to be entered for 1 single orderID
-         //adminster_time can be left as optional right?
-        $sql = "INSERT INTO break_down(order_id,medication_id,med_ quantity,) values('$order_id', '$med_id', '$med_qty')";
-        
-        if(!mysqli_query($this->conn, $sql)){
-            return false;
-        }else{
-            return true;    
-        }
-    }
-
-    public function addUser($first, $last, $role, $active) {
-        
-        $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
-        $sql = "INSERT INTO user(first, last, role, active) values('$first', '$last', '$role', '$active')";
-        
-        if(!mysqli_query($this->conn, $sql)){
-            return false;
-        }else{
-            return true;    
-        }
-    }
-    public function removeUser($user_id) {
-        
-        $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
-        $sql = "UPDATE user SET  active = 0 WHERE user_id = $user_id";
-        if(!mysqli_query($this->conn, $sql)){
-            return false;
-        }else{
-            return true;    
-        }
-    }
-    public function updateUserFirst($user_id, $first) {
-        
-        $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
-        $sql = "UPDATE user SET  first = '$first' WHERE user_id = $user_id";
-        if(!mysqli_query($this->conn, $sql)){
-            return false;
-        }else{
-            return true;    
-        }
-    }
     
-    public function updateUserLast($user_id, $last) {
+    public function setCurrentView($newView) {
         
-        $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
-        $sql = "UPDATE user SET  last = '$last' WHERE user_id = $user_id";
-        if(!mysqli_query($this->conn, $sql)){
-            return false;
+        $model->currentView = $newView;
+        
+        if($newView == "AdminLoginView"){
+            header("Location: AdminLoginView.php");
+        }else if($newView == "HomeView"){
+            header("Location: index.php");
+        }else if($newView == "DoctorDisplaysOrdersView"){     //redirect to list of all orders, after new order is made
+            header("Location: DoctorDisplaysOrdersView.php");
+        }else if($newView =="CaregiverView"){
+            header("Location: CaregiverClaimsOrderView.php");
+        }else if($newView =="AdminDashboardView"){
+            header("Location: AdminDashboardView.php");
         }else{
-            return true;    
+            header("Location: fail.php");
         }
-    }
-    
-    public function updateUserRole($user_id, $role) {
-        
-        $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
-        $sql = "UPDATE user SET  role = '$role' WHERE user_id = $user_id";
-        if(!mysqli_query($this->conn, $sql)){
-            return false;
-        }else{
-            return true;    
-        }
-    }
-    
-    public function setCurrentView($newview) {
-        $this->currentview = $newview;
-        
     }
     
     public function getCurrentView() {
         return($this->currentview);
     }
+    
+    public function setCurrentAuthorizationLevel($auth_num) {
+        $this->currentauthorizationlevel = $auth_num;   
+    }
+    
+    public function getCurrentAuthorizationLevel() {
+        return($this->currentauthorizationlevel);
+    }
+    
+     public function setCurrentUserId($user_id) {
+        $this->setcurrentuserid = $user_id;   
+    }
+    
+    public function getCurrentUserId() {
+        return($this->currentuserid);
+    }
 }
-
-$md = new Model("LoginView");
-$result = $md->addUser("John", "mike", "nurse", 1);
-$result = $md->removeUser(3);
-$result = $md->updateUserFirst(1, "Johnathan");
-$result = $md->getCurrentView();
-
-echo $result;
 ?>
