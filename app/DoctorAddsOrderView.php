@@ -1,11 +1,16 @@
 <?php
+session_start();
+    
+if(!isset($_SESSION['username']) || $_SESSION['role'] != "doctor"){
+    header("location:index.php");
+}
 include_once("OrderController.php");
 include_once("DoctorInputsCode.php");
 include_once("Model.php");
 
 include_once("Globals.php");
 
-
+    
 
 ?>
 

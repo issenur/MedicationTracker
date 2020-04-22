@@ -2,7 +2,7 @@
 
 include_once("Globals.php");
 
-
+include_once("Model.php");
 class Controller{
 
     public function __construct() { }
@@ -21,17 +21,15 @@ class Controller{
     }
     
     public function addDoctorUser($user_name, $pin, $first, $last, $active) { 
-        global $model;
-        $model->setCurrentView("AdminDashboardView");
-        $model->setCurrentAuthorizationLevel(1);
+        $model = Model::getInstance();
         $model->addDoctorUser($user_name, $pin, $first, $last, $active);
+        $model->setCurrentView("AdminDashboardView");
     }
     
     public function removeDoctorUser($user_name) {
-        global $model;
+        $model = Model::getInstance();
+        $model->removeCaregiverUser($user_name);
         $model->setCurrentView("AdminDashboardView");
-        $model->setCurrentAuthorizationLevel(1);
-        $model->removeDoctorUser($user_name);
     }
     
     public function activateDoctorUser($user_name) {
@@ -43,49 +41,42 @@ class Controller{
     }
     
     public function addPatientUser($user_name, $pin, $first, $last, $date_of_birth, $active) { 
-        global $model;
-        $model->setCurrentView("AdminDashboardView");
-        $model->setCurrentAuthorizationLevel(2);
+        $model = Model::getInstance();
         $model->addPatientUser($user_name, $pin, $first, $last, $date_of_birth, $active);
+        $model->setCurrentView("AdminDashboardView");
     }
     
     public function removePatientUser($user_name) {
-        global $model;
+        $model = Model::getInstance();
+        $model->removeCaregiverUser($user_name);
         $model->setCurrentView("AdminDashboardView");
-        $model->setCurrentAuthorizationLevel(2);
-        $model->removePatientUser($user_name);
     }
     
     public function activatePatientUser($user_name) {
-        global $model;
-        $model->setCurrentView("AdminDashboardView");
-        $model->setCurrentAuthorizationLevel(2);
+        $model = Model::getInstance();
         $model->activatePatientUser($user_name);
+        $model->setCurrentView("AdminDashboardView");
     }
     
     public function addCaregiverUser($user_name, $pin, $first, $last, $is_nurse, $active){ 
-        global $model;
-        $model->setCurrentView("AdminDashboardView");
-        $model->setCurrentAuthorizationLevel(3);
+        $model = Model::getInstance();
         $model->addCaregiverUser($user_name, $pin, $first, $last, $is_nurse, $active);
+        $model->setCurrentView("AdminDashboardView");
     }
     
     public function removeCaregiverUser($user_name) {
-        global $model;
-        $model->setCurrentView("AdminDashboardView");
-        $model->setCurrentAuthorizationLevel(3);
+        $model = Model::getInstance();
         $model->removeCaregiverUser($user_name);
+        $model->setCurrentView("AdminDashboardView");
     }
     
     public function activateCaregiverUser($user_name) {
-        global $model;
-        $model->setCurrentView("AdminDashboardView");
-        $model->setCurrentAuthorizationLevel(3);
+        $model = Model::getInstance();
         $model->activateCaregiverUser($user_name);
+        $model->setCurrentView("AdminDashboardView");
     }
     
     public function changeView($viewName) {
-        global $model;
         if($viewName == "AdminLoginView"){
             $model->setCurrentView("AdminLoginView");     
         }else if($viewName == "HomeView"){

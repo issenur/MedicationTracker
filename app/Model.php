@@ -1,55 +1,33 @@
 <?php
 
-include_once("Globals.php");
+
 class Model{
     
     private $currentview = "";
     private $currentauthorizationlevel = 0;
-    //0 for admin ,1 doctor, 2 for patient, 3 for caregiver
-    private $currentuserid = 5002;
-    
+    private $currentuserid = 0;
+    public static $instance = null;
+     
     private function __construct() {
-    
+        if($_SESSION['role'] == "doctor"){
+           $this->currentuserid = $_SESSION['doctor_id'];
+        } else if($_SESSION['role'] == "caregiver"){
+            $this->currentuserid = $_SESSION['care_giver_id'];
+        } else if($_SESSION['role'] == "admin"){
+            $this->currentuserid = $_SESSION['admin_id'];
+        } else{}
     }
     
-    public static function createModel() {
-        
-        $model = new Model(); 
-        return $model;
-    }
-    
-    public static function createModelWithView($currentview) {
-        
-        $model = new Model();
-        $model->currentview = $currentview;
-        return $model;
-    }
-
-    public static function createModelWithViewAndAuth($currentview, $currentauthlevel) {
-        $model = new Model();
-        $model->currentview = $currentview;
-        $model->currentauthorizationlevel = $currentauthlevel;
-        
-        return $model;
-    }
-    
-    public function authenticateAdmin($uname, $pin_submitted){        
-        
-        global $model;
-        global $conn;
-        global $message;
-        $sql = "SELECT * from admin WHERE username = '$uname'";
-        $result = $conn->query($sql);
-        $row = $result -> fetch_array();
-        $real_pin = $row['pin'];
-        
-        if($pin_submitted == $real_pin){
-            return true;
-        }else{
-            $message = "Invalid username or password!";
-            return false;
+    public static function getInstance(){
+        if (self::$instance == null){
+        self::$instance = new Model();
         }
+        return self::$instance;
     }
+    
+    
+    
+    
     
     public function addDoctorUser($user_name, $pin, $first, $last, $active) {
     
@@ -340,6 +318,8 @@ class Model{
             header("Location: DoctorDisplaysOrders.php");
         }else if($newView =="CaregiverView"){
             header("Location: CaregiverClaimsOrderView.php");
+        }else if($newView =="CaregiverDashboardView"){
+            header("Location: CaregiverDashboarView.php");    
         }else if($newView =="AdminDashboardView"){
             header("Location: AdminDashboardView.php");
         }else{
@@ -360,7 +340,7 @@ class Model{
     }
     
      public function setCurrentUserId($user_id) {
-        $this->setcurrentuserid = $user_id;   
+        $this->currentuserid = $user_id;   
     }
     
     public function getCurrentUserId() {
@@ -382,7 +362,29 @@ $result = $model->getCurrentAuthorizationLevel();
 echo "Current Authorization Level: " . $result . "<br>";
 $model->setCurrentAuthorizationLevel(66);
 $result = $model->getCurrentAuthorizationLevel();
-echo "Current Authorization Level: " . $result . "<br>";*/
+echo "Current Authorization Level: " . $result . "<br>";
+
+public static function createModel() {
+        
+        $model = new Model(); 
+        return $model;
+    }
+    
+    public static function createModelWithView($currentview) {
+        
+        $model = new Model();
+        $model->currentview = $currentview;
+        return $model;
+    }
+
+    public static function createModelWithViewAndAuth($currentview, $currentauthlevel) {
+        $model = new Model();
+        $model->currentview = $currentview;
+        $model->currentauthorizationlevel = $currentauthlevel;
+        
+        return $model;
+    }
+*/
 
 ?>
 
