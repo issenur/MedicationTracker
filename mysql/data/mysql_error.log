@@ -2104,3 +2104,543 @@ InnoDB: using atomic writes.
 2020-04-15 12:22:10 0 [Note] Plugin 'FEEDBACK' is disabled.
 2020-04-15 12:22:10 0 [Note] InnoDB: Buffer pool(s) load completed at 200415 12:22:10
 2020-04-15 12:22:10 0 [Note] Server socket created on IP: '::'.
+InnoDB: using atomic writes.
+2020-04-17 13:36:16 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-04-17 13:36:16 0 [Note] InnoDB: Uses event mutexes
+2020-04-17 13:36:16 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-04-17 13:36:16 0 [Note] InnoDB: Number of pools: 1
+2020-04-17 13:36:16 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-04-17 13:36:16 0 [Note] InnoDB: Initializing buffer pool, total size = 16M, instances = 1, chunk size = 16M
+2020-04-17 13:36:16 0 [Note] InnoDB: Completed initialization of buffer pool
+2020-04-17 13:36:16 0 [Note] InnoDB: Starting crash recovery from checkpoint LSN=5036621
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\categories.ibd' OS error: 203
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-17 13:36:16 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`categories``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-17 13:36:16 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`categories` because it could not be opened.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\comments.ibd' OS error: 203
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-17 13:36:16 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`comments``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-17 13:36:16 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`comments` because it could not be opened.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\migrations.ibd' OS error: 203
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-17 13:36:16 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`migrations``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-17 13:36:16 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`migrations` because it could not be opened.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\password_resets.ibd' OS error: 203
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-17 13:36:16 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`password_resets``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-17 13:36:16 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`password_resets` because it could not be opened.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\permission_role.ibd' OS error: 203
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-17 13:36:16 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`permission_role``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-17 13:36:16 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`permission_role` because it could not be opened.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\permissions.ibd' OS error: 203
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-17 13:36:16 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`permissions``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-17 13:36:16 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`permissions` because it could not be opened.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\posts.ibd' OS error: 203
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-17 13:36:16 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`posts``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-17 13:36:16 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`posts` because it could not be opened.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\role_user.ibd' OS error: 203
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-17 13:36:16 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`role_user``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-17 13:36:16 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`role_user` because it could not be opened.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\roles.ibd' OS error: 203
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-17 13:36:16 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`roles``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-17 13:36:16 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`roles` because it could not be opened.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\settings.ibd' OS error: 203
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-17 13:36:16 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`settings``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-17 13:36:16 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`settings` because it could not be opened.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\users.ibd' OS error: 203
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-17 13:36:16 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-17 13:36:16 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`users``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-17 13:36:16 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`users` because it could not be opened.
+2020-04-17 13:36:17 0 [Note] InnoDB: 128 out of 128 rollback segments are active.
+2020-04-17 13:36:17 0 [Note] InnoDB: Removed temporary tablespace data file: "ibtmp1"
+2020-04-17 13:36:17 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2020-04-17 13:36:17 0 [Note] InnoDB: Setting file 'C:\xampp\medicationtracker\mysql\data\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-04-17 13:36:17 0 [Note] InnoDB: File 'C:\xampp\medicationtracker\mysql\data\ibtmp1' size is now 12 MB.
+2020-04-17 13:36:17 0 [Note] InnoDB: Waiting for purge to start
+2020-04-17 13:36:17 0 [Note] InnoDB: 10.4.11 started; log sequence number 5036630; transaction id 8176
+2020-04-17 13:36:17 0 [Note] InnoDB: Loading buffer pool(s) from C:\xampp\medicationtracker\mysql\data\ib_buffer_pool
+2020-04-17 13:36:17 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-04-17 13:36:17 0 [Note] InnoDB: Buffer pool(s) load completed at 200417 13:36:17
+2020-04-17 13:36:17 0 [Note] Server socket created on IP: '::'.
+InnoDB: using atomic writes.
+2020-04-20  6:52:08 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-04-20  6:52:08 0 [Note] InnoDB: Uses event mutexes
+2020-04-20  6:52:08 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-04-20  6:52:08 0 [Note] InnoDB: Number of pools: 1
+2020-04-20  6:52:08 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-04-20  6:52:08 0 [Note] InnoDB: Initializing buffer pool, total size = 16M, instances = 1, chunk size = 16M
+2020-04-20  6:52:08 0 [Note] InnoDB: Completed initialization of buffer pool
+2020-04-20  6:52:08 0 [Note] InnoDB: Starting crash recovery from checkpoint LSN=5047397
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\categories.ibd' OS error: 203
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20  6:52:09 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`categories``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20  6:52:09 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`categories` because it could not be opened.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\comments.ibd' OS error: 203
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20  6:52:09 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`comments``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20  6:52:09 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`comments` because it could not be opened.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\migrations.ibd' OS error: 203
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20  6:52:09 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`migrations``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20  6:52:09 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`migrations` because it could not be opened.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\password_resets.ibd' OS error: 203
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20  6:52:09 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`password_resets``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20  6:52:09 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`password_resets` because it could not be opened.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\permission_role.ibd' OS error: 203
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20  6:52:09 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`permission_role``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20  6:52:09 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`permission_role` because it could not be opened.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\permissions.ibd' OS error: 203
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20  6:52:09 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`permissions``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20  6:52:09 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`permissions` because it could not be opened.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\posts.ibd' OS error: 203
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20  6:52:09 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`posts``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20  6:52:09 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`posts` because it could not be opened.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\role_user.ibd' OS error: 203
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20  6:52:09 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`role_user``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20  6:52:09 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`role_user` because it could not be opened.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\roles.ibd' OS error: 203
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20  6:52:09 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`roles``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20  6:52:09 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`roles` because it could not be opened.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\settings.ibd' OS error: 203
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20  6:52:09 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`settings``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20  6:52:09 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`settings` because it could not be opened.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\users.ibd' OS error: 203
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20  6:52:09 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20  6:52:09 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`users``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20  6:52:09 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`users` because it could not be opened.
+2020-04-20  6:52:09 0 [Note] InnoDB: 128 out of 128 rollback segments are active.
+2020-04-20  6:52:09 0 [Note] InnoDB: Removed temporary tablespace data file: "ibtmp1"
+2020-04-20  6:52:09 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2020-04-20  6:52:09 0 [Note] InnoDB: Setting file 'C:\xampp\medicationtracker\mysql\data\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-04-20  6:52:09 0 [Note] InnoDB: File 'C:\xampp\medicationtracker\mysql\data\ibtmp1' size is now 12 MB.
+2020-04-20  6:52:09 0 [Note] InnoDB: Waiting for purge to start
+2020-04-20  6:52:09 0 [Note] InnoDB: 10.4.11 started; log sequence number 5047406; transaction id 8228
+2020-04-20  6:52:09 0 [Note] InnoDB: Loading buffer pool(s) from C:\xampp\medicationtracker\mysql\data\ib_buffer_pool
+2020-04-20  6:52:09 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-04-20  6:52:09 0 [Note] InnoDB: Buffer pool(s) load completed at 200420  6:52:09
+2020-04-20  6:52:09 0 [Note] Server socket created on IP: '::'.
+InnoDB: using atomic writes.
+2020-04-20 13:39:54 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-04-20 13:39:54 0 [Note] InnoDB: Uses event mutexes
+2020-04-20 13:39:54 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-04-20 13:39:54 0 [Note] InnoDB: Number of pools: 1
+2020-04-20 13:39:54 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-04-20 13:39:54 0 [Note] InnoDB: Initializing buffer pool, total size = 16M, instances = 1, chunk size = 16M
+2020-04-20 13:39:54 0 [Note] InnoDB: Completed initialization of buffer pool
+2020-04-20 13:39:54 0 [Note] InnoDB: Starting crash recovery from checkpoint LSN=5056775
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\categories.ibd' OS error: 203
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20 13:39:54 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`categories``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20 13:39:54 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`categories` because it could not be opened.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\comments.ibd' OS error: 203
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20 13:39:54 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`comments``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20 13:39:54 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`comments` because it could not be opened.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\migrations.ibd' OS error: 203
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20 13:39:54 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`migrations``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20 13:39:54 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`migrations` because it could not be opened.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\password_resets.ibd' OS error: 203
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20 13:39:54 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`password_resets``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20 13:39:54 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`password_resets` because it could not be opened.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\permission_role.ibd' OS error: 203
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20 13:39:54 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`permission_role``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20 13:39:54 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`permission_role` because it could not be opened.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\permissions.ibd' OS error: 203
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20 13:39:54 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`permissions``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20 13:39:54 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`permissions` because it could not be opened.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\posts.ibd' OS error: 203
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20 13:39:54 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`posts``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20 13:39:54 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`posts` because it could not be opened.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\role_user.ibd' OS error: 203
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20 13:39:54 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`role_user``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20 13:39:54 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`role_user` because it could not be opened.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\roles.ibd' OS error: 203
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20 13:39:54 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`roles``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20 13:39:54 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`roles` because it could not be opened.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\settings.ibd' OS error: 203
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20 13:39:54 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`settings``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20 13:39:54 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`settings` because it could not be opened.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\users.ibd' OS error: 203
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-20 13:39:54 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-20 13:39:54 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`users``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-20 13:39:54 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`users` because it could not be opened.
+2020-04-20 13:39:55 0 [Note] InnoDB: 128 out of 128 rollback segments are active.
+2020-04-20 13:39:55 0 [Note] InnoDB: Removed temporary tablespace data file: "ibtmp1"
+2020-04-20 13:39:55 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2020-04-20 13:39:55 0 [Note] InnoDB: Setting file 'C:\xampp\medicationtracker\mysql\data\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-04-20 13:39:55 0 [Note] InnoDB: File 'C:\xampp\medicationtracker\mysql\data\ibtmp1' size is now 12 MB.
+2020-04-20 13:39:55 0 [Note] InnoDB: Waiting for purge to start
+2020-04-20 13:39:55 0 [Note] InnoDB: 10.4.11 started; log sequence number 5056784; transaction id 8276
+2020-04-20 13:39:55 0 [Note] InnoDB: Loading buffer pool(s) from C:\xampp\medicationtracker\mysql\data\ib_buffer_pool
+2020-04-20 13:39:55 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-04-20 13:39:55 0 [Note] InnoDB: Buffer pool(s) load completed at 200420 13:39:55
+2020-04-20 13:39:55 0 [Note] Server socket created on IP: '::'.
+InnoDB: using atomic writes.
+2020-04-21 10:30:44 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-04-21 10:30:44 0 [Note] InnoDB: Uses event mutexes
+2020-04-21 10:30:44 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-04-21 10:30:44 0 [Note] InnoDB: Number of pools: 1
+2020-04-21 10:30:44 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-04-21 10:30:44 0 [Note] InnoDB: Initializing buffer pool, total size = 16M, instances = 1, chunk size = 16M
+2020-04-21 10:30:44 0 [Note] InnoDB: Completed initialization of buffer pool
+2020-04-21 10:30:44 0 [Note] InnoDB: Starting crash recovery from checkpoint LSN=5428027
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\categories.ibd' OS error: 203
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-21 10:30:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`categories``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-21 10:30:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`categories` because it could not be opened.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\comments.ibd' OS error: 203
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-21 10:30:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`comments``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-21 10:30:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`comments` because it could not be opened.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\migrations.ibd' OS error: 203
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-21 10:30:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`migrations``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-21 10:30:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`migrations` because it could not be opened.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\password_resets.ibd' OS error: 203
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-21 10:30:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`password_resets``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-21 10:30:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`password_resets` because it could not be opened.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\permission_role.ibd' OS error: 203
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-21 10:30:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`permission_role``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-21 10:30:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`permission_role` because it could not be opened.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\permissions.ibd' OS error: 203
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-21 10:30:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`permissions``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-21 10:30:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`permissions` because it could not be opened.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\posts.ibd' OS error: 203
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-21 10:30:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`posts``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-21 10:30:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`posts` because it could not be opened.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\role_user.ibd' OS error: 203
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-21 10:30:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`role_user``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-21 10:30:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`role_user` because it could not be opened.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\roles.ibd' OS error: 203
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-21 10:30:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`roles``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-21 10:30:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`roles` because it could not be opened.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\settings.ibd' OS error: 203
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-21 10:30:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`settings``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-21 10:30:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`settings` because it could not be opened.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\users.ibd' OS error: 203
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-21 10:30:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-21 10:30:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`users``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-21 10:30:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`users` because it could not be opened.
+2020-04-21 10:30:44 0 [Note] InnoDB: 128 out of 128 rollback segments are active.
+2020-04-21 10:30:44 0 [Note] InnoDB: Removed temporary tablespace data file: "ibtmp1"
+2020-04-21 10:30:44 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2020-04-21 10:30:44 0 [Note] InnoDB: Setting file 'C:\xampp\medicationtracker\mysql\data\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-04-21 10:30:44 0 [Note] InnoDB: File 'C:\xampp\medicationtracker\mysql\data\ibtmp1' size is now 12 MB.
+2020-04-21 10:30:44 0 [Note] InnoDB: Waiting for purge to start
+2020-04-21 10:30:45 0 [Note] InnoDB: 10.4.11 started; log sequence number 5428036; transaction id 8764
+2020-04-21 10:30:45 0 [Note] InnoDB: Loading buffer pool(s) from C:\xampp\medicationtracker\mysql\data\ib_buffer_pool
+2020-04-21 10:30:45 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-04-21 10:30:45 0 [Note] InnoDB: Buffer pool(s) load completed at 200421 10:30:45
+2020-04-21 10:30:45 0 [Note] Server socket created on IP: '::'.
+InnoDB: using atomic writes.
+2020-04-22 15:29:44 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-04-22 15:29:44 0 [Note] InnoDB: Uses event mutexes
+2020-04-22 15:29:44 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-04-22 15:29:44 0 [Note] InnoDB: Number of pools: 1
+2020-04-22 15:29:44 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-04-22 15:29:44 0 [Note] InnoDB: Initializing buffer pool, total size = 16M, instances = 1, chunk size = 16M
+2020-04-22 15:29:44 0 [Note] InnoDB: Completed initialization of buffer pool
+2020-04-22 15:29:44 0 [Note] InnoDB: Starting crash recovery from checkpoint LSN=5708737
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\categories.ibd' OS error: 203
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-22 15:29:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`categories``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-22 15:29:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`categories` because it could not be opened.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\comments.ibd' OS error: 203
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-22 15:29:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`comments``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-22 15:29:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`comments` because it could not be opened.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\migrations.ibd' OS error: 203
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-22 15:29:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`migrations``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-22 15:29:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`migrations` because it could not be opened.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\password_resets.ibd' OS error: 203
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-22 15:29:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`password_resets``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-22 15:29:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`password_resets` because it could not be opened.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\permission_role.ibd' OS error: 203
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-22 15:29:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`permission_role``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-22 15:29:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`permission_role` because it could not be opened.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\permissions.ibd' OS error: 203
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-22 15:29:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`permissions``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-22 15:29:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`permissions` because it could not be opened.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\posts.ibd' OS error: 203
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-22 15:29:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`posts``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-22 15:29:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`posts` because it could not be opened.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\role_user.ibd' OS error: 203
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-22 15:29:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`role_user``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-22 15:29:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`role_user` because it could not be opened.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\roles.ibd' OS error: 203
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-22 15:29:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`roles``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-22 15:29:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`roles` because it could not be opened.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\settings.ibd' OS error: 203
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-22 15:29:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`settings``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-22 15:29:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`settings` because it could not be opened.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 3 in a file operation.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: The error means the system cannot find the path specified.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: If you are installing InnoDB, remember that you must create directories yourself, InnoDB does not create them.
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Cannot open datafile for read-only: '.\blog\users.ibd' OS error: 203
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Operating system error number 203 in a file operation.
+2020-04-22 15:29:44 0 [Note] InnoDB: Some operating system error numbers are described at https://mariadb.com/kb/en/library/operating-system-error-codes/
+2020-04-22 15:29:44 0 [ERROR] InnoDB: Could not find a valid tablespace file for ``blog`.`users``. Please refer to https://mariadb.com/kb/en/innodb-data-dictionary-troubleshooting/ for how to resolve the issue.
+2020-04-22 15:29:44 0 [Warning] InnoDB: Ignoring tablespace for `blog`.`users` because it could not be opened.
+2020-04-22 15:29:45 0 [Note] InnoDB: 128 out of 128 rollback segments are active.
+2020-04-22 15:29:45 0 [Note] InnoDB: Removed temporary tablespace data file: "ibtmp1"
+2020-04-22 15:29:45 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2020-04-22 15:29:45 0 [Note] InnoDB: Setting file 'C:\xampp\medicationtracker\mysql\data\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-04-22 15:29:45 0 [Note] InnoDB: File 'C:\xampp\medicationtracker\mysql\data\ibtmp1' size is now 12 MB.
+2020-04-22 15:29:45 0 [Note] InnoDB: Waiting for purge to start
+2020-04-22 15:29:45 0 [Note] InnoDB: 10.4.11 started; log sequence number 5708746; transaction id 9432
+2020-04-22 15:29:45 0 [Note] InnoDB: Loading buffer pool(s) from C:\xampp\medicationtracker\mysql\data\ib_buffer_pool
+2020-04-22 15:29:45 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-04-22 15:29:45 0 [Note] InnoDB: Buffer pool(s) load completed at 200422 15:29:45
+2020-04-22 15:29:45 0 [Note] Server socket created on IP: '::'.

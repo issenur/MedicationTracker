@@ -1,15 +1,17 @@
 <?php
-
-include_once("Globals.php");
-global $model;
-session_start();
-
-if(isset($_GET['claim_order'])){
-   $order_id = $_GET['claim_order'];
-   $_SESSION['order_id'] = $_GET['claim_order'];
-}
-
-
+  
+    session_start();
+    include_once("Globals.php");
+    include_once("Model.php");
+    
+    if(!isset($_SESSION['username']) || $_SESSION['role'] != "caregiver"){
+      header("location:index.php");
+    }
+    
+    if(isset($_GET['claim_order'])){
+        $order_id = $_GET['claim_order'];
+        $_SESSION['order_id'] = $_GET['claim_order'];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -95,8 +97,11 @@ if(isset($_GET['claim_order'])){
                         </a>
                         <?php 
                             if(isset($_GET["button_claim"])){
-                          
+                                 
+                                $model = Model::getInstance();
                                 $care_giver_id = $model->getCurrentUserId();
+                              
+                             
                                 $order_id = $_SESSION['order_id'];
                                 
                                 $sql = "UPDATE `order` SET `care_giver_id` = '$care_giver_id'  WHERE `order_id` = '$order_id'";
