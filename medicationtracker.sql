@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2020 at 02:01 AM
+-- Generation Time: Apr 23, 2020 at 10:08 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.15
 
@@ -29,16 +29,18 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `username` varchar(20) NOT NULL,
-  `pin` int(4) NOT NULL
+  `admin_id` int(4) UNSIGNED ZEROFILL NOT NULL,
+  `first` varchar(20) NOT NULL,
+  `last` varchar(20) NOT NULL,
+  `active` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`username`, `pin`) VALUES
-('admin', 1738);
+INSERT INTO `admin` (`admin_id`, `first`, `last`, `active`) VALUES
+(2000, 'Admin', 'Admin', 2);
 
 -- --------------------------------------------------------
 
@@ -96,7 +98,7 @@ CREATE TABLE `care_giver` (
 INSERT INTO `care_giver` (`care_giver_id`, `first`, `last`, `is_nurse`, `active`) VALUES
 (0000, 'NULL', 'NULL', 1, 1),
 (5000, 'Samuel', 'Ray', 1, 1),
-(5001, 'Nina', 'Rodgers', 1, 1),
+(5001, 'Nina', 'Rodgers', 1, 0),
 (5002, 'Anisa', 'Abdi', 1, 1),
 (5003, 'Sean', 'Carter', 1, 1);
 
@@ -118,9 +120,9 @@ CREATE TABLE `doctor` (
 --
 
 INSERT INTO `doctor` (`doctor_id`, `first`, `last`, `active`) VALUES
-(7000, 'Leroy', 'James', 0),
-(7001, 'Najma', 'Jama', 1),
-(7002, 'Jose', 'Nunez', 0);
+(7000, 'Leroy', 'James', 1),
+(7001, 'Najma', 'Jama', 0),
+(7002, 'Jose', 'Nunez', 1);
 
 -- --------------------------------------------------------
 
@@ -193,10 +195,10 @@ CREATE TABLE `patient` (
 --
 
 INSERT INTO `patient` (`patient_id`, `first`, `last`, `date_of_birth`, `active`) VALUES
-(3000, 'Kyle', 'Omar', '2001-02-06', 1),
-(3001, 'Guled', 'Farah', '1995-09-27', 1),
-(3002, 'Angie', 'Simpson', '1929-12-01', 1),
-(3003, 'David', 'Lucas', '1974-08-27', 1);
+(3000, 'Kyle', 'Omar', '2001-02-06', 0),
+(3001, 'Guled', 'Farah', '1995-09-27', 0),
+(3002, 'Angie', 'Simpson', '1929-12-01', 0),
+(3003, 'David', 'Lucas', '1974-08-27', 0);
 
 -- --------------------------------------------------------
 
@@ -206,10 +208,12 @@ INSERT INTO `patient` (`patient_id`, `first`, `last`, `date_of_birth`, `active`)
 
 CREATE TABLE `user` (
   `username` varchar(20) NOT NULL,
-  `pin` int(4) UNSIGNED ZEROFILL NOT NULL,
+  `password` varchar(100) NOT NULL,
   `doctor_id` int(4) UNSIGNED ZEROFILL DEFAULT NULL,
   `patient_id` int(4) UNSIGNED ZEROFILL DEFAULT NULL,
   `care_giver_id` int(4) UNSIGNED ZEROFILL DEFAULT NULL,
+  `admin_id` int(4) UNSIGNED ZEROFILL DEFAULT NULL,
+  `user_type` varchar(20) NOT NULL,
   `active` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -217,18 +221,19 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`username`, `pin`, `doctor_id`, `patient_id`, `care_giver_id`, `active`) VALUES
-('Anisa2020', 2323, NULL, NULL, 5002, 1),
-('Farah500!', 0195, NULL, 3001, NULL, 1),
-('JoseNunez', 2134, 7002, NULL, NULL, 0),
-('KyleOmar', 6541, NULL, 3000, NULL, 1),
-('LeeROY1', 2020, 7000, NULL, NULL, 0),
-('LU8989', 1234, NULL, 3003, NULL, 1),
-('Najma@100', 2300, 7001, NULL, NULL, 1),
-('NinaR$007', 8080, NULL, NULL, 5001, 1),
-('SamuelRay1', 1001, NULL, NULL, 5000, 1),
-('SeanCarter', 0003, NULL, NULL, 5003, 1),
-('Simpson6000', 9393, NULL, 3002, NULL, 1);
+INSERT INTO `user` (`username`, `password`, `doctor_id`, `patient_id`, `care_giver_id`, `admin_id`, `user_type`, `active`) VALUES
+('Admin2020', 'fea7f657f56a2a448da7d4b535ee5e279caf3d9a', NULL, NULL, NULL, 2000, 'admin', 2),
+('Anisa2020', 'ab874467a7d1ff5fc71a4ade87dc0e098b458aae', NULL, NULL, 5002, NULL, 'caregiver', 1),
+('Farah500!', 'f56d6351aa71cff0debea014d13525e42036187a', NULL, 3001, NULL, NULL, 'patient', 0),
+('JoseNunez', '501ab5444eae9ad32b562570b36ff628ec3790ce', 7002, NULL, NULL, NULL, 'doctor', 1),
+('KyleOmar', 'f56d6351aa71cff0debea014d13525e42036187a', NULL, 3000, NULL, NULL, 'patient', 0),
+('LeeROY1', '501ab5444eae9ad32b562570b36ff628ec3790ce', 7000, NULL, NULL, NULL, 'doctor', 1),
+('LU8989', 'f56d6351aa71cff0debea014d13525e42036187a', NULL, 3003, NULL, NULL, 'patient', 0),
+('Najma@100', '501ab5444eae9ad32b562570b36ff628ec3790ce', 7001, NULL, NULL, NULL, 'doctor', 0),
+('NinaR$007', 'ab874467a7d1ff5fc71a4ade87dc0e098b458aae', NULL, NULL, 5001, NULL, 'caregiver', 0),
+('SamuelRay1', 'ab874467a7d1ff5fc71a4ade87dc0e098b458aae', NULL, NULL, 5000, NULL, 'caregiver', 1),
+('SeanCarter', 'ab874467a7d1ff5fc71a4ade87dc0e098b458aae', NULL, NULL, 5003, NULL, 'caregiver', 1),
+('Simpson6000', 'f56d6351aa71cff0debea014d13525e42036187a', NULL, 3002, NULL, NULL, 'patient', 0);
 
 --
 -- Indexes for dumped tables
@@ -238,7 +243,7 @@ INSERT INTO `user` (`username`, `pin`, `doctor_id`, `patient_id`, `care_giver_id
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`username`);
+  ADD PRIMARY KEY (`admin_id`);
 
 --
 -- Indexes for table `break_down`
@@ -288,17 +293,24 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`username`),
   ADD KEY `FOREIGN_KEY1` (`doctor_id`),
   ADD KEY `FOREIGN_KEY3` (`care_giver_id`),
-  ADD KEY `FOREIGN_KEY0` (`patient_id`);
+  ADD KEY `FOREIGN_KEY0` (`patient_id`),
+  ADD KEY `FOREIGN_KEY4` (`admin_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `admin_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2002;
+
+--
 -- AUTO_INCREMENT for table `care_giver`
 --
 ALTER TABLE `care_giver`
-  MODIFY `care_giver_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5005;
+  MODIFY `care_giver_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7003;
 
 --
 -- AUTO_INCREMENT for table `doctor`
@@ -316,7 +328,7 @@ ALTER TABLE `medication`
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `order_id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=400007;
+  MODIFY `order_id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=400008;
 
 --
 -- AUTO_INCREMENT for table `patient`
@@ -348,7 +360,8 @@ ALTER TABLE `order`
 ALTER TABLE `user`
   ADD CONSTRAINT `FOREIGN_KEY0` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `FOREIGN_KEY1` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `FOREIGN_KEY3` FOREIGN KEY (`care_giver_id`) REFERENCES `care_giver` (`care_giver_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `FOREIGN_KEY3` FOREIGN KEY (`care_giver_id`) REFERENCES `care_giver` (`care_giver_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `FOREIGN_KEY4` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`admin_id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
