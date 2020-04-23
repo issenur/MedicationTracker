@@ -1,8 +1,8 @@
 <?php
-
 include_once("Globals.php");
 include_once("DoctorAddsOrderView.php");
 include_once("Order.php");
+
 
 /**  
  * The purpose of this class is to do CRUD of an Order object
@@ -80,6 +80,7 @@ class  OrderController {
 
     }
 
+
     /** Method  allows a caregiver to assign themselves to an order
      * 
      */
@@ -121,7 +122,6 @@ class  OrderController {
     }
        
     }
-
 
 }
 ?>

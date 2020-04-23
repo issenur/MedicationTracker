@@ -81,6 +81,8 @@ class Order implements IteratorAggregate {
 		//}	
 			
 	}
+
+
 	
 	/**Method sets doctorID for an order
      * 
@@ -113,7 +115,7 @@ class Order implements IteratorAggregate {
 	 /**Method returns an entire order details to the View
      * returns order details
      */
-	function printOrderDetails(){   
+	public function printOrderDetails(){   
 
     }
 

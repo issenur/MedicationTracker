@@ -1,8 +1,8 @@
 <?php
 
 include_once("Globals.php");
-
 global $model;
+
 ?>
 
 <!DOCTYPE html>

@@ -1,36 +1,16 @@
 <?php
+include_once("UserModel.php");
 include_once("Globals.php");
-
 class Model{
     
     private $currentview = "";
-    private $currentauthorizationlevel = 0;
-    //0 for admin ,1 doctor, 2 for patient, 3 for caregiver
-    private $currentuserid = ""; //5002
+    private $currentuser; 
     
-    private function __construct() {
+    function __construct($currentview, $currentuser) { 
     
-    }
+        $this->currentview = $currentview;
+        $this->currentuser = $currentuser;
     
-    public static function createModel() {
-        
-        $model = new Model(); 
-        return $model;
-    }
-    
-    public static function createModelWithView($currentview) {
-        
-        $model = new Model();
-        $model->currentview = $currentview;
-        return $model;
-    }
-
-    public static function createModelWithViewAndAuth($currentview, $currentauthlevel) {
-        $model = new Model();
-        $model->currentview = $currentview;
-        $model->currentauthorizationlevel = $currentauthlevel;
-        
-        return $model;
     }
     
     public function authenticateAdmin($uname, $pin_submitted){        
@@ -44,19 +24,21 @@ class Model{
         $real_pin = $row['pin'];
         
         if($pin_submitted == $real_pin){
-            return true;
+            $this->setCurrentView("AdminView");
+        
         }else{
-            $message = "Invalid username or password!";
-            return false;
+            $message = "Invalid username or password!";  
         }
     }
+
+    
     
     public function addDoctorUser($user_name, $pin, $first, $last, $active) {
     
         global $conn;
         global $userModel;
         $userModel = new ModelUser();
-        $doctor_id = $userModel->addDoctor($first, $last, $active);
+        $doctor_id = $userModel->addDoctor($first, $last, $active);  //UserModel class
         
         if($doctor_id > 0){
         
@@ -303,12 +285,14 @@ class Model{
         
         $sql = "INSERT INTO `order` (`order_id`,`doctor_id`, `patient_id`, `care_giver_id`, `date`) VALUES ('$order_id','$doctor_id', '$patient_id', '0000', CURDATE())";
         if(!mysqli_query($conn, $sql)){
-           return false;
+           return false; 
         }else{
            return true;
         }
     }
     
+  
+
     /**
     * Methods adds medications to an Order
     */
@@ -326,104 +310,59 @@ class Model{
     
     }
 
-    /**Method takes a med name and returns the associated med ID
-     * 
-     */
+    /**Method takes in a medName and return the associated medID
+    * 
+    */
     public function getMedID($medName){        
         
         global $model;
         global $conn;
         global $message;
-        $sql = "SELECT * from medication WHERE name = '$medName'";
+        $sql = "SELECT medication_id from medication WHERE name = '$medName'";
         $result = $conn->query($sql);
         $row = $result -> fetch_array();
-        $real_ID = $row['medication_id'];
+        $real_name = $row['name'];
         
-        return $real_ID;
+        if($medName == $real_name){
+            $this->setCurrentView("DoctorDisplaysOrdersView");
+            $medID = $row['medication_id'];
+            return $medID;
+        
+        }else{
+            $message = "MedID could not be found ";  
+        }
     }
     
-     /**Method takes a patientID and returns 
-      * the patientID stored in the DB only if Patient is active
-     * 
-     */
-    public function getPatientID($patientID){        
-        
-        global $model;
-        global $conn;
-        global $message;
-        $sql = "SELECT * from patient WHERE patient_id= '$patientID'";
-        $result = $conn->query($sql);
-        $row = $result -> fetch_array();
-        $real_patientID = $row['patient_id'];
-        $real_active = $row['active'];
-        
-        //check if patient is active
-        if($real_patientID == $patientID && $real_active == 1){
-            return $real_patientID;
-        }
-        return 0;
-    }
-
-    /**Method takes a doctorID and returns 
-     * the doctorID stored in the DB only if Patient is active
-     * 
-     */
-    public function getDoctorID($doctorID){        
-        
-        global $model;
-        global $conn;
-        global $message;
-        $sql = "SELECT * from doctor WHERE doctor_id= '$doctorID'";
-        $result = $conn->query($sql);
-        $row = $result -> fetch_array();
-        $real_doctorID = $row['doctor_id'];
-        $real_active = $row['active'];
-        
-        //check if doctor is active so that they can create orders
-        if($real_doctorID == $doctorID && $real_active == 1){
-            return $real_doctorID;
-        }
-        return 0;
-    }
    
     
     public function setCurrentView($newView) {
         
-        $model->currentView = $newView;
+        $this->currentView = $newView;
         
         if($newView == "AdminLoginView"){
             header("Location: AdminLoginView.php");
         }else if($newView == "HomeView"){
             header("Location: index.php");
+        }else if($newView == "AdminView"){
+            header("Location: AdminView.php");
         }else if($newView == "DoctorDisplaysOrdersView"){     //redirect to list of all orders, after new order is made
             header("Location: DoctorDisplaysOrdersView.php");
-        }else if($newView =="CaregiverView"){
-            header("Location: CaregiverClaimsOrderView.php");
-        }else if($newView =="AdminDashboardView"){
-            header("Location: AdminDashboardView.php");
-        }else{
-            header("Location: fail.php");
         }
     }
     
-    public function getCurrentView() {
+    public function getCurrentview() {
         return($this->currentview);
     }
     
-    public function setCurrentAuthorizationLevel($auth_num) {
-        $this->currentauthorizationlevel = $auth_num;   
+    public function setCurrentUser($newUser) {
+        $this->currentUser = $newUser;   
     }
     
-    public function getCurrentAuthorizationLevel() {
-        return($this->currentauthorizationlevel);
-    }
-    
-     public function setCurrentUserId($user_id) {
-        $this->setcurrentuserid = $user_id;   
-    }
-    
-    public function getCurrentUserId() {
-        return($this->currentuserid);
+    public function getCurrentUser() {
+        return($this->currentUser);
     }
 }
+
+
 ?>
+

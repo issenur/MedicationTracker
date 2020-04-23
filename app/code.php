@@ -1,5 +1,6 @@
 <?php
     
+    //The purpose of this class is to 
     include_once("Controller.php");
     global $controller;
     

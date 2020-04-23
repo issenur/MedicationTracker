@@ -5,10 +5,7 @@ include_once("Model.php");
 
 include_once("Globals.php");
  
-
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
