@@ -1,37 +1,29 @@
 <?php
-include_once("UserModel.php");
-include_once("Globals.php");
+
+
 class Model{
     
     private $currentview = "";
-    private $currentuser; 
-    
-    function __construct($currentview, $currentuser) { 
-    
-        $this->currentview = $currentview;
-        $this->currentuser = $currentuser;
-    
+    private $currentauthorizationlevel = 0;
+    private $currentuserid = 0;
+    public static $instance = null;
+     
+    private function __construct() {
+        if($_SESSION['role'] == "doctor"){
+           $this->currentuserid = $_SESSION['doctor_id'];
+        } else if($_SESSION['role'] == "caregiver"){
+            $this->currentuserid = $_SESSION['care_giver_id'];
+        } else if($_SESSION['role'] == "admin"){
+            $this->currentuserid = $_SESSION['admin_id'];
+        } else{}
     }
     
-    public function authenticateAdmin($uname, $pin_submitted){        
-        
-        global $model;
-        global $conn;
-        global $message;
-        $sql = "SELECT * from admin WHERE username = '$uname'";
-        $result = $conn->query($sql);
-        $row = $result -> fetch_array();
-        $real_pin = $row['pin'];
-        
-        if($pin_submitted == $real_pin){
-            $this->setCurrentView("AdminView");
-        
-        }else{
-            $message = "Invalid username or password!";  
+    public static function getInstance(){
+        if (self::$instance == null){
+        self::$instance = new Model();
         }
-    }
-
-    
+        return self::$instance;
+    } 
     
     public function addDoctorUser($user_name, $pin, $first, $last, $active) {
     
@@ -333,36 +325,91 @@ class Model{
         }
     }
     
+     /**Method takes a patientID and returns 
+      * the patientID stored in the DB only if Patient is active
+     * 
+     */
+    public function getPatientID($patientID){        
+        
+        global $model;
+        global $conn;
+        global $message;
+        $sql = "SELECT * from patient WHERE patient_id= '$patientID'";
+        $result = $conn->query($sql);
+        $row = $result -> fetch_array();
+        $real_patientID = $row['patient_id'];
+        $real_active = $row['active'];
+        
+        //check if patient is active
+        if($real_patientID == $patientID && $real_active == 1){
+            return $real_patientID;
+        }
+        return 0;
+    }
    
+    /**Method takes a doctorID and returns 
+     * the doctorID stored in the DB only if Patient is active
+     * 
+     */
+    public function getDoctorID($doctorID){        
+        
+        global $model;
+        global $conn;
+        global $message;
+        $sql = "SELECT * from doctor WHERE doctor_id= '$doctorID'";
+        $result = $conn->query($sql);
+        $row = $result -> fetch_array();
+        $real_doctorID = $row['doctor_id'];
+        $real_active = $row['active'];
+        
+        //check if doctor is active so that they can create orders
+        if($real_doctorID == $doctorID && $real_active == 1){
+            return $real_doctorID;
+        }
+        return 0;
+    }
     
     public function setCurrentView($newView) {
         
-        $this->currentView = $newView;
+        $model->currentView = $newView;
         
         if($newView == "AdminLoginView"){
             header("Location: AdminLoginView.php");
         }else if($newView == "HomeView"){
             header("Location: index.php");
-        }else if($newView == "AdminView"){
-            header("Location: AdminView.php");
+        }else if($newView =="CaregiverView"){
+            header("Location: CaregiverDashboardView.php");
+        }else if($newView =="CaregiverDashboardView"){
+            header("Location: CaregiverDashboarView.php");    
+        }else if($newView =="AdminDashboardView"){
+            header("Location: AdminDashboardView.php");
         }else if($newView == "DoctorDisplaysOrdersView"){     //redirect to list of all orders, after new order is made
             header("Location: DoctorDisplaysOrdersView.php");
+        }else{
+            header("Location: fail.php");
         }
     }
     
-    public function getCurrentview() {
+    public function getCurrentView() {
         return($this->currentview);
     }
     
-    public function setCurrentUser($newUser) {
-        $this->currentUser = $newUser;   
+    public function setCurrentAuthorizationLevel($auth_num) {
+        $this->currentauthorizationlevel = $auth_num;   
     }
     
-    public function getCurrentUser() {
-        return($this->currentUser);
+    public function getCurrentAuthorizationLevel() {
+        return($this->currentauthorizationlevel);
+    }
+    
+     public function setCurrentUserId($user_id) {
+        $this->currentuserid = $user_id;   
+    }
+    
+    public function getCurrentUserId() {
+        return($this->currentuserid);
     }
 }
-
 
 ?>
 

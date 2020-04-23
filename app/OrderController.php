@@ -35,11 +35,6 @@ class  OrderController {
      */
     function createOrder($order_id,$doctor_id,$patient_id) { 
 
-        global $model;
-        //$model = new Model("DoctorAddsOrderView", 1);
-        //global $conn;
-
-
         //validate the data
         if(strlen($doctor_id) != 4 || strlen($patient_id) != 4){
             $message = "Sorry the Doctor and PatientIDs must be equal to 4";
@@ -52,6 +47,7 @@ class  OrderController {
         $this->$ordersList.add($order); //add new order to our list of orders
   
         //OrderController redirects to the page where all Orders are displayed
+        $model = Model::getInstance();
         $model->setCurrentView("DoctorDisplaysOrdersView");
         
     } 

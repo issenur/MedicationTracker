@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2020 at 06:42 PM
+-- Generation Time: Apr 15, 2020 at 02:01 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.15
 
@@ -50,15 +50,30 @@ CREATE TABLE `break_down` (
   `order_id` int(6) UNSIGNED ZEROFILL NOT NULL,
   `medication_id` int(6) UNSIGNED ZEROFILL NOT NULL,
   `quantity` decimal(8,2) NOT NULL,
-  `administer_time` time NOT NULL
+  `administer_time` time NOT NULL,
+  `completed` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `break_down`
 --
 
-INSERT INTO `break_down` (`order_id`, `medication_id`, `quantity`, `administer_time`) VALUES
-(008494, 000001, '200.00', '00:00:00');
+INSERT INTO `break_down` (`order_id`, `medication_id`, `quantity`, `administer_time`, `completed`) VALUES
+(400001, 100000, '5.00', '09:00:00', 0),
+(400000, 100001, '1.00', '09:00:00', 0),
+(400002, 100004, '0.20', '09:00:00', 0),
+(400000, 100005, '1.00', '09:00:00', 0),
+(400000, 100005, '1.00', '21:00:00', 0),
+(400002, 100005, '1.00', '09:00:00', 0),
+(400002, 100005, '1.00', '21:00:00', 0),
+(400000, 100006, '100.00', '09:00:00', 0),
+(400001, 100006, '200.00', '09:00:00', 0),
+(400000, 100007, '1.00', '09:00:00', 0),
+(400000, 100007, '1.00', '15:00:00', 0),
+(400003, 100007, '1.00', '09:00:00', 0),
+(400003, 100007, '1.00', '15:00:00', 0),
+(400000, 100008, '2.00', '15:00:00', 0),
+(400001, 100008, '150.00', '09:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -80,9 +95,10 @@ CREATE TABLE `care_giver` (
 
 INSERT INTO `care_giver` (`care_giver_id`, `first`, `last`, `is_nurse`, `active`) VALUES
 (0000, 'NULL', 'NULL', 1, 1),
-(0001, 'Samuel', 'Ray', 1, 1),
-(0002, 'Ike', 'Mink', 1, 1),
-(0003, 'Sean', 'Carter', 1, 1);
+(5000, 'Samuel', 'Ray', 1, 1),
+(5001, 'Nina', 'Rodgers', 1, 1),
+(5002, 'Anisa', 'Abdi', 1, 1),
+(5003, 'Sean', 'Carter', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -102,10 +118,9 @@ CREATE TABLE `doctor` (
 --
 
 INSERT INTO `doctor` (`doctor_id`, `first`, `last`, `active`) VALUES
-(0033, 'Lee', 'Xi', 1),
-(0034, 'Jose', 'Nunez', 1),
-(0035, 'Mitchell', 'Johnson', 1),
-(0036, 'Mack', 'Odell', 1);
+(7000, 'Leroy', 'James', 0),
+(7001, 'Najma', 'Jama', 1),
+(7002, 'Jose', 'Nunez', 0);
 
 -- --------------------------------------------------------
 
@@ -125,7 +140,15 @@ CREATE TABLE `medication` (
 --
 
 INSERT INTO `medication` (`medication_id`, `name`, `units`, `physical_form`) VALUES
-(000001, 'Lidocaine Solution', 'ml', 'Syrup');
+(100000, 'lidocaine patch', '%', 'Gel'),
+(100001, 'furosemide', '', 'Tablet'),
+(100002, 'fluticasone', 'mcg', 'Nasal Spray'),
+(100003, 'insulin', 'ml', 'Injected'),
+(100004, 'clonidine', '%', 'Patch'),
+(100005, 'atenolol', '', 'Tablet'),
+(100006, 'albuterol', 'mcg', 'Inhaled'),
+(100007, 'omeperazol', '', 'Capsule'),
+(100008, 'carafate', 'ml', 'Syrup');
 
 -- --------------------------------------------------------
 
@@ -146,8 +169,10 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`order_id`, `doctor_id`, `patient_id`, `care_giver_id`, `date`) VALUES
-(000006, 0036, 0063, 0000, '2020-03-28'),
-(008494, 0035, 0001, 0000, '2020-04-01');
+(400000, 7001, 3002, 0000, '2020-01-06'),
+(400001, 7001, 3001, 0000, '2020-03-07'),
+(400002, 7001, 3003, 0000, '2020-03-11'),
+(400003, 7001, 3000, 0000, '2020-03-28');
 
 -- --------------------------------------------------------
 
@@ -168,10 +193,10 @@ CREATE TABLE `patient` (
 --
 
 INSERT INTO `patient` (`patient_id`, `first`, `last`, `date_of_birth`, `active`) VALUES
-(0001, 'Abdi', 'Abdi', '1992-02-06', 1),
-(0002, 'Billy', 'Jean', '1970-12-01', 1),
-(0004, 'Tyrone', 'Taylor', '1985-08-27', 1),
-(0063, 'Jay', 'Jackson', '1990-09-27', 1);
+(3000, 'Kyle', 'Omar', '2001-02-06', 1),
+(3001, 'Guled', 'Farah', '1995-09-27', 1),
+(3002, 'Angie', 'Simpson', '1929-12-01', 1),
+(3003, 'David', 'Lucas', '1974-08-27', 1);
 
 -- --------------------------------------------------------
 
@@ -193,17 +218,17 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`username`, `pin`, `doctor_id`, `patient_id`, `care_giver_id`, `active`) VALUES
-('AbdiAbdi@mn', 1111, NULL, 0001, NULL, 1),
-('Billy6000', 9393, NULL, 0002, NULL, 1),
-('DocJohnson', 8980, 0035, NULL, NULL, 1),
-('IkeMink2019', 8080, NULL, NULL, 0002, 1),
-('JayJackson', 0195, NULL, 0063, NULL, 1),
-('JoseNunez', 2134, 0034, NULL, NULL, 1),
-('LeeXi007', 2020, 0033, NULL, NULL, 1),
-('MackOdo', 2300, 0036, NULL, NULL, 1),
-('SamuelRay1', 1001, NULL, NULL, 0001, 1),
-('SeanCarter', 0003, NULL, NULL, 0003, 1),
-('TyroneFFF', 1234, NULL, 0004, NULL, 1);
+('Anisa2020', 2323, NULL, NULL, 5002, 1),
+('Farah500!', 0195, NULL, 3001, NULL, 1),
+('JoseNunez', 2134, 7002, NULL, NULL, 0),
+('KyleOmar', 6541, NULL, 3000, NULL, 1),
+('LeeROY1', 2020, 7000, NULL, NULL, 0),
+('LU8989', 1234, NULL, 3003, NULL, 1),
+('Najma@100', 2300, 7001, NULL, NULL, 1),
+('NinaR$007', 8080, NULL, NULL, 5001, 1),
+('SamuelRay1', 1001, NULL, NULL, 5000, 1),
+('SeanCarter', 0003, NULL, NULL, 5003, 1),
+('Simpson6000', 9393, NULL, 3002, NULL, 1);
 
 --
 -- Indexes for dumped tables
@@ -260,7 +285,10 @@ ALTER TABLE `patient`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`username`);
+  ADD PRIMARY KEY (`username`),
+  ADD KEY `FOREIGN_KEY1` (`doctor_id`),
+  ADD KEY `FOREIGN_KEY3` (`care_giver_id`),
+  ADD KEY `FOREIGN_KEY0` (`patient_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -270,31 +298,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `care_giver`
 --
 ALTER TABLE `care_giver`
-  MODIFY `care_giver_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `care_giver_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5005;
 
 --
 -- AUTO_INCREMENT for table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `doctor_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `doctor_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7005;
 
 --
 -- AUTO_INCREMENT for table `medication`
 --
 ALTER TABLE `medication`
-  MODIFY `medication_id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `medication_id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100010;
 
 --
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `order_id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8495;
+  MODIFY `order_id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=400007;
 
 --
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `patient_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `patient_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3005;
 
 --
 -- Constraints for dumped tables
@@ -313,6 +341,14 @@ ALTER TABLE `order`
   ADD CONSTRAINT `FOREIGN2` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `FOREIGN3` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `FOREIGN4` FOREIGN KEY (`care_giver_id`) REFERENCES `care_giver` (`care_giver_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `FOREIGN_KEY0` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `FOREIGN_KEY1` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `FOREIGN_KEY3` FOREIGN KEY (`care_giver_id`) REFERENCES `care_giver` (`care_giver_id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

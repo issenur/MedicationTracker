@@ -1,9 +1,11 @@
 <?php
 
 include_once("Globals.php");
-global $model;
+include_once("Model.php");
 session_start();
-
+if(!isset($_SESSION['username']) || $_SESSION['role'] != "caregiver"){
+    header("location:index.php");
+}
 if(isset($_GET['claim_order'])){
    $order_id = $_GET['claim_order'];
    $_SESSION['order_id'] = $_GET['claim_order'];
@@ -95,8 +97,9 @@ if(isset($_GET['claim_order'])){
                         <a class="btn btn-app"  href ="CaregiverCODetailView.php?button_claim=$care_giver_id"style="background-color:chartreuse" style="background-color:orange" >
                             <i class="fas fa-edit" type ="submit" name="button_claim2"  style="background-color:chartreuse">Order Claimed</i>
                         </a>
-                        <?php 
-                             header("refresh:2.0; CaregiverDashboardView.php");
+                        <?php
+                               header("refresh:0.7; url=CaregiverDashboardView.php");
+
                                
                         ?>
                     </div>

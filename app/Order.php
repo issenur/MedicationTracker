@@ -2,6 +2,8 @@
 include_once("Globals.php");
 include_once("Patient.php");
 include_once("Doctor.php");
+include_once("Medication.php");
+include_once("Model.php");
 //include_once("Caregiver.php");
 
 
@@ -41,6 +43,7 @@ class Order implements IteratorAggregate {
      */
     private function addMeds2Order($medName,$medQty,$medUnit){
 		//check to see if Med is in DB
+		$model = Model::getInstance();
 		$medID = $model->getMedID($medName);
 
 		//creates Med object 

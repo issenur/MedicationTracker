@@ -34,7 +34,7 @@ include_once("OrderController.php");
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="DoctorDashboard.php" class="nav-link">Home</a>
+        <a href="DoctorDashboardView.php" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Log Out</a>
@@ -66,7 +66,7 @@ include_once("OrderController.php");
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="DoctorDashboard.php" class="brand-link">
+    <a href="DoctorDashboardView.php" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">MedicationTracker</span>
@@ -93,7 +93,7 @@ include_once("OrderController.php");
             
             <ul class="nav nav-treeview">
             <li class="nav-item">
-                <a href="./DoctorDashboard.php" class="nav-link">
+                <a href="./DoctorDashboardView.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Doctor Dashboard</p>
                 </a>

@@ -1,4 +1,9 @@
 <?php
+session_start();
+    
+if(!isset($_SESSION['username']) || $_SESSION['role'] != "doctor"){
+    header("location:index.php");
+}
 include_once("OrderController.php");
 include_once("DoctorInputsCode.php");
 include_once("Model.php");
@@ -254,7 +259,6 @@ include_once("Globals.php");
                         <script>
                         //var orderNum = document.getElementById("orderID").value;
                         //document.getElementById(ordertest).innerHTML = orderNum;
-
                         function genOrderNumber(numDigits) {
                           var orderNumber;
                           var n = '';
@@ -291,7 +295,6 @@ include_once("Globals.php");
                 </div>
               </div>
             </div>
-
           </div>
          -->
 
@@ -347,7 +350,6 @@ include_once("Globals.php");
                     <tr id='addr1'></tr>
         </tbody>
       </table>
-
           
           <div class="card-footer clearfix">
             <button type ="button" name="submitDocOrder" id="submitOrder" class="btn btn-sm btn-info float-right">Submit Order</button>
@@ -757,18 +759,14 @@ include_once("Globals.php");
     html += '</button></td></tr>';
     $(function(){
     $('tbody').sortable();
-
     //Adds row in Meds table when doctor clicks button
     $('#add_row').click(function(){
       $('tbody').append(html);
     });
-
     //Removes the selected row in the Meds table when doctor clicks button
     $(document).on('click', '.remove', function() {
     $(this).parents('tr').remove(); //remove the row
         });
-
-
 //Get the values of each MedID, MedQ and the Med units selected
  $('#submitOrder').click(function(){
       var medIDrow= [];
@@ -786,20 +784,16 @@ include_once("Globals.php");
       $('select option:selected').each(function(index, value){
         medUnitrow.push($(value).val());
         });
-
       medIDrow.pop();
       medQtyrow.pop();
       medUnitrow.pop(); //remove the inital g unit  
       medUnitrow.pop(); //remove the last g
-
    
      
-
       //alert("MedIDs are: " + medIDrow); //print MedIDs
       //alert("MedQuantities are: " + medQtyrow);
       //alert("MedUnits  are: " + medUnitrow);
       
-
       $.ajax({
             url: "includes/DoctorInputsCode.php",
             type: "POST",
