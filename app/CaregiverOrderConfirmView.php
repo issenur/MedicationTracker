@@ -98,9 +98,8 @@ if(isset($_GET['claim_order'])){
                             <i class="fas fa-edit" type ="submit" name="button_claim2"  style="background-color:chartreuse">Order Claimed</i>
                         </a>
                         <?php
-                              
-                            $model = Model::getInstance();
-                            $model->setCurrentView("CaregiverDashboardView");
+                               header("refresh:0.7; url=CaregiverDashboardView.php");
+
                                
                         ?>
                     </div>

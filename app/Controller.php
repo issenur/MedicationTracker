@@ -28,16 +28,14 @@ class Controller{
     
     public function removeDoctorUser($user_name) {
         $model = Model::getInstance();
-        $model->removeCaregiverUser($user_name);
+        $model->removeDoctorUser($user_name);
         $model->setCurrentView("AdminDashboardView");
     }
     
     public function activateDoctorUser($user_name) {
-        global $model;
+        $model = Model::getInstance();
         $model->activateDoctorUser($user_name);
         $model->setCurrentView("AdminDashboardView");
-        $model->setCurrentAuthorizationLevel(1);
-        
     }
     
     public function addPatientUser($user_name, $pin, $first, $last, $date_of_birth, $active) { 
@@ -48,7 +46,7 @@ class Controller{
     
     public function removePatientUser($user_name) {
         $model = Model::getInstance();
-        $model->removeCaregiverUser($user_name);
+        $model->removePatientUser($user_name);
         $model->setCurrentView("AdminDashboardView");
     }
     
