@@ -105,7 +105,7 @@ include_once("OrderController.php");
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./DoctorDisplaysOrders.php" class="nav-link active">
+                <a href="./DoctorDisplaysOrdersView.php" class="nav-link active">
                   <i class="far fa-check-circle nav-icon"></i>
                   <p>Display All Orders</p>
                 </a>
@@ -128,7 +128,7 @@ include_once("OrderController.php");
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="DoctorDisplaysOrders.php" class="nav-link">
+                <a href="DoctorDisplaysOrdersView.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>General Elements</p>
                 </a>

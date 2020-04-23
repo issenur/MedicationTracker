@@ -1,34 +1,31 @@
 <?php
-
-include_once("Model.php");
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "medicationtracker";
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-     
+include_once("Globals.php");
+include_once("DoctorAddsOrderView.php");
+include_once("Order.php");
 
 
-/** Takes user input data from Model, the model returns value 
- * The purpose of this class is to do CRUD of an order
+/**  
+ * The purpose of this class is to do CRUD of an Order object
  * 
  * 
  */ 
 class  OrderController {
 
-    //instance of the Model class called Order
-    //public Order $Order;
+   /* instance var of an OrderController */
+    public $order;
+    public $ordersList;
 
-    //get an instance of our DB for this class.
 
-
-    //get a list of All the Orders made
-    //public array $ordersList; 
     /**Constructor which creates order object
      * this method gets params from View, creates Order instance in this class
      */
-    function construct (){  
+    function construct(){
+        
+        //instantiate the Order object
+       // $this->$order= new Order($orderID,$doctorID,$patientID);
+       //create list to hold all Order objects 
+       $this->$ordersList = array();
+    
     }
 
     
@@ -36,7 +33,7 @@ class  OrderController {
      * 
      * Doctor creates an Order
      */
-    function createOrder($order_id,$doctor_id,$patient_id,$med_id,$medQty) { 
+    function createOrder($order_id,$doctor_id,$patient_id) { 
 
         global $model;
         $model->setCurrentAuthorizationLevel(1);
@@ -44,37 +41,48 @@ class  OrderController {
         global $conn;
         global $controller;
 
-         //NOTE**CaregiverID will be given an initial value of 0 when order is made
-        $model->doctorCreatesOrder($order_id, $doctor_id,$patient_id);
 
-        //we need orderID so that meds can be added to a specific order
-        $model->addMeds2Order($order_id,$med_id,$medQty);
+        //validate the data
+        if(strlen($doctor_id) != 4 || strlen($patient_id) != 4){
+            $message = "Sorry the Doctor and PatientIDs must be equal to 4";
 
+        }
+         //check to make sure doctorID is in the DB, if so proceed
+		//check to make sure patientID is in DB, if so proceed
+        //create Order object
+        $this->$order = new Order($order_id,$doctor_id,$patient_id);
+        $this->$ordersList.add($order); //add new order to our list of orders
+  
         //OrderController redirects to the page where all Orders are displayed
         //$md->setCurrentView("DoctorDisplaysOrders"); 
         $model->setCurrentView("DoctorDisplaysOrders");
         
     } 
 
-    /**Method updates an Order's details?
-     *  should we
-     */
-    function updateOrder($orderID, $orderIDToUpdate){
-    //check to see which attribute of an order will be updated
-
-    }
 
     /**Method add additional medication via medID to an order
-     * returns boolean, succesful addition = true, failure to add = false
+     * returns boolean succesful addition = true, failure to add = false
      */
-    function addMeds2Order($theOrderID, array $MedicationID){
-     
-        //loop, add multipel medsto 1 order
+    function addMeds2Order($order_id, $medName,$medQty,$medUnit){
+        //validate medid, medQty,medUnit
+    if(strlen($medQty > 3) || strlen($medQty == 0) ) {
+        echo "Sorry the Medication Qty entered must between 1 and equal to 999";
 
-        //
+    }
+    //check if orderID is equal to this order
+    if($this->$order->getOrderID() == $order_id){
+        //add Medications to Order list and the DB as well
+        $this->$order->addMeds2Order($medName,$medQty,$medUnit);
+        return true;
+    }
+    else{
+        return false;
+    }
+        
     
 
     }
+
 
     /** Method  allows a caregiver to assign themselves to an order
      * 
@@ -92,9 +100,6 @@ class  OrderController {
     
 
 
-
-
-
     /**Method gets the caregiverID from View, and updates the status field of Order to "fufilled"
      * 
      * order status 0 = order created
@@ -110,14 +115,16 @@ class  OrderController {
 
     }
 
-    /**Method returns an entire order details to the View
+    /**Method returns an all orders to the View
      * returns a message of order details
      */
-   function printOrderDetails(){
+   function printAllOrders(){
     
-        //return this.order.orderDetails();
+    foreach($ordersList as $value){
+       //return $value->orderDetails(); 
     }
-
+       
+    }
 
 }
 ?>

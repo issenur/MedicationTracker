@@ -1,3 +1,4 @@
+
 <?php
 include_once("Globals.php");
     
@@ -6,6 +7,12 @@ include_once("Globals.php");
     if(!isset($_SESSION['username']) || $_SESSION['role'] != "doctor"){
         header("location:index.php");
     }
+    include_once("Controller.php");
+    include_once("OrderController.php");
+    include_once("Model.php");
+
+    $orderController = new OrderController();
+    $controller = new Controller();  //class handles changing of views
 ?>
 
 <!DOCTYPE html>
@@ -30,39 +37,41 @@ include_once("Globals.php");
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
   <!-- Navbar -->
-      <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <!-- Left navbar links -->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
-            </li>
-        </ul>
-        
-        <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
-            <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
-                    <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-    
-        <!-- Right navbar links -->
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="logout.php" class="nav-link">Logout</a>
-            </li>
-        </ul>
-    </nav>
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="DoctorDashboard.php" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link">Log Out</a>
+      </li>
+    </ul>
+
+    <!-- SEARCH FORM -->
+    <form class="form-inline ml-3">
+      <div class="input-group input-group-sm">
+        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-navbar" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
+            class="fas fa-th-large"></i></a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -106,7 +115,7 @@ include_once("Globals.php");
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./DoctorDisplaysOrders.php" class="nav-link ">
+                <a href="./DoctorDisplaysOrdersView.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Display All Orders</p>
                 </a>
@@ -330,7 +339,86 @@ include_once("Globals.php");
       
       </table>
 
-       
+
+      <!-- form start -->
+      <form role="form action" action="OrderController.php" method="POST">
+        
+        <div class="card-body">
+          <div class="form-group">
+            <label for="inputEmail1">OrderID</label>
+            <input type="text" class="form-control" id="orderID2" name="inputOrderID1"  placeholder="" disabled>
+          <script>
+              function genOrderNumber(numDigits) {
+                var orderNumber;
+                var n = '';
+                for(var count = 0; count < numDigits; count++) {
+                  orderNumber = Math.floor(Math.random() * 10);
+                  n += orderNumber.toString();
+                }
+                return n;
+                }
+                document.getElementById("orderID2").value = genOrderNumber(4);
+          </script>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="inputDate1">Order Creation Date</label>
+              <input type="text" class="form-control" id="orderDate1" name="inputOrderDate1"  placeholder="" disabled>
+              <script>
+                  function genOrderDate() {
+                    var orderDate = new Date();;
+                    return orderDate;
+                  }
+                  document.getElementById("orderDate1").value = genOrderDate();
+            </script>
+            </div>
+          <div class="form-group">
+            <label for="inputDoctorID1">DoctorID</label>
+            <input type="text" class="form-control" id = "doctorID" name="inputDoctorID1" placeholder="Enter your DoctorID">
+          </div>
+          <div class="form-group">
+            <label for="inputPatientID1">PatientID</label>
+            <input type="text" class="form-control" id = "patientID" name="inputPatientID1" placeholder="Enter the PatientID">
+          </div>
+          <div class="form-group">
+            <label for="inputMedicationID1">MedicationID</label>
+            <input type="text" class="form-control" id="medID" name="inputMedicationID1" placeholder="Enter a MedicationID">
+          </div>
+          <div class="form-group">
+            <label>Select Type of Medication</label>
+            <select class="form-control" id="medType" name="inputMedicationType1">
+              <option>Tablet</option>
+              <option>Gel Capsule</option>
+              <option>Hard Capsule</option>
+              <option>Liquid syrup</option>
+              <option>Inhaler</option>
+              <option>Ointment</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="inputMedicationQty1">Medication Quantity</label>
+            <input type="text" class="form-control" id="medQty" name="inputMedicationQty1" placeholder="Enter daily dose a patient would take for Medication">
+          </div>
+          <div class="form-group">
+            <label>Select Unit for Medication</label>
+            <select class="form-control" id="medUnit" name= "inputMedicationUnit1">
+              <option>grams</option>
+              <option>mg</option>
+              <option>mL</option>
+              <option>puffs</option>
+            </select>
+          </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+          <button type="submit" name= "submit" dd class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+    
+    <!-- /.card -->
+
+
 <!-- Old Code
                       <label>Doctor ID</label>
                       <input type="text" class="form-control" placeholder="Type Here...">

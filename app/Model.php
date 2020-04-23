@@ -23,18 +23,14 @@ class Model{
         self::$instance = new Model();
         }
         return self::$instance;
-    }
-    
-    
-    
-    
+    } 
     
     public function addDoctorUser($user_name, $pin, $first, $last, $active) {
     
         global $conn;
         global $userModel;
         $userModel = new ModelUser();
-        $doctor_id = $userModel->addDoctor($first, $last, $active);
+        $doctor_id = $userModel->addDoctor($first, $last, $active);  //UserModel class
         
         if($doctor_id > 0){
         
@@ -281,12 +277,14 @@ class Model{
         
         $sql = "INSERT INTO `order` (`order_id`,`doctor_id`, `patient_id`, `care_giver_id`, `date`) VALUES ('$order_id','$doctor_id', '$patient_id', '0000', CURDATE())";
         if(!mysqli_query($conn, $sql)){
-           return false;
+           return false; 
         }else{
            return true;
         }
     }
     
+  
+
     /**
     * Methods adds medications to an Order
     */
@@ -302,6 +300,29 @@ class Model{
             return true;   
         }
     
+    }
+
+    /**Method takes in a medName and return the associated medID
+    * 
+    */
+    public function getMedID($medName){        
+        
+        global $model;
+        global $conn;
+        global $message;
+        $sql = "SELECT medication_id from medication WHERE name = '$medName'";
+        $result = $conn->query($sql);
+        $row = $result -> fetch_array();
+        $real_name = $row['name'];
+        
+        if($medName == $real_name){
+            $this->setCurrentView("DoctorDisplaysOrdersView");
+            $medID = $row['medication_id'];
+            return $medID;
+        
+        }else{
+            $message = "MedID could not be found ";  
+        }
     }
     
    
@@ -322,6 +343,8 @@ class Model{
             header("Location: CaregiverDashboarView.php");    
         }else if($newView =="AdminDashboardView"){
             header("Location: AdminDashboardView.php");
+        }else if($newView == "DoctorDisplaysOrdersView"){     //redirect to list of all orders, after new order is made
+            header("Location: DoctorDisplaysOrdersView.php");
         }else{
             header("Location: fail.php");
         }
@@ -347,44 +370,6 @@ class Model{
         return($this->currentuserid);
     }
 }
-
-
-/*$model = Model::createModelWithViewAndAuth("CaregiverDashboard", 777);
-$result = $model->getCurrentView();
-echo "Current View: " . $result . "<br>";
-$result = $model->getCurrentAuthorizationLevel();
-echo "Current Authorization Level: " . $result . "<br>";
-
-$model->setCurrentView("DoctorDashboard");
-$result = $model->getCurrentView();
-echo "Current View: " . $result . "<br>";
-$result = $model->getCurrentAuthorizationLevel();
-echo "Current Authorization Level: " . $result . "<br>";
-$model->setCurrentAuthorizationLevel(66);
-$result = $model->getCurrentAuthorizationLevel();
-echo "Current Authorization Level: " . $result . "<br>";
-
-public static function createModel() {
-        
-        $model = new Model(); 
-        return $model;
-    }
-    
-    public static function createModelWithView($currentview) {
-        
-        $model = new Model();
-        $model->currentview = $currentview;
-        return $model;
-    }
-
-    public static function createModelWithViewAndAuth($currentview, $currentauthlevel) {
-        $model = new Model();
-        $model->currentview = $currentview;
-        $model->currentauthorizationlevel = $currentauthlevel;
-        
-        return $model;
-    }
-*/
 
 ?>
 

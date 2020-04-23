@@ -1,5 +1,4 @@
 <?php
-  
     session_start();
     include_once("Globals.php");
     include_once("Model.php");
