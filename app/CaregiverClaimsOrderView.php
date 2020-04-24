@@ -4,10 +4,10 @@
     if(!isset($_SESSION['username']) || $_SESSION['role'] != "caregiver"){
         header("location:index.php");
     }
-    
+
     include_once("Globals.php");
     include_once("Model.php");
-   
+
 ?>
 
 <!DOCTYPE html>
@@ -37,13 +37,10 @@
                 <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
+                <a href="http://localhost/CaregiverDashboardView.php" class="nav-link">Home</a>
             </li>
         </ul>
-        
+
         <!-- SEARCH FORM -->
         <form class="form-inline ml-3">
             <div class="input-group input-group-sm">
@@ -55,7 +52,7 @@
                 </div>
             </div>
         </form>
-    
+
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <li class="nav-item d-none d-sm-inline-block">
@@ -71,19 +68,19 @@
             style="opacity: .8">
             <span class="brand-text font-weight-light">MedicationTracker</span>
         </a>
-        
+
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="dist/img/doctorimage.png" class="img-circle elevation-2" alt="User Image">
+                    <img src="dist/img/caregiverimage.png" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">Role: Caregiver</a>
                 </div>
             </div>
-            
+
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -97,6 +94,18 @@
                                     <p>Caregiver Dashboard</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="./CaregiverClaimsOrderView.php" class="nav-link active">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Self-Assign Order</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./CaregiverFulfillsOrderView.php" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Fulfill Order</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -105,9 +114,25 @@
         </div>
         <!-- /.sidebar -->
     </aside>
-    
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">Unassigned Orders</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="http://localhost/CaregiverDashboardView.php">Home</a></li>
+                <li class="breadcrumb-item active">Self-Assign Order</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
@@ -124,13 +149,13 @@
                                 </tr>
                             </thead>
                             <?php
-                                
+
                                 global $conn;
-                                
+
                                 if ($conn->connect_error) {
                                     die("Connection failed: " . $conn->connect_error);
                                 }
-                                
+
                                 $sql = "SELECT";
                                 $sql .= "`order`.`order_id` AS `order_id` ,";
                                 $sql .= "`patient`.`first` AS `pfirst` ,";
@@ -150,7 +175,7 @@
                                         echo "<td>" . (int)$row['order_id'] . "</td>";
                                         echo"<td>";
                                         echo "<a href ='CaregiverCODetailView.php?claim_order=".  $row['order_id'] ."'><button class='btn btn-dark'>Claim Order</button>"."<a/>";
-                                        echo "</td>"; 
+                                        echo "</td>";
                                         echo "<td>" . $row['pfirst'] . " " .  $row['plast'] . "</td>";
                                         echo "<td>" . (2020 - (int)$row['pdate']) . "</td>";
                                         echo "<td>" . $row['date'] . "</td>";
@@ -168,7 +193,7 @@
                 </div>
             </div>
             <!-- /.container-fluid -->
-        </section>        
+        </section>
     </div>
     <!-- /.content-wrapper -->
 </div>
