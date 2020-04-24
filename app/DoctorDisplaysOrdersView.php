@@ -1,9 +1,13 @@
 <?php
-
-include_once("Model.php");
-include_once("DoctorAddsOrderView.php"); 
-include_once("OrderController.php");  
-
+    
+    session_start();
+    if(!isset($_SESSION['username']) || $_SESSION['role'] != "admin"){
+        header("location:index.php");
+    }
+    
+    include_once("Globals.php");
+    global $model;
+    
 ?>
 
 <!DOCTYPE html>
@@ -145,50 +149,9 @@ include_once("OrderController.php");
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <!-- Info boxes -->
-        <div class="row">
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-cog"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Number of Pending Orders</span>
-                <span class="info-box-number">
-                  5
-                  <small>%</small>
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-
-
-
+        
           <!-- fix for small devices only -->
           <div class="clearfix hidden-md-up"></div>
-
-          <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-cog"></i></span>
-              <div class="info-box-content">
-                <span class="info-box-text">Number of Complete Orders</span>
-                <span class="info-box-number">6
-                <small>%</small>
-              </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-        </div>
-
-        <!-- /.row -->
-        
-         
 
       <!-- TABLE: LATEST ORDERS -->
       <div class="card">
@@ -206,92 +169,58 @@ include_once("OrderController.php");
           </div>
 
 
-          <!-- /.card-header -->
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table m-0">
-                <thead>
-                <tr>
-                  <th>Order ID</th>
-                  <th>Item</th>
-                  <th>Status</th>
-                  <th>Patient Name</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td><a href="pages/examples/invoice.html">984253</a></td>
-                  <td>Tyelnol Capsule 500mg </td>
-                  <td><span class="badge badge-success">Fufilled</span></td>
-                  <td>
-                    <div class="sparkbar" data-color="#00a65a" data-height="20">Saynab Abdiwahab</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><a href="pages/examples/invoice.html">184832</a></td>
-                  <td>OxyCodone Liquid 100ml</td>
-                  <td><span class="badge badge-warning">Pending</span></td>
-                  <td>
-                    <div class="sparkbar" data-color="#f39c12" data-height="20">Thomas Doolittle</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><a href="pages/examples/invoice.html">742945</a></td>
-                  <td>Miralax Powder 100mg</td>
-                  <td><span class="badge badge-success">Fufilled</span></td>
-                  <td>
-                    <div class="sparkbar" data-color="#00a65a" data-height="20">Jermaine Jones</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><a href="pages/examples/invoice.html">984269</a></td>
-                  <td>Zyntec Capsule 300mg</td>
-                  <td><span class="badge badge-warning">Pending</span></td>
-                  <td>
-                    <div class="sparkbar" data-color="#f39c12" data-height="20">Zamzam Abdi</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><a href="pages/examples/invoice.html">671848</a></td>
-                  <td>Mucinex Liquid 10ml</td>
-                  <td><span class="badge badge-warning">Pending</span></td>
-                  <td>
-                    <div class="sparkbar" data-color="#f39c12" data-height="20">Luke Weindahl</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><a href="pages/examples/invoice.html">590429</a></td>
-                  <td>Vicodin Liquid 100ml</td>
-                  <td><span class="badge badge-success">Fufilled</span></td>
-                  <td>
-                    <div class="sparkbar" data-color="#00a65a" data-height="20">Habiba Ali</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><a href="pages/examples/invoice.html">239842</a></td>
-                  <td>Lunesta Capsule 300mg</td>
-                  <td><span class="badge badge-warning">Pending</span></td>
-                  <td>
-                    <div class="sparkbar" data-color="#f39c12" data-height="20">Rita Garcia</div>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
+          <div class="col-sm-12">
+                        <h1>Latest Orders</h1>
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>OrderID</th>
+                                    <th>DoctorID</th>
+                                    <th>PatientID</th>
+                                    <th>Date</th>
+                                  
+                                </tr>
+                            </thead>
+                            <?php
+                                global $conn;
+                                if ($conn->connect_error) {
+                                    die("Connection failed: " . $conn->connect_error);
+                                }
+                                
+                                $sql  = "select";
+                                $sql .= "`order`.`order_id` AS `order_id` ,";
+                                $sql .= "`order`.`doctor_id` AS `doctor_id` ,";
+                                $sql .= "`order`.`patient_id` AS `patient_id` ,";
+                                $sql .= " DATE_FORMAT(`date`, '%d-%b-%Y') AS `date`,";
+                                $sql .= " FROM `order` ";
+                                $sql .= " JOIN `user` ON (`user`.`doctor_id` = `order`.`doctor_id`)";
+                                $result = $conn->query($sql);
+                                echo "<id='example2'>";
+                                echo "<tbody>";
+                                if ($result->num_rows > 0) {
+                                    while($row = $result->fetch_assoc()) {
+                                        echo "<tr>";
+                                        if(!($row['order_id'] == NULL)){
+                                            echo "<td>OrderID</td>";
+                                            echo "<td>" . $row['order_id'] . "</td>";
+                                            echo "<td>" . $row['doctor_id'] . "</td>";
+                                            echo "<td>" . $row['patient_id'] . "</td>";
+                                            echo "<td>" . $row['date'] . "</td>";
+                                            echo"<td>";
+                                            echo "</td>"; 
+                                        } 
+                                        echo "</tr>";
+                                    }
+                                    echo "</tbody>";
+                                    echo "</table>";
+                                } else {
+                                    echo "</tbody>";
+                                    echo "</table>";
+                                    
+                                }
+                            ?>
+                         </div>
             </div>
-            <!-- /.table-responsive -->
-          </div>
-          <!-- /.card-body -->
-          <div class="card-footer clearfix">
-            <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
-            <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
-          </div>
-          <!-- /.card-footer -->
-        </div>
-        <!-- /.card -->
-      </div>
-      <!-- /.col -->
-
-
       </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->
@@ -314,6 +243,5 @@ include_once("OrderController.php");
   </footer>
 </div>
 <!-- ./wrapper -->
-
 </body>
 </html>
