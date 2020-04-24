@@ -123,7 +123,7 @@
                                     <thead>
                                         <tr>
                                             <th>Medication Name</th>
-                                            <th>Quantity</th>
+                                            <th>Quantity/Units</th>
                                             <th>Type</th>
                                             <th>Administer time</th>
                                             <th>Completed?</th>

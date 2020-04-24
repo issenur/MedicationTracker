@@ -151,8 +151,11 @@ global $model;
                                 if ($conn->connect_error) {
                                     die("Connection failed: " . $conn->connect_error);
                                 }
+                                $model = Model::getInstance();
+                                $Care_Giver_ID = $model-> getCurrentUserId(); // get Caregiver ID, add to line 166.
 
                                 $sql = "SELECT";
+
                                 $sql .= "`order`.`order_id` AS `order_id` ,";
                                 $sql .= "`patient`.`first` AS `pfirst` ,";
                                 $sql .= "`patient`.`last` AS `plast` ,";
