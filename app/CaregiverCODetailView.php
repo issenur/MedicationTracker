@@ -2,11 +2,11 @@
     session_start();
     include_once("Globals.php");
     include_once("Model.php");
-    
+
     if(!isset($_SESSION['username']) || $_SESSION['role'] != "caregiver"){
       header("location:index.php");
     }
-    
+
     if(isset($_GET['claim_order'])){
         $order_id = $_GET['claim_order'];
         $_SESSION['order_id'] = $_GET['claim_order'];
@@ -33,6 +33,7 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
+
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
@@ -41,19 +42,19 @@
             style="opacity: .8">
             <span class="brand-text font-weight-light">MedicationTracker</span>
         </a>
-        
+
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="dist/img/doctorimage.png" class="img-circle elevation-2" alt="User Image">
+                    <img src="dist/img/caregiverimage.png" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">Role: Caregiver</a>
                 </div>
             </div>
-            
+
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -90,21 +91,21 @@
                         </h1>
                     </div>
                     <div class ="col-auto">
-                    
-                        <a class="btn btn-app"  href ="CaregiverCODetailView.php?button_claim=$care_giver_id" style="background-color:orange" >
-                            <i class="fas fa-edit" type ="submit" name="button_claim"  style="background-color:orange">Click To Confirm Claim</i>
+
+                        <a class="btn btn-app"  href ="CaregiverCODetailView.php?button_claim=$care_giver_id" style="background-color:lightblue" >
+                            <i class="fas fa-edit" type ="submit" name="button_claim"  style="background-color:lightblue">Click To Confirm Claim</i>
                         </a>
-                        <?php 
+                        <?php
                             if(isset($_GET["button_claim"])){
-                                 
+
                                 $model = Model::getInstance();
                                 $care_giver_id = $model->getCurrentUserId();
-                              
-                             
+
+
                                 $order_id = $_SESSION['order_id'];
-                                
+
                                 $sql = "UPDATE `order` SET `care_giver_id` = '$care_giver_id'  WHERE `order_id` = '$order_id'";
-                               
+
                                 if(!mysqli_query($conn, $sql)){
                                     header("Location: fail.php");
                                 }else{
@@ -114,18 +115,31 @@
                         ?>
                     </div>
                 </div>
-                <div class="row pl-5" style="min-height:69vh" style="min-width:100vw" >
-                    <div class= "col" style="min-height:69vh" style="min-width:100vw" >
-                        <table id="example4" class="table table-borderless table-hover">
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-12">
+                               <table id="example2" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Medication Name</th>
+                                            <th>Quantity</th>
+                                            <th>Type</th>
+                                            <th>Administer time</th>
+                                            <th>Completed?</th>
+                                        </tr>
+                                    </thead>
                             <?php
-                              
+
                                 global $conn;
                                 global $order_id;
-                                
+
                                 if ($conn->connect_error) {
                                     die("Connection failed: " . $conn->connect_error);
                                 }
-                                
+
+                                $break_down_completed = 0;
+
                                 $sql  = "SELECT";
                                 $sql .= " `medication`.`name` as `name`,";
                                 $sql .= " `medication`.`physical_form` as `form`,";
@@ -136,7 +150,7 @@
                                 $sql .= " JOIN `medication` on (`medication`.`medication_id` = `break_down`.`medication_id`)";
                                 $sql .= " WHERE `break_down`.`order_id` = '$order_id'";
                                 $sql .= " ORDER BY `break_down`.`administer_time`";
-            
+
                                 $result = $conn->query($sql);
                                 echo "<id='example2'>";
                                 echo "<tbody>";
@@ -148,10 +162,7 @@
                                             echo "<td>" . $row['form'] . "</td>";
                                             echo "<td>" . $row['time'] . "</td>";
                                             echo "<td>";
-                                                echo "<div class='custom-control custom-switch custom-switch-off-danger custom-switch-on-success'>";
-                                                    echo " <input type='checkbox' class='custom-control-input' id='customSwitch3'>";
-                                                    echo " <label class='custom-control-label' for='customSwitch3' style='font-weight:normal'>completed</label>";
-                                               echo " </div>";
+                                            echo "<input type='checkbox' id='completed' name='completed' <?=($break_down_completed == 0) ? '0' : '1' ?>";
                                             echo "</td>";
                                         echo "</tr>";
                                     }
@@ -165,15 +176,17 @@
                             ?>
                     </div>
                 </div>
+              </div>
+            </section>
                 <div class="row" style="min-height:15vh" style="min-width:100vw">
-                    <div class= "col" style="background-color:orange" style="min-height:15vh" >
+                    <div class= "col" style="background-color:lightblue" style="min-height:15vh" >
                         <?php
                             global $conn;
-                            
+
                             if ($conn->connect_error) {
                                 die("Connection failed: " . $conn->connect_error);
                             }
-                            
+
                             $sql = " select " ;
                             $sql .=     " `patient`.`first` as `first`,";
                             $sql .=     " `patient`.`last` as `last`,";
@@ -182,9 +195,9 @@
                             $sql .= " from `patient`";
                             $sql .= " join `order` on (`order`.`patient_id` = `patient`.`patient_id`)";
                             $sql .= " where `order`.`order_id` =  '$order_id'";
-                            
+
                             $result = $conn->query($sql);
-                            
+
                             if ($result->num_rows > 0) {
                                 while($row = $result->fetch_assoc()) {
                                     echo "<div class='row '>";
@@ -199,9 +212,9 @@
                                     echo "</div>";
                                 }
                             }
-                        ?> 
+                        ?>
                     </div>
-                </div>     
+                </div>
             </div>
             <!-- /.container-fluid -->
         </section>
