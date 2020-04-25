@@ -1,4 +1,3 @@
-
 <?php
 
 include_once("Globals.php");
@@ -138,4 +137,3 @@ class UserModel{
     }
 }
 ?>
-

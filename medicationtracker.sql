@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< HEAD
 -- Generation Time: Apr 23, 2020 at 10:08 PM
+=======
+-- Generation Time: Apr 15, 2020 at 02:01 AM
+>>>>>>> origin/nimco
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.15
 
@@ -98,7 +102,11 @@ CREATE TABLE `care_giver` (
 INSERT INTO `care_giver` (`care_giver_id`, `first`, `last`, `is_nurse`, `active`) VALUES
 (0000, 'NULL', 'NULL', 1, 1),
 (5000, 'Samuel', 'Ray', 1, 1),
+<<<<<<< HEAD
 (5001, 'Nina', 'Rodgers', 1, 0),
+=======
+(5001, 'Nina', 'Rodgers', 1, 1),
+>>>>>>> origin/nimco
 (5002, 'Anisa', 'Abdi', 1, 1),
 (5003, 'Sean', 'Carter', 1, 1);
 
@@ -120,9 +128,15 @@ CREATE TABLE `doctor` (
 --
 
 INSERT INTO `doctor` (`doctor_id`, `first`, `last`, `active`) VALUES
+<<<<<<< HEAD
 (7000, 'Leroy', 'James', 1),
 (7001, 'Najma', 'Jama', 0),
 (7002, 'Jose', 'Nunez', 1);
+=======
+(7000, 'Leroy', 'James', 0),
+(7001, 'Najma', 'Jama', 1),
+(7002, 'Jose', 'Nunez', 0);
+>>>>>>> origin/nimco
 
 -- --------------------------------------------------------
 
@@ -195,10 +209,17 @@ CREATE TABLE `patient` (
 --
 
 INSERT INTO `patient` (`patient_id`, `first`, `last`, `date_of_birth`, `active`) VALUES
+<<<<<<< HEAD
 (3000, 'Kyle', 'Omar', '2001-02-06', 0),
 (3001, 'Guled', 'Farah', '1995-09-27', 0),
 (3002, 'Angie', 'Simpson', '1929-12-01', 0),
 (3003, 'David', 'Lucas', '1974-08-27', 0);
+=======
+(3000, 'Kyle', 'Omar', '2001-02-06', 1),
+(3001, 'Guled', 'Farah', '1995-09-27', 1),
+(3002, 'Angie', 'Simpson', '1929-12-01', 1),
+(3003, 'David', 'Lucas', '1974-08-27', 1);
+>>>>>>> origin/nimco
 
 -- --------------------------------------------------------
 
@@ -221,6 +242,7 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
+<<<<<<< HEAD
 INSERT INTO `user` (`username`, `password`, `doctor_id`, `patient_id`, `care_giver_id`, `admin_id`, `user_type`, `active`) VALUES
 ('Admin2020', 'fea7f657f56a2a448da7d4b535ee5e279caf3d9a', NULL, NULL, NULL, 2000, 'admin', 2),
 ('Anisa2020', 'ab874467a7d1ff5fc71a4ade87dc0e098b458aae', NULL, NULL, 5002, NULL, 'caregiver', 1),
@@ -234,6 +256,20 @@ INSERT INTO `user` (`username`, `password`, `doctor_id`, `patient_id`, `care_giv
 ('SamuelRay1', 'ab874467a7d1ff5fc71a4ade87dc0e098b458aae', NULL, NULL, 5000, NULL, 'caregiver', 1),
 ('SeanCarter', 'ab874467a7d1ff5fc71a4ade87dc0e098b458aae', NULL, NULL, 5003, NULL, 'caregiver', 1),
 ('Simpson6000', 'f56d6351aa71cff0debea014d13525e42036187a', NULL, 3002, NULL, NULL, 'patient', 0);
+=======
+INSERT INTO `user` (`username`, `pin`, `doctor_id`, `patient_id`, `care_giver_id`, `active`) VALUES
+('Anisa2020', 2323, NULL, NULL, 5002, 1),
+('Farah500!', 0195, NULL, 3001, NULL, 1),
+('JoseNunez', 2134, 7002, NULL, NULL, 0),
+('KyleOmar', 6541, NULL, 3000, NULL, 1),
+('LeeROY1', 2020, 7000, NULL, NULL, 0),
+('LU8989', 1234, NULL, 3003, NULL, 1),
+('Najma@100', 2300, 7001, NULL, NULL, 1),
+('NinaR$007', 8080, NULL, NULL, 5001, 1),
+('SamuelRay1', 1001, NULL, NULL, 5000, 1),
+('SeanCarter', 0003, NULL, NULL, 5003, 1),
+('Simpson6000', 9393, NULL, 3002, NULL, 1);
+>>>>>>> origin/nimco
 
 --
 -- Indexes for dumped tables
@@ -293,8 +329,12 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`username`),
   ADD KEY `FOREIGN_KEY1` (`doctor_id`),
   ADD KEY `FOREIGN_KEY3` (`care_giver_id`),
+<<<<<<< HEAD
   ADD KEY `FOREIGN_KEY0` (`patient_id`),
   ADD KEY `FOREIGN_KEY4` (`admin_id`);
+=======
+  ADD KEY `FOREIGN_KEY0` (`patient_id`);
+>>>>>>> origin/nimco
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -310,7 +350,11 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `care_giver`
 --
 ALTER TABLE `care_giver`
+<<<<<<< HEAD
   MODIFY `care_giver_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7003;
+=======
+  MODIFY `care_giver_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5005;
+>>>>>>> origin/nimco
 
 --
 -- AUTO_INCREMENT for table `doctor`
@@ -328,7 +372,11 @@ ALTER TABLE `medication`
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
+<<<<<<< HEAD
   MODIFY `order_id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=400008;
+=======
+  MODIFY `order_id` int(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=400007;
+>>>>>>> origin/nimco
 
 --
 -- AUTO_INCREMENT for table `patient`
@@ -360,8 +408,12 @@ ALTER TABLE `order`
 ALTER TABLE `user`
   ADD CONSTRAINT `FOREIGN_KEY0` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `FOREIGN_KEY1` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON UPDATE CASCADE,
+<<<<<<< HEAD
   ADD CONSTRAINT `FOREIGN_KEY3` FOREIGN KEY (`care_giver_id`) REFERENCES `care_giver` (`care_giver_id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `FOREIGN_KEY4` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`admin_id`) ON UPDATE CASCADE;
+=======
+  ADD CONSTRAINT `FOREIGN_KEY3` FOREIGN KEY (`care_giver_id`) REFERENCES `care_giver` (`care_giver_id`) ON UPDATE CASCADE;
+>>>>>>> origin/nimco
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

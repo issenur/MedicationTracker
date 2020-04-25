@@ -44,7 +44,7 @@ include_once("Globals.php");
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="DoctorDashboard.php" class="nav-link">Home</a>
+        <a href="DoctorDashboardView.php" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="logout.php" class="nav-link">Log Out</a>
@@ -103,7 +103,7 @@ include_once("Globals.php");
             
             <ul class="nav nav-treeview">
             <li class="nav-item">
-                <a href="./DoctorDashboard.php" class="nav-link active">
+                <a href="./DoctorDashboardView.php" class="nav-link active">
                   <i class="far fa-check-circle nav-icon"></i>
                   <p>Doctor Dashboard</p>
                 </a>
@@ -123,78 +123,7 @@ include_once("Globals.php");
               
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Widgets
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
-
-
-
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Forms
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/forms/general.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>General Elements</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Advanced Elements</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/editors.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Editors</p>
-                </a>
-              </li>
-
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
-              <p>
-                Tables
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/tables/simple.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Simple Tables</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/data.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>DataTables</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>jsGrid</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
+          
       </nav>
       <!-- /.sidebar-menu -->
     </div>
@@ -340,151 +269,7 @@ include_once("Globals.php");
       </table>
 
 
-      <!-- form start -->
-      <form role="form action" action="OrderController.php" method="POST">
-        
-        <div class="card-body">
-          <div class="form-group">
-            <label for="inputEmail1">OrderID</label>
-            <input type="text" class="form-control" id="orderID2" name="inputOrderID1"  placeholder="" disabled>
-          <script>
-              function genOrderNumber(numDigits) {
-                var orderNumber;
-                var n = '';
-                for(var count = 0; count < numDigits; count++) {
-                  orderNumber = Math.floor(Math.random() * 10);
-                  n += orderNumber.toString();
-                }
-                return n;
-                }
-                document.getElementById("orderID2").value = genOrderNumber(4);
-          </script>
-          </div>
-          <div class="card-body">
-            <div class="form-group">
-              <label for="inputDate1">Order Creation Date</label>
-              <input type="text" class="form-control" id="orderDate1" name="inputOrderDate1"  placeholder="" disabled>
-              <script>
-                  function genOrderDate() {
-                    var orderDate = new Date();;
-                    return orderDate;
-                  }
-                  document.getElementById("orderDate1").value = genOrderDate();
-            </script>
-            </div>
-          <div class="form-group">
-            <label for="inputDoctorID1">DoctorID</label>
-            <input type="text" class="form-control" id = "doctorID" name="inputDoctorID1" placeholder="Enter your DoctorID">
-          </div>
-          <div class="form-group">
-            <label for="inputPatientID1">PatientID</label>
-            <input type="text" class="form-control" id = "patientID" name="inputPatientID1" placeholder="Enter the PatientID">
-          </div>
-          <div class="form-group">
-            <label for="inputMedicationID1">MedicationID</label>
-            <input type="text" class="form-control" id="medID" name="inputMedicationID1" placeholder="Enter a MedicationID">
-          </div>
-          <div class="form-group">
-            <label>Select Type of Medication</label>
-            <select class="form-control" id="medType" name="inputMedicationType1">
-              <option>Tablet</option>
-              <option>Gel Capsule</option>
-              <option>Hard Capsule</option>
-              <option>Liquid syrup</option>
-              <option>Inhaler</option>
-              <option>Ointment</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="inputMedicationQty1">Medication Quantity</label>
-            <input type="text" class="form-control" id="medQty" name="inputMedicationQty1" placeholder="Enter daily dose a patient would take for Medication">
-          </div>
-          <div class="form-group">
-            <label>Select Unit for Medication</label>
-            <select class="form-control" id="medUnit" name= "inputMedicationUnit1">
-              <option>grams</option>
-              <option>mg</option>
-              <option>mL</option>
-              <option>puffs</option>
-            </select>
-          </div>
-        </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-          <button type="submit" name= "submit" dd class="btn btn-primary">Submit</button>
-        </div>
-      </form>
-    </div>
-    
-    <!-- /.card -->
 
-
-<!-- Old Code
-                      <label>Doctor ID</label>
-                      <input type="text" class="form-control" placeholder="Type Here...">
-                    </div>
-                    <div class="col-2">
-                      <label>Patient ID</label>
-                      <input type="text" class="form-control" placeholder="Type Here...">
-                    </div>
-                    <div class="col-2">
-                      <label>Medication</label>
-                      <input type="text" class="form-control" placeholder="Type Here...">
-                    </div>
-                    <div class="col-2">
-                      <label>Dosage</label>
-                      <input type="text" class="form-control" placeholder="Type Here...">
-                    </div>
-                    <div class="col-1">
-                      <div class="form-group">
-                        <label>Unit</label>
-                        <select class="form-control select2" style="width: 100%;">
-                          <option selected="selected">g</option>
-                          <option>mg</option>
-                          <option>mcg</option>
-                          <option>units</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-2">
-                      <div class="form-group">
-                        <label>Status</label>
-                        <select class="form-control select2" style="width: 100%;">
-                          <option selected="selected">Unfulfilled</option>
-                          <option>Fulfilled</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-1">
-                      <label>Add More?</label>
-                    <button onclick="javascript:void(0)" class="btn btn-flat btn-secondary"><b>Add </b>
-                      <span class="fas fa-capsules"></span>
-                    </button>
-                  </div>
-                </div>
-                </div>
-              </div>
-            </div>
-          -->
-            <!-- /.table-responsive -->
-          </div>
-          </div>
-          </div>
-          </div>
-          </div>
-          </div>
-          <!-- /.card-body -->
-          <!-- Old code
-          <div class="card-footer clearfix">
-            <a href="javascript:void(0)" class="btn btn-sm btn-info float-right">Submit Order</a>
-          </div>
-        -->
-          <!-- /.card-footer -->
-        </div>
-        <!-- /.card -->
-      </div>
-      <!-- /.col -->
-      <!-- /.card -->
 
             <!-- TABLE: LATEST ORDERS -->
               <div class="col">

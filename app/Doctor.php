@@ -29,7 +29,7 @@ class Doctor {
     */
 	public static function getDoctorID($doctorID){
         
-        global $model;
+       $model = Model::getInstance();
         $realDoctorID = $model->getDoctorID($doctorID);
         if($realDoctorID !=0){ //check if we have the doctorID instead of number 0,
             $doctorID = $realDoctorID;
