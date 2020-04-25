@@ -1,10 +1,12 @@
 <?php
 
+include_once("UserModel.php");
+include_once("Globals.php");
 
 class Model{
     
     private $currentview = "";
-    private $currentauthorizationlevel = 0;
+  
     private $currentuserid = 0;
     public static $instance = null;
      
@@ -25,16 +27,17 @@ class Model{
         return self::$instance;
     } 
     
-    public function addDoctorUser($user_name, $pin, $first, $last, $active) {
+    public function addDoctorUser($user_name, $password, $first, $last, $user_type, $active) {
     
         global $conn;
         global $userModel;
-        $userModel = new ModelUser();
+        $userModel = new UserModel();
         $doctor_id = $userModel->addDoctor($first, $last, $active);  //UserModel class
         
         if($doctor_id > 0){
         
-            $sql = "INSERT INTO user (username, pin, doctor_id, patient_id, care_giver_id , active) values('$user_name' ,'$pin', '$doctor_id', NULL, NULL,'$active')";
+            $sql = "INSERT INTO user (username, password, doctor_id, patient_id, care_giver_id , admin_id, user_type, active)";
+            $sql .= "values('$user_name', SHA1('$password'), '$doctor_id', NULL, NULL, NULL, '$user_type', '$active')";
         
             if(!mysqli_query($conn, $sql)){
                 return false;
@@ -97,16 +100,16 @@ class Model{
         }
     }
     
-    public function addPatientUser($user_name, $pin, $first, $last, $date_of_birth, $active) {
+    public function addPatientUser($user_name, $password, $first, $last, $date_of_birth, $user_type, $active) {
     
         global $conn;
         global $userModel;
         $userModel = new UserModel();
-        $patient_id = $modelUser->addPatient($first, $last, $date_of_birth, $active);
+        $patient_id = $userModel->addPatient($first, $last, $date_of_birth, $active);
         
         if($patient_id > 0){
         
-            $sql = "INSERT INTO user (username, pin, doctor_id, patient_id, care_giver_id , active) values('$user_name' ,'$pin', NULL, '$patient_id', NULL,'$active')";
+            $sql = "INSERT INTO user(username, password, doctor_id, patient_id, care_giver_id, admin_id, user_type, active) values('$user_name' , SHA1('$password'), NULL, '$patient_id', NULL, NULL, '$user_type',  '$active')";
             
             if(!mysqli_query($conn, $sql)){
                 return false;
@@ -169,23 +172,20 @@ class Model{
         }
     }
     
-    public function addCareGiverUser($user_name, $pin, $first, $last, $is_nurse, $active) {
+    public function addCareGiverUser($user_name, $password, $first, $last, $user_type, $is_nurse, $active) {
     
         global $conn;
         global $userModel;
         $userModel = new UserModel();
         $care_giver_id = $userModel->addCareGiver($first, $last, $is_nurse, $active);
         
-        if($care_giver_id > 0){
-        
-            $sql = "INSERT INTO user (username, pin, doctor_id, patient_id, care_giver_id , active) values('$user_name' ,'$pin', NULL, NULL, '$care_giver_id', '$active')";
-            
+        if($care_giver_id > 0){       
+            $sql = "INSERT INTO user (username, password, doctor_id, patient_id, care_giver_id , admin_id, user_type, active) values('$user_name' , SHA1('$password'), NULL, NULL, '$care_giver_id', NULL, '$user_type', '$active')";        
             if(!mysqli_query($conn, $sql)){
                 return false;
             }else{
                 return true;
-            }
-            
+            }          
         }else{
             return false;
         }
@@ -353,16 +353,8 @@ class Model{
     public function getCurrentView() {
         return($this->currentview);
     }
-    
-    public function setCurrentAuthorizationLevel($auth_num) {
-        $this->currentauthorizationlevel = $auth_num;   
-    }
-    
-    public function getCurrentAuthorizationLevel() {
-        return($this->currentauthorizationlevel);
-    }
-    
-     public function setCurrentUserId($user_id) {
+  
+    public function setCurrentUserId($user_id) {
         $this->currentuserid = $user_id;   
     }
     
