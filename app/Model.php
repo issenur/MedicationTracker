@@ -288,15 +288,24 @@ class Model{
     /**
     * Methods adds medications to an Order
     */
-    public function addMeds2Order($order_id , $med_id, $med_qty){
+    public function addMeds2Order($order_id , $med_id, $med_qty,$med_unit){
         global $conn;
         
         //administertime is blank, when an order doesnt have a caregiver yet
-        $sql = "INSERT INTO break_down(order_id, medication_id, quantity, administer_time) values('$order_id', '$med_id', '$med_qty', '')";
+        $sql = "INSERT INTO `break_down` (`order_id`,`medication_id`, `quantity`, `administer_time`, `completed`) VALUES ('$order_id','$med_id', '$med_qty', '', '0')";
         
         if(!mysqli_query($conn, $sql)){
             return false;
         }else{
+
+            //update the units that the Doctor entered into the med table
+            $sql = "UPDATE medication SET units = '$med_unit' WHERE medication_id = $med_id";
+            if(!mysqli_query($conn, $sql)){
+                return false;
+            }else{
+                return true;
+            }
+
             return true;   
         }
     
@@ -324,7 +333,52 @@ class Model{
             $message = "MedID could not be found ";  
         }
     }
-    
+      /**Method takes a patientID and returns 
+      * the patientID stored in the DB only if Patient is active
+     * 
+     */
+    public function getPatientID($patientID){        
+        
+        global $model;
+        global $conn;
+        global $message;
+        $sql = "SELECT * from patient WHERE patient_id= '$patientID'";
+        $result = $conn->query($sql);
+        $row = $result -> fetch_array();
+        $real_patientID = $row['patient_id'];
+        $real_active = $row['active'];
+        
+        //check if patient is active
+        if($real_patientID == $patientID && $real_active == 1){
+            return $real_patientID;
+        }
+        else{
+            return 0;
+        }
+        
+    }
+
+    /**Method takes a doctorID and returns 
+     * the doctorID stored in the DB only if Patient is active
+     * 
+     */
+    public function getDoctorID($doctorID){        
+        
+        global $model;
+        global $conn;
+        global $message;
+        $sql = "SELECT * from doctor WHERE doctor_id = '$doctorID'";
+        $result = $conn->query($sql);
+        $row = $result -> fetch_array();
+        $real_doctorID = $row['doctor_id'];
+        $real_active = $row['active'];
+        
+        //check if doctor is active so that they can create orders
+        if($real_doctorID == $doctorID && $real_active == 1){
+            return $real_doctorID;
+        }
+        return 0;
+    }
    
     
     public function setCurrentView($newView) {
@@ -335,8 +389,6 @@ class Model{
             header("Location: AdminLoginView.php");
         }else if($newView == "HomeView"){
             header("Location: index.php");
-        }else if($newView == "DoctorDisplaysOrders"){     //redirect to list of all orders, after new order is made
-            header("Location: DoctorDisplaysOrders.php");
         }else if($newView =="CaregiverView"){
             header("Location: CaregiverDashboardView.php");
         }else if($newView =="CaregiverDashboardView"){
