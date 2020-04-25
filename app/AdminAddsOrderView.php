@@ -1,242 +1,10 @@
 <?php
-
-<<<<<<< HEAD
-include_once("Globals.php");
-
-global $model;
-?>
-
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Caregiver Claims Order</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-</head>
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
-    <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <!-- Left navbar links -->
-        <ul class="navbar-nav">
-        </ul>
-        
-        <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
-            <div class="input-group input-group-sm">
-                <div class="input-group-append">
-                </div>
-            </div>
-        </form>
-        
-        <!-- Right navbar links -->
-        <ul class="navbar-nav ml-auto">
-            <!-- Messages Dropdown Menu -->
-            <li class="nav-item dropdown">
-            </li>
-            <!-- Notifications Dropdown Menu -->
-            <li class="nav-item dropdown">
-            </li>
-            <li class="nav-item">
-            </li>
-        </ul>
-    </nav>
-    <!-- /.navbar -->
-    
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-       
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <!-- Sidebar user (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">        
-                <div class="info">
-                    <a href="#" class="d-block">SESSION: Admin</a>
-                </div>
-            </div>
-        
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                </ul>
-            </nav>
-            <!-- /.sidebar-menu -->
-        </div>
-        <!-- /.sidebar -->
-    </aside>
-    
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-12">
-                        <h1>Active Users</h1>
-                        <table id="example2" class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>UserName</th>
-                                    <th>Role</th>
-                                    <th>ID#</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <?php
-                            
-                                global $conn;
-                                
-                                if ($conn->connect_error) {
-                                    die("Connection failed: " . $conn->connect_error);
-                                }
-                                
-                                $sql = "SELECT * FROM user Where active = 1";
-                                $result = $conn->query($sql);
-                                echo "<id='example2'>";
-                                echo "<tbody>";
-                                if ($result->num_rows > 0) {
-                                    while($row = $result->fetch_assoc()) {
-                                        echo "<tr>";
-                                        echo "<td>" . $row['username'] . "</td>";
-                                        
-                                        if(!($row['doctor_id'] == NULL)){
-                                            echo "<td> Doctor</td>";
-                                            echo "<td>" . $row['doctor_id'] . "</td>";
-                                            echo"<td>";
-                                            echo "<a href ='AdminViewControllerHelper.php?delete_doctor=".  $row['username'] ."'><button class='btn btn-danger'>Deactivate</button>"."<a/>";
-                                            echo "</td>"; 
-                                        }else if(!($row['patient_id'] == NULL)){
-                                            echo "<td>Patient</td>";
-                                            echo "<td>" . $row['patient_id'] . "</td>";
-                                            echo"<td>";
-                                            echo "<a href ='AdminViewControllerHelper.php?delete_patient=". $row['username']."'><button class='btn btn-danger'>Deactivate</button>"."<a/>";
-                                            echo "</td>"; 
-                                        }else{
-                                            echo "<td> Caregiver</td>";
-                                            echo "<td>" . $row['care_giver_id'] . "</td>";
-                                            echo"<td>";
-                                            echo "<a href ='AdminViewControllerHelper.php?delete_care_giver=".  $row['username'] ."'><button class='btn btn-danger'>Deactivate</button>"."<a/>";
-                                            echo "</td>"; 
-                                        } 
-                                        echo "</tr>";
-                                    }
-                                    echo "</tbody>";
-                                    echo "</table>";
-                                } else {
-                                    echo "</tbody>";
-                                    echo "</table>";
-                                    echo "<h6>ACTIVATED USERS TABLE IS EMPTY</h6>";
-                                }
-                            ?>
-                            
-                        <h1>Inactive Users</h1>
-                        <table id="example2" class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>UserName</th>
-                                    <th>Role</th>
-                                    <th>ID#</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <?php
-                            
-                                global $conn;
-                                
-                                if ($conn->connect_error) {
-                                    die("Connection failed: " . $conn->connect_error);
-                                }
-                                
-                                $sql = "SELECT * FROM user Where active = 0";
-                                $result = $conn->query($sql);
-                                echo "<id='example2'>";
-                                echo "<tbody>";
-                                if ($result->num_rows > 0) {
-                                    while($row = $result->fetch_assoc()) {
-                                        echo "<tr>";
-                                        echo "<td>" . $row['username'] . "</td>";
-                                        
-                                        if(!($row['doctor_id'] == NULL)){
-                                            echo "<td> Doctor</td>";
-                                            echo "<td>" . $row['doctor_id'] . "</td>";
-                                            echo"<td>";
-                                            echo "<a href ='AdminViewControllerHelper.php?activate_doctor=".  $row['username'] ."'><button class='btn btn-success'>Activate</button>"."<a/>";
-                                            echo "</td>"; 
-                                        }else if(!($row['patient_id'] == NULL)){
-                                            echo "<td>Patient</td>";
-                                            echo "<td>" . $row['patient_id'] . "</td>";
-                                            echo"<td>";
-                                            echo "<a href ='AdminViewControllerHelper.php?activate_patient=". $row['username']."'><button class='btn btn-success'>Activate</button>"."<a/>";
-                                            echo "</td>"; 
-                                        }else{
-                                            echo "<td> Caregiver</td>";
-                                            echo "<td>" . $row['care_giver_id'] . "</td>";
-                                            echo"<td>";
-                                            echo "<a href ='AdminViewControllerHelper.php?activate_care_giver=".  $row['username'] ."'><button class='btn btn-success'>Activate</button>"."<a/>";
-                                            echo "</td>"; 
-                                        } 
-                                        echo "</tr>";
-                                    }
-                                    echo "</tbody>";
-                                    echo "</table>";
-                                } else {
-                                    echo "</tbody>";
-                                    echo "</table>";
-                                    echo "<h6>DEACTIVATED USERS TABLE IS EMPTY</h6>";
-                                }
-                            ?>
-                    </div>
-                </div>
-            </div>
-            <!-- /.container-fluid -->
-        </section>
-        
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.container-fluid -->
-        </section>
-        <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
-    <footer class="main-footer">
-        <div class="float-right d-none d-sm-block">
-        </div>
-    </footer>
-    
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
-
-<!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- bs-custom-file-input -->
-<script src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
-=======
+include_once("OrderController.php");
+include_once("AdminInputsCode.php");
+include_once("Model.php");
 
 include_once("Globals.php");
- 
+
 
 
 ?>
@@ -326,24 +94,23 @@ include_once("Globals.php");
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
-            
             <ul class="nav nav-treeview">
             <li class="nav-item">
-                <a href="./AdminDashboard.php" class="nav-link active">
-                  <i class="far fa-check-circle nav-icon"></i>
+                <a href="./AdminDashboard.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
                   <p>Admin Dashboard</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./AdminAddsOrderView.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                <a href="./AdminAddsOrderView.php" class="nav-link active">
+                  <i class="far fa-check-circle nav-icon"></i>
                   <p>Create A User</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./AdminDashboardView.php" class="nav-link ">
+                <a href="./AdminDisplaysUsers.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Display All User</p>
+                  <p>Display All Users</p>
                 </a>
               </li>
               
@@ -434,12 +201,12 @@ include_once("Globals.php");
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Hello, Admin! </h1>
+            <h1 class="m-0 text-dark"> Hello, Admin! </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Admin Dashboard</li>
+              <li class="breadcrumb-item active">Create A User</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -451,48 +218,31 @@ include_once("Globals.php");
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <!-- Info boxes -->
-        <div class="row">
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-cog"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Number of Pending Users</span>
-                <span class="info-box-number">
-                  5
-                  <small>%</small>
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-
-
-
-          <!-- fix for small devices only -->
-          <div class="clearfix hidden-md-up"></div>
-
-          <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-cog"></i></span>
-              <div class="info-box-content">
-                <span class="info-box-text">Number of Complete Users</span>
-                <span class="info-box-number">95
-                <small>%</small>
-              </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-        </div>
 
         
+
+        <!-- /.row -->
+        <!-- TABLE: LATEST USERS -->
+        <div class="card card-secondary">
+          <div class="card-header border-transparent">
+            <h3 class="card-title"><b>CREATE USER</b></h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body .col-12">
+            <div class="table-responsive">
+              <div class="form-group">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <table class="table table-bordered table-hover" id="tab_logic">
          <!--              
         <thead>
           <tr >
@@ -552,7 +302,7 @@ include_once("Globals.php");
             <td>
             <input type="text" name='type0' placeholder='Type' class="form-control"/>
             </td>
-            <td>
+            <<td>
               <a id="add_row" class="btn btn-default float-left">Add</a>
             </td>
             <td>
@@ -565,7 +315,94 @@ include_once("Globals.php");
       
       </table>
 
-       
+      <!-- form start -->
+      <form action="" method="post">
+        
+        <div class="card-body">
+          <div class="form-group">
+            <label for="inputEmail1">OrderID</label>
+            <input type="text" class="form-control" id="orderID2" name="inputOrderID1"  placeholder="" >
+          <script>
+              function genOrderNumber(numDigits) {
+                var orderNumber;
+                var n = '';
+                for(var count = 0; count < numDigits; count++) {
+                  orderNumber = Math.floor(Math.random() * 10);
+                  n += orderNumber.toString();
+                }
+                return n;
+                }
+                document.getElementById("orderID2").value = genOrderNumber(4);
+          </script>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="inputDate1">Order Creation Date</label>
+              <input type="text" class="form-control" id="orderDate1" name="inputOrderDate1"  placeholder="" disabled>
+              <script>
+                  function genOrderDate() {
+                    var orderDate = new Date();;
+                    return orderDate;
+                  }
+                  document.getElementById("orderDate1").value = genOrderDate();
+            </script>
+            </div>
+          <div class="form-group">
+            <label for="inputAdminID1">AdminID</label>
+            <input type="text" class="form-control" id = "doctorID" name="inputAdminID1" placeholder="Enter your AdminID">
+          </div>
+          <div class="form-group">
+            <label for="inputPatientID1">PatientID</label>
+            <input type="text" class="form-control" id = "patientID" name="inputPatientID1" placeholder="Enter the PatientID">
+          </div>
+          <div class="form-group">
+            <label for="inputMedicationID1">MedicationID</label>
+            <input type="text" class="form-control" id="medID" name="inputMedicationID1" placeholder="Enter a MedicationID">
+          </div>
+          <div class="form-group">
+            <label>Select Name of Medication</label>
+            <select class="form-control" id="medName" name="inputMedicationName1">
+              <option>Tylenol</option>
+              <option>Vicodin</option>
+              <option>Lunesta</option>
+              <option>Albuterol</option>
+              <option>FlexPen</option>
+              <option>Atarax</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="inputMedicationQty1">Medication Quantity</label>
+            <input type="text" class="form-control" id="medQty" name="inputMedicationQty1" placeholder="Enter daily dose a patient would take for Medication">
+          </div>
+          <div class="form-group">
+            <label>Select Unit for Medication</label>
+            <select class="form-control" id="medUnit" name= "inputMedicationUnit1">
+              <option>g</option>
+              <option>mg</option>
+              <option>mL</option>
+              <option>puffs</option>
+            </select>
+          </div>
+        </div>
+        <!-- /.card-body -->
+        
+        <div class="card-footer">
+          <button type="submit" name="submitOrder1"  class="btn btn-primary">Submit Order</button>
+          <?php
+          if(isset($_GET['submitOrder1'])){
+              
+            $md->setCurrentView("AdminDisplaysUsers"); //redirect to display all orders page
+          }
+         ?> 
+        </div>
+      
+      </form>
+      
+    </div>
+
+    
+    
+    
 <!-- Old Code
                       <label>Admin ID</label>
                       <input type="text" class="form-control" placeholder="Type Here...">
@@ -633,11 +470,11 @@ include_once("Globals.php");
       <!-- /.col -->
       <!-- /.card -->
 
-            <!-- TABLE: LATEST ORDERS -->
+            <!-- TABLE: LATEST USERS -->
               <div class="col">
                 <div class="card card-secondary collapsed-card">
                   <div class="card-header">
-                    <h3 class="card-title"><b>USERS LIST</b></h3>
+                    <h3 class="card-title"><b>PATIENT LIST</b></h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
@@ -789,23 +626,11 @@ include_once("Globals.php");
 <!-- DataTables -->
 <script src="../../plugins/datatables/jquery.dataTables.js"></script>
 <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
->>>>>>> 8a8ae5b2c0e8b81633b5f2cfc094e74c4cabf5a4
 <!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
-<<<<<<< HEAD
-<script type="text/javascript">
-$(document).ready(function () {
-  bsCustomFileInput.init();
-});
-</script>
-</body>
-</html>
-=======
 <!-- page script -->
 
 </body>
-
 </html>
->>>>>>> 8a8ae5b2c0e8b81633b5f2cfc094e74c4cabf5a4

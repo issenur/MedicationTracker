@@ -1,4 +1,3 @@
-
 <?php
     session_start();
     include_once("Globals.php");
@@ -126,4 +125,3 @@ increaseArea: '20%' /* optional */
 </script>
 </body>
 </html>
-
