@@ -92,7 +92,7 @@
                     <li class="nav-item has-treeview menu-open">
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="./CaregiverDashboardView.php" class="nav-link">
+                                <a href="./CaregiverDashboardView.php" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Caregiver Dashboard</p>
                                 </a>
