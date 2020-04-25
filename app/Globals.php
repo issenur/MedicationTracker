@@ -7,5 +7,5 @@ $password = "";
 $dbname = "medicationtracker";
 $conn = new mysqli($servername, $username, $password, $dbname);
 $controller = new Controller();
-$usermodel = new UserModel();
+$userModel = new UserModel();
 ?>
