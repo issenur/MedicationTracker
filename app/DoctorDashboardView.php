@@ -49,19 +49,9 @@ include_once("Globals.php");
       <li class="nav-item d-none d-sm-inline-block">
         <a href="logout.php" class="nav-link">Log Out</a>
       </li>
+      
     </ul>
 
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -70,13 +60,20 @@ include_once("Globals.php");
             class="fas fa-th-large"></i></a>
       </li>
     </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="logout.php" class="nav-link">Logout</a>
+            </li>
+    </ul>
   </nav>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="DoctorDashboard.php" class="brand-link">
+    <a href="DoctorDashboardView.php" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">MedicationTracker</span>
@@ -123,7 +120,6 @@ include_once("Globals.php");
               
             </ul>
           </li>
-          
       </nav>
       <!-- /.sidebar-menu -->
     </div>
@@ -160,13 +156,7 @@ include_once("Globals.php");
             <div class="info-box">
               <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-cog"></i></span>
 
-              <div class="info-box-content">
-                <span class="info-box-text">Number of Pending Orders</span>
-                <span class="info-box-number">
-                  5
-                  <small>%</small>
-                </span>
-              </div>
+             
               <!-- /.info-box-content -->
             </div>
             <!-- /.info-box -->
@@ -177,99 +167,10 @@ include_once("Globals.php");
 
           <!-- fix for small devices only -->
           <div class="clearfix hidden-md-up"></div>
-
-          <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-cog"></i></span>
-              <div class="info-box-content">
-                <span class="info-box-text">Number of Complete Orders</span>
-                <span class="info-box-number">95
-                <small>%</small>
-              </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
           <!-- /.col -->
         </div>
-
-        
-         <!--              
-        <thead>
-          <tr >
-            <th class="text-center">
-              Doctor ID
-            </th>
-            <th class="text-center">
-              Patient ID
-            </th>
-            <th class="text-center">
-              Medication
-            </th>
-            <th class="text-center">
-              Dosage
-            </th>
-            <th class="text-center">
-              Unit
-            </th>
-            <th class="text-center">
-              Type
-            </th>
-            <th>
-                    <button onclick="javascript:void(0)" id="add_row" class="btn btn-flat btn-secondary"><b>+</b>
-                      <span class="fas fa-capsules"></span>
-                    </button></th>
-            <th>
-                    <button onclick="javascript:void(0)" id="delete_row" class="btn btn-flat btn-secondary"><b>-</b>
-                      <span class="fas fa-capsules"></span>
-                    </button></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr id='addr0'>
-            <td>
-            <input type="text" name='order0'  placeholder='OrderID' id='orderID' class="form-control"/>
-            <input type="text" name='ordertest0'  placeholder='value of OrderID' id='ordertest' class="form-control" disabled/>
-            <script>
-              var orderNum = document.getElementById("orderID").value;
-              document.getElementById(ordertest).innerHTML = orderNum;
-            </script>
-            </td>
-            <td>
-            <input type="text" name='doctor0'  placeholder='Doctor ID' class="form-control"/>
-            </td>
-            <td>
-            <input type="text" name='patient0'  placeholder='Patient ID' class="form-control"/>
-            </td>
-            <td>
-            <input type="text" name='medication0' placeholder='MedicationID' class="form-control"/>
-            </td>
-            <td>
-            <input type="text" name='dosage0' placeholder='Dosage' class="form-control"/>
-            </td>
-            <td>
-            <input type="text" name='unit0' placeholder='Unit' class="form-control"/>
-            </td>
-            <td>
-            <input type="text" name='type0' placeholder='Type' class="form-control"/>
-            </td>
-            <td>
-              <a id="add_row" class="btn btn-default float-left">Add</a>
-            </td>
-            <td>
-              <a id='delete_row' class="pull-right btn btn-default">Remove</a>
-            </td>
-          -->
-          </tr>
-                    <tr id='addr1'></tr>
-        </tbody>
-      
-      </table>
-
-
-
+    </div>
+    <!-- /.card -->
 
             <!-- TABLE: LATEST ORDERS -->
               <div class="col">
@@ -277,14 +178,6 @@ include_once("Globals.php");
                   <div class="card-header">
                     <h3 class="card-title"><b>PATIENT LIST</b></h3>
 
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                  </button>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-              </div>
             </div>
               <!-- /.card-header -->
               <div class="row">

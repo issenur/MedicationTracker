@@ -43,19 +43,8 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Log Out</a>
       </li>
+      
     </ul>
-
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -63,6 +52,13 @@
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
             class="fas fa-th-large"></i></a>
       </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="logout.php" class="nav-link">Logout</a>
+            </li>
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -118,7 +114,6 @@
             </ul>
           </li>
         
-
       </nav>
       <!-- /.sidebar-menu -->
     </div>
@@ -141,57 +136,44 @@
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
 
-    <!-- Main content -->
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        
-          <!-- fix for small devices only -->
-          <div class="clearfix hidden-md-up"></div>
-
+        <!-- Main content -->
+         <section class="content">
+          <div class="container-fluid">
       <!-- TABLE: LATEST ORDERS -->
       <div class="card">
           <div class="card-header border-transparent">
             <h3 class="card-title">Latest Orders</h3>
-
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
           </div>
 
 
-          <div class="col-sm-12">
-                        <h1>Latest Orders</h1>
-                        <table id="example2" class="table table-bordered table-hover">
+          <!-- /.card-header -->
+          <div class="row mb-2">
+                    <div class="col-sm-12">
+                       <table id="example2" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>OrderID</th>
-                                    <th>DoctorID</th>
-                                    <th>PatientID</th>
-                                    <th>Date</th>
-                                  
+                                    <th>Order ID</th>
+                                    <th>Doctor ID</th>
+                                    <th>Patient ID</th>
+                                    <th>Caregiver ID</th>
+                                    <th>Order Creation Date</th>
                                 </tr>
                             </thead>
                             <?php
+                                
                                 global $conn;
+                                
                                 if ($conn->connect_error) {
                                     die("Connection failed: " . $conn->connect_error);
                                 }
                                 
-                                $sql  = "select";
+                                $sql = "SELECT ";
                                 $sql .= "`order`.`order_id` AS `order_id` ,";
                                 $sql .= "`order`.`doctor_id` AS `doctor_id` ,";
-                                $sql .= "`order`.`patient_id` AS `patient_id` ,";
-                                $sql .= " DATE_FORMAT(`date`, '%d-%b-%Y') AS `date`,";
+                                $sql .= "`order`.`care_giver_id` AS `caregiver_id` ,";
+                                $sql .= " `order`.`patient_id` AS `patient_id`,";
+                                $sql .= " DATE_FORMAT(`date`, '%d-%b-%Y') AS `date` ";
                                 $sql .= " FROM `order` ";
                                 $sql .= " JOIN `user` ON (`user`.`doctor_id` = `order`.`doctor_id`)";
                                 $result = $conn->query($sql);
@@ -200,15 +182,11 @@
                                 if ($result->num_rows > 0) {
                                     while($row = $result->fetch_assoc()) {
                                         echo "<tr>";
-                                        if(!($row['order_id'] == NULL)){
-                                            echo "<td>OrderID</td>";
-                                            echo "<td>" . $row['order_id'] . "</td>";
-                                            echo "<td>" . $row['doctor_id'] . "</td>";
-                                            echo "<td>" . $row['patient_id'] . "</td>";
-                                            echo "<td>" . $row['date'] . "</td>";
-                                            echo"<td>";
-                                            echo "</td>"; 
-                                        } 
+                                        echo "<td>" . (int)$row['order_id'] . "</td>";
+                                        echo "<td>" . (int)$row['doctor_id'] . "</td>";
+                                        echo "<td>" . $row['patient_id'] . "</td>"; 
+                                        echo "<td>" . $row['caregiver_id'] . "</td>";
+                                        echo "<td>" . $row['date'] . "</td>";
                                         echo "</tr>";
                                     }
                                     echo "</tbody>";
@@ -216,13 +194,22 @@
                                 } else {
                                     echo "</tbody>";
                                     echo "</table>";
-                                    
+                                    echo "<h4>ORDERS DATABASE EMPTY</h4>";
                                 }
                             ?>
-                         </div>
-            </div>
+                    </div>
+                </div>
+          <!-- /.card-body -->
       </div><!--/. container-fluid -->
     </section>
+
+
+
+    </div>
+    <!-- /.content-header -->
+
+    
+   
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

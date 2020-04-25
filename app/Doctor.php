@@ -11,8 +11,8 @@ class Doctor {
     private  $isDoctorActive; // 0 = inactive, 1 = active 
 
 
-    public function __construct($doctorID) {
-        $this->setDoctorID($doctorID); //set the doctor id using the param
+    public function __construct($doctorID1) {
+        $this->setDoctorID($doctorID1); //set the doctor id using the param
     }
 
 
@@ -29,11 +29,12 @@ class Doctor {
     */
 	public static function getDoctorID($doctorID){
         
-       $model = Model::getInstance();
+        //global $model;
+        $model = Model::getInstance();
         $realDoctorID = $model->getDoctorID($doctorID);
         if($realDoctorID !=0){ //check if we have the doctorID instead of number 0,
             $doctorID = $realDoctorID;
-         return $doctorID;
+         return $realDoctorID;
  
         }
      
