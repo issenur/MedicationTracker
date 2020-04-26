@@ -46,9 +46,7 @@ include_once("Globals.php");
       <li class="nav-item d-none d-sm-inline-block">
         <a href="DoctorDashboardView.php" class="nav-link">Home</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="logout.php" class="nav-link">Log Out</a>
-      </li>
+      
       
     </ul>
 
@@ -56,7 +54,7 @@ include_once("Globals.php");
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href=""><i
             class="fas fa-th-large"></i></a>
       </li>
     </ul>
@@ -126,19 +124,19 @@ include_once("Globals.php");
     <!-- /.sidebar -->
   </aside>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+ <!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Hello, Doctor! </h1>
+            <h1 class="m-0 text-dark"> Hello, Doctor! </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Doctor Dashboard</li>
+              <li class="breadcrumb-item active">Display Patients</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -146,129 +144,76 @@ include_once("Globals.php");
     </div>
     <!-- /.content-header -->
 
-    <!-- Main content -->
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <!-- Info boxes -->
-        <div class="row">
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-cog"></i></span>
-
-             
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
+        <!-- Main content -->
+         <section class="content">
+          <div class="container-fluid">
+        
+       
+      <!-- TABLE: LATEST ORDERS -->
+      <div class="card">
+          <div class="card-header border-transparent">
+            <h3 class="card-title">All Patients</h3>
           </div>
-          <!-- /.col -->
 
 
-
-          <!-- fix for small devices only -->
-          <div class="clearfix hidden-md-up"></div>
-          <!-- /.col -->
-        </div>
-    </div>
-    <!-- /.card -->
-
-            <!-- TABLE: LATEST ORDERS -->
-              <div class="col">
-                <div class="card card-secondary collapsed-card">
-                  <div class="card-header">
-                    <h3 class="card-title"><b>PATIENT LIST</b></h3>
-
-            </div>
-              <!-- /.card-header -->
-              <div class="row">
-                <div class="col-12">
-                  <div class="card">
-                    <div class="card-header">
-                      <div class="card-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                          <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                          </div>
-                        </div>
-                      </div>
+          <!-- /.card-header -->
+          <div class="row mb-2">
+                    <div class="col-sm-12">
+                       <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Patient ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                </tr>
+                            </thead>
+                            <?php
+                                
+                                global $conn;
+                                
+                                if ($conn->connect_error) {
+                                    die("Connection failed: " . $conn->connect_error);
+                                }
+                                
+                                $sql = "SELECT ";
+                                $sql .= " `patient`.`patient_id` AS `patient_id` ,";
+                                $sql .= " `patient`.`first` AS `first` ,";
+                                $sql .= " `patient`.`last` AS `last` ";
+                                $sql .= " FROM `patient` ";
+                                $result = $conn->query($sql);
+                                echo "<id='example2'>";
+                                echo "<tbody>";
+                                if ($result->num_rows > 0) {
+                                    while($row = $result->fetch_assoc()) {
+                                        echo "<tr>";
+                                        echo "<td>" . (int)$row['patient_id'] . "</td>";
+                                        echo "<td>" . $row['first'] . "</td>"; 
+                                        echo "<td>" . $row['last'] . "</td>";
+                                        echo "</tr>";
+                                    }
+                                    echo "</tbody>";
+                                    echo "</table>";
+                                } else {
+                                    echo "</tbody>";
+                                    echo "</table>";
+                                    echo "<h4>PATIENTS TABLE IN DATABASE IS EMPTY</h4>";
+                                }
+                            ?>
                     </div>
-                    <!-- /.card-header -->
-                    <div class="card-body table-responsive p-0">
-                      <table class="table table-hover text-nowrap">
-                        <thead>
-                          <tr>
-                            <th>Patient ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Age</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td><a href="pages/examples/profile.html">7000</a></td>
-                            <td>Nimco</td>
-                            <td>Hussein</td>
-                            <td>21</span></td>
-                          </tr>
-                          <tr>
-                            <td><a href="pages/examples/profile.html">7001</a></td>
-                            <td>Ryan</td>
-                            <td>Bradley</td>
-                            <td>25</td>
-                          </tr>
-                          <tr>
-                            <td><a href="pages/examples/profile.html">7002</a></td>
-                            <td>Fahim</td>
-                            <td>Murshed</td>
-                            <td>22</td>
-                          </tr>
-                          <tr>
-                            <td><a href="pages/examples/profile.html">7003</a></td>
-                            <td>Isse</td>
-                            <td>Nur</td>
-                            <td>23</td>
-                          </tr>
-                          <tr>
-                            <td><a href="pages/examples/profile.html">7004</a></td>
-                            <td>Robel</td>
-                            <td>Abuhay</td>
-                            <td>24</td>
-                          </tr>
-                          <tr>
-                            <td><a href="pages/examples/profile.html">7005</a></td>
-                            <td>Alex</td>
-                            <td>Vasquez</td>
-                            <td>29</td>
-                          </tr>
-                          <tr>
-                            <td><a href="pages/examples/profile.html">7006</a></td>
-                            <td>Ismail</td>
-                            <td>Bile-Hassan</td>
-                            <td>30</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <!-- /.card-body -->
-                  </div>
-                  <!-- /.card -->
                 </div>
-              </div>
-                <div class="card-footer clearfix">
-                  <a href="javascript:void(0)" class="btn btn-sm btn-info float-right">View All Patients</a>
-                </div>
-                <!-- /.table-responsive -->
-              </div>
-              <!-- /.card-body -->
-              <!-- /.card-footer -->
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
+          <!-- /.card-body -->
+        
+
       </div><!--/. container-fluid -->
     </section>
+
+
+
+    </div>
+    <!-- /.content-header -->
+
+    
+   
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

@@ -83,7 +83,7 @@
           <li class="nav-item has-treeview menu-open">
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./CaregiverClaimsOrderView.php" class="nav-link active">
+                <a href="./CaregiverClaimsOrderView.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Self-Assign Order</p>
                 </a>

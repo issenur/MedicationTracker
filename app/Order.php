@@ -39,7 +39,7 @@ class Order implements IteratorAggregate {
 
 		//get correct medication ID , given the med name
 		$model = Model::getInstance();
-		$medID = $model ->getMedID($medName);
+		$medID = $model->getMedID($medName);
 
 		//create new Med object 
 		$newMed = new Medication($medID,$medQty,$medUnit);

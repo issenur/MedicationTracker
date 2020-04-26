@@ -99,7 +99,7 @@ global $model;
                             </li>
                             <li class="nav-item">
                                 <a href="./CaregiverFulfillsOrderView.php" class="nav-link active">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="far fa-check-circle nav-icon"></i>
                                     <p>Fulfill Order</p>
                                 </a>
                             </li>

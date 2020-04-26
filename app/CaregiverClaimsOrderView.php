@@ -89,14 +89,14 @@
                     <li class="nav-item has-treeview menu-open">
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="./CaregiverDashboardView.php" class="nav-link active">
+                                <a href="./CaregiverDashboardView.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Caregiver Dashboard</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="./CaregiverClaimsOrderView.php" class="nav-link active">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="far fa-check-circle nav-icon"></i>
                                     <p>Self-Assign Order</p>
                                 </a>
                             </li>
