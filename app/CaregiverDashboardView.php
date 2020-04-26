@@ -59,7 +59,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="DoctorDashboard.php" class="brand-link">
+    <a href="CaregiverDashboardView.php" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">MedicationTracker</span>
@@ -83,21 +83,9 @@
           <li class="nav-item has-treeview menu-open">
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./CaregiverDashboard.html" class="nav-link active">
-                  <i class="far fa-check-circle nav-icon"></i>
-                  <p>Caregiver Dashboard</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./CaregiverClaimsOrderView.php" class="nav-link">
+                <a href="./CaregiverClaimsOrderView.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Self-Assign Order</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./CaregiverFulfillsOrderView.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Fulfill Order</p>
                 </a>
               </li>
             </ul>

@@ -46,6 +46,9 @@ include_once("Globals.php");
       <li class="nav-item d-none d-sm-inline-block">
         <a href="DoctorDashboardView.php" class="nav-link">Home</a>
       </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="logout.php" class="nav-link">Log Out</a>
+      </li>
       
     </ul>
 
@@ -117,8 +120,6 @@ include_once("Globals.php");
               
             </ul>
           </li>
-          
-
       </nav>
       <!-- /.sidebar-menu -->
     </div>
@@ -166,14 +167,9 @@ include_once("Globals.php");
 
           <!-- fix for small devices only -->
           <div class="clearfix hidden-md-up"></div>
-
-         
           <!-- /.col -->
         </div>
-
-      
     </div>
-    
     <!-- /.card -->
 
             <!-- TABLE: LATEST ORDERS -->

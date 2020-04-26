@@ -54,7 +54,6 @@ class  OrderController {
         //OrderController redirects to the page where all Orders are displayed
         $model = Model::getInstance();
         $model->setCurrentView("DoctorDisplaysOrdersView");
-        
     } 
 
 
@@ -90,9 +89,9 @@ class  OrderController {
      */
    function printAllOrders(){
     
-    foreach($ordersList as $value){
-       //return $value->orderDetails(); 
-    }
+    	foreach($ordersList as $value){
+       	  //return $value->orderDetails(); 
+    	}
        
     }
 

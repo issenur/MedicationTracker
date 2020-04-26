@@ -1,9 +1,13 @@
 <?php
-
-include_once("Model.php");
-include_once("DoctorAddsOrderView.php"); 
-include_once("OrderController.php");  
-
+    
+    session_start();
+    if(!isset($_SESSION['username']) || $_SESSION['role'] != "admin"){
+        header("location:index.php");
+    }
+    
+    include_once("Globals.php");
+    global $model;
+    
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +39,9 @@ include_once("OrderController.php");
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="DoctorDashboardView.php" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link">Log Out</a>
       </li>
       
     </ul>
@@ -86,7 +93,7 @@ include_once("OrderController.php");
             
             <ul class="nav nav-treeview">
             <li class="nav-item">
-                <a href="./DoctorDashboard.php" class="nav-link">
+                <a href="./DoctorDashboardView.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Doctor Dashboard</p>
                 </a>
@@ -133,8 +140,6 @@ include_once("OrderController.php");
         <!-- Main content -->
          <section class="content">
           <div class="container-fluid">
-        
-       
       <!-- TABLE: LATEST ORDERS -->
       <div class="card">
           <div class="card-header border-transparent">
@@ -195,8 +200,6 @@ include_once("OrderController.php");
                     </div>
                 </div>
           <!-- /.card-body -->
-        
-
       </div><!--/. container-fluid -->
     </section>
 
@@ -227,6 +230,5 @@ include_once("OrderController.php");
   </footer>
 </div>
 <!-- ./wrapper -->
-
 </body>
 </html>

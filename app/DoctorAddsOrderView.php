@@ -169,6 +169,119 @@ include_once("Globals.php");
             </div>
           </div>
 
+         <!--
+          
+          <div class="card-body .col-2">
+            <div class="table-responsive">
+              <div class="form-group">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-2">
+                      <label>Order ID</label>
+                      <input type="text" class="form-control" id='orderID2' name="genOrderID" placeholder="Type Here...">
+                        <script>
+                        //var orderNum = document.getElementById("orderID").value;
+                        //document.getElementById(ordertest).innerHTML = orderNum;
+                        function genOrderNumber(numDigits) {
+                          var orderNumber;
+                          var n = '';
+                          for(var count = 0; count < numDigits; count++) {
+                            orderNumber = Math.floor(Math.random() * 10);
+                            n += orderNumber.toString();
+                          }
+                          return n;
+                          }
+                          document.getElementById("orderID2").value = genOrderNumber(6);
+                      </script>
+                    </div>
+                    <div class="col-2">
+                      <label>Doctor ID</label>
+                      <input type="text" class="form-control" name="doctorID"placeholder="Type your ID...">
+                    </div>
+                    <div class="col-2">
+                      <label>Patient ID</label>
+                      <input type="text" class="form-control" name="patientID" placeholder="Enter patientID...">
+                    </div>
+                    <div class="form-group">
+                      <label for="inputDate1">Order Creation Date</label>
+                      <input type="text" class="form-control" id="orderDate1" name="genOrderDate"  placeholder="" disabled>
+                      <script>
+                           function genOrderDate() {
+                            var orderDate = new Date();;
+                            return orderDate;
+                       }
+                  document.getElementById("orderDate1").value = genOrderDate();
+            </script>
+            </div>
+                    
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+         -->
+
+
+          <!-- /.card-header 
+          <div class="card-body .col-12">
+            <div class="table-responsive">
+              <div class="form-group">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12" >
+                      <table class="table table-bordered table-hover" id="tab_logic">
+                     
+        <thead>
+          <tr >
+          <th class="text-center">
+              Med ID
+            </th>
+            <th class="text-center">
+              Med Quantity 
+            </th>
+            <th class="text-center">
+              Med Units
+            </th>
+            <th>
+                    <button onclick="javascript:void(0)" id="add_row" class="btn btn-flat btn-secondary"><b>+ Add Med</b>
+                      <span class="fas fa-capsules"></span>
+                    </button></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id='addr0'>
+            <td>
+            <input type="text" name='medID0'  placeholder='i.e 029202' id='medID1' class="form-control"/>
+            </td>
+            <td>
+            <input type="text" name='medQ0'  placeholder='i.e 150' id='medQ1'class="form-control"/>
+            </td>
+            <td> 
+		          <select class="form-control" name="medU1" id=medU1>
+	              	<option value=g>grams</option>
+		              <option value="mg">mg</option>
+	              	<option value="mL">mL</option>
+	              	<option value="tablet">tablet</option>
+	          	</select>
+            </td>
+            <td>
+              <button type = "button" id="remove_Medrow" class="remove"><b> - Remove Med </b>
+                <span class="fas fa-capsules"></span>
+              </button>
+            </td>
+          </tr>
+                    <tr id='addr1'></tr>
+        </tbody>
+      </table>
+          
+          <div class="card-footer clearfix">
+            <button type ="button" name="submitDocOrder" id="submitOrder" class="btn btn-sm btn-info float-right">Submit Order</button>
+          </div>
+          
+        </div>
+      
+      </div>
+      -->
 
           <?php
 

@@ -6,7 +6,6 @@ include_once("Globals.php");
 class Model{
     
     private $currentview = "";
-  
     private $currentuserid = 0;
     public static $instance = null;
      
@@ -380,6 +379,27 @@ class Model{
         return 0;
     }
    
+    /**Method takes a doctorID and returns 
+     * the doctorID stored in the DB only if Patient is active
+     * 
+     */
+    public function getDoctorID($doctorID){        
+        
+        global $model;
+        global $conn;
+        global $message;
+        $sql = "SELECT * from doctor WHERE doctor_id= '$doctorID'";
+        $result = $conn->query($sql);
+        $row = $result -> fetch_array();
+        $real_doctorID = $row['doctor_id'];
+        $real_active = $row['active'];
+        
+        //check if doctor is active so that they can create orders
+        if($real_doctorID == $doctorID && $real_active == 1){
+            return $real_doctorID;
+        }
+        return 0;
+    }
     
     public function setCurrentView($newView) {
         
@@ -416,4 +436,3 @@ class Model{
 }
 
 ?>
-
