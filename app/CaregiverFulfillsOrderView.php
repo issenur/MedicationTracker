@@ -1,13 +1,9 @@
 <?php
 
-    session_start();
-    if(!isset($_SESSION['username']) || $_SESSION['role'] != "caregiver"){
-        header("location:index.php");
-    }
+include_once("Globals.php");
+session_start();
 
-    include_once("Globals.php");
-    include_once("Model.php");
-
+global $model;
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Caregiver Claims Order</title>
+  <title>Caregiver Fulfills Order</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -30,36 +26,37 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <!-- Left navbar links -->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="http://localhost/CaregiverDashboardView.php" class="nav-link">Home</a>
-            </li>
-        </ul>
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="http://localhost/CaregiverDashboardView.php" class="nav-link">Home</a>
+        </li>
+    </ul>
 
-        <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
-            <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
-                    <i class="fas fa-search"></i>
-                    </button>
-                </div>
+    <!-- SEARCH FORM -->
+    <form class="form-inline ml-3">
+        <div class="input-group input-group-sm">
+            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+                <button class="btn btn-navbar" type="submit">
+                <i class="fas fa-search"></i>
+                </button>
             </div>
-        </form>
+        </div>
+    </form>
 
-        <!-- Right navbar links -->
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="logout.php" class="nav-link">Logout</a>
-            </li>
-        </ul>
-    </nav>
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="logout.php" class="nav-link">Logout</a>
+        </li>
+    </ul>
+</nav>
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
@@ -95,14 +92,14 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./CaregiverClaimsOrderView.php" class="nav-link active">
-                                    <i class="far fa-check-circle nav-icon"></i>
+                                <a href="./CaregiverClaimsOrderView.php" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
                                     <p>Self-Assign Order</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./CaregiverFulfillsOrderView.php" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                <a href="./CaregiverFulfillsOrderView.php" class="nav-link active">
+                                    <i class="far fa-check-circle nav-icon"></i>
                                     <p>Fulfill Order</p>
                                 </a>
                             </li>
@@ -122,17 +119,18 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Unassigned Orders</h1>
+              <h1 class="m-0 text-dark">Fulfill Assigned Orders</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="http://localhost/CaregiverDashboardView.php">Home</a></li>
-                <li class="breadcrumb-item active">Self-Assign Order</li>
+                <li class="breadcrumb-item active">Fulfill Order</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
       </div>
+
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
@@ -141,11 +139,10 @@
                        <table id="example2" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>Order#</th>
-                                    <th>Action</th>
+                                    <th>OrderID</th>
                                     <th>Patient</th>
-                                    <th>Age</th>
-                                    <th>Order Creation Date</th>
+                                    <th>Date</th>
+                                    <th>Fulfill</th>
                                 </tr>
                             </thead>
                             <?php
@@ -155,17 +152,19 @@
                                 if ($conn->connect_error) {
                                     die("Connection failed: " . $conn->connect_error);
                                 }
+                                $model = Model::getInstance();
+                                $Care_Giver_ID = $model-> getCurrentUserId(); // get Caregiver ID, add to line 166.
 
                                 $sql = "SELECT";
+
                                 $sql .= "`order`.`order_id` AS `order_id` ,";
                                 $sql .= "`patient`.`first` AS `pfirst` ,";
                                 $sql .= "`patient`.`last` AS `plast` ,";
-                                $sql .= " DATE_FORMAT(`date_of_birth`, '%Y') AS `pdate`,";
                                 $sql .= " DATE_FORMAT(`date`, '%d-%b-%Y') AS `date`,";
                                 $sql .= " `order`.`patient_id` AS `patient_id`";
                                 $sql .= " FROM `order` ";
                                 $sql .= " JOIN `patient` ON (`patient`.`patient_id` = `order`.`patient_id`)";
-                                $sql .= " WHERE `care_giver_id` = 0";
+                                $sql .= " WHERE `care_giver_id` = 0000";
                                 $result = $conn->query($sql);
                                 echo "<id='example2'>";
                                 echo "<tbody>";
@@ -173,12 +172,11 @@
                                     while($row = $result->fetch_assoc()) {
                                         echo "<tr>";
                                         echo "<td>" . (int)$row['order_id'] . "</td>";
-                                        echo"<td>";
-                                        echo "<a href ='CaregiverCODetailView.php?claim_order=".  $row['order_id'] ."'><button class='btn btn-dark'>Claim Order</button>"."<a/>";
-                                        echo "</td>";
                                         echo "<td>" . $row['pfirst'] . " " .  $row['plast'] . "</td>";
-                                        echo "<td>" . (2020 - (int)$row['pdate']) . "</td>";
                                         echo "<td>" . $row['date'] . "</td>";
+                                        echo "<td>";
+                                        echo "<a href ='CaregiverCODetailView.php?claim_order=".  $row['order_id'] ."'><button class='btn btn-dark'>Fulfill Order</button>"."<a/>";
+                                        echo "</td>";
                                         echo "</tr>";
                                     }
                                     echo "</tbody>";
@@ -194,8 +192,29 @@
             </div>
             <!-- /.container-fluid -->
         </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-block">
+        </div>
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 

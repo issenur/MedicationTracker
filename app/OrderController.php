@@ -35,7 +35,7 @@ class  OrderController {
 
        // global $model;
         $model = Model::getInstance();
-        $model->setCurrentAuthorizationLevel(1);
+        //$model->setCurrentAuthorizationLevel(1);
         //$model->setCurrentView("DoctorAddsOrderView");
         global $conn;
 
@@ -81,19 +81,6 @@ class  OrderController {
     }
 
 
-    
-
-
-    /**Method returns an all orders to the View
-     * returns a message of order details
-     */
-   function printAllOrders(){
-    
-    	foreach($ordersList as $value){
-       	  //return $value->orderDetails(); 
-    	}
-       
-    }
 
 }
 ?>

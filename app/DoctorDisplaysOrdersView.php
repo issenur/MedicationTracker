@@ -1,7 +1,7 @@
 <?php
     
     session_start();
-    if(!isset($_SESSION['username']) || $_SESSION['role'] != "admin"){
+    if(!isset($_SESSION['username']) || $_SESSION['role'] != "doctor"){
         header("location:index.php");
     }
     
@@ -40,11 +40,8 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="DoctorDashboardView.php" class="nav-link">Home</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Log Out</a>
-      </li>
-      
     </ul>
+
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -63,8 +60,8 @@
   </nav>
   <!-- /.navbar -->
 
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+   <!-- Main Sidebar Container -->
+   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="DoctorDashboardView.php" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -140,10 +137,12 @@
         <!-- Main content -->
          <section class="content">
           <div class="container-fluid">
+        
+       
       <!-- TABLE: LATEST ORDERS -->
       <div class="card">
           <div class="card-header border-transparent">
-            <h3 class="card-title">Latest Orders</h3>
+            <h3 class="card-title">Your Orders</h3>
           </div>
 
 
@@ -169,9 +168,9 @@
                                 }
                                 
                                 $sql = "SELECT ";
-                                $sql .= "`order`.`order_id` AS `order_id` ,";
-                                $sql .= "`order`.`doctor_id` AS `doctor_id` ,";
-                                $sql .= "`order`.`care_giver_id` AS `caregiver_id` ,";
+                                $sql .= " `order`.`order_id` AS `order_id` ,";
+                                $sql .= " `order`.`doctor_id` AS `doctor_id` ,";
+                                $sql .= " `order`.`care_giver_id` AS `caregiver_id` ,";
                                 $sql .= " `order`.`patient_id` AS `patient_id`,";
                                 $sql .= " DATE_FORMAT(`date`, '%d-%b-%Y') AS `date` ";
                                 $sql .= " FROM `order` ";
@@ -200,6 +199,8 @@
                     </div>
                 </div>
           <!-- /.card-body -->
+        
+
       </div><!--/. container-fluid -->
     </section>
 
@@ -218,7 +219,6 @@
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
   </aside>
-  <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
   <footer class="main-footer">
@@ -230,5 +230,6 @@
   </footer>
 </div>
 <!-- ./wrapper -->
+
 </body>
 </html>
