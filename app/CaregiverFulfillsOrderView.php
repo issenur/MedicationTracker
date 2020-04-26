@@ -1,6 +1,7 @@
 <?php
 
 include_once("Globals.php");
+session_start();
 
 global $model;
 ?>

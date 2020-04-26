@@ -5,7 +5,7 @@ if(!isset($_SESSION['username']) || $_SESSION['role'] != "doctor"){
     header("location:index.php");
 }
 include_once("OrderController.php");
-include_once("DoctorInputsCode.php");
+include_once("DoctorInputsCodeHelper.php");
 include_once("Model.php");
 
 include_once("Globals.php");
@@ -196,20 +196,7 @@ include_once("Globals.php");
       <form action="" method="post">
         <div class="card-body">
           <div class="form-group">
-            <input type="hidden" class="form-control" id="orderID2" name="inputOrderID1"  value="<?php echo $nextOrderID; ?>">
-          <!--
-          <script>
-           var orderNumber = document.getElementById("orderID2").innerHTML;
-              function genOrderNumber() {
-                  var n = '';
-                  orderNumber = orderNumber + 1;
-                  n += orderNumber.toString(); 
-                  return n;
-                }
-
-                document.getElementById("orderID2").value = genOrderNumber();
-          </script>
-          -->         
+            <input type="hidden" class="form-control" id="orderID2" name="inputOrderID1"  value="<?php echo $nextOrderID; ?>">       
           </div>
           <div class="card-body">
             <div class="form-group">
@@ -252,9 +239,7 @@ include_once("Globals.php");
             <div class="form-group">
             <label>Select Unit for Medication 1</label>
             <select class="form-control" id="medUnit1" name= "inputMedicationUnit1">
-               <option>gel</option>
               <option>tablet</option>
-              <option>mcg</option>
               <option>ml</option>
               <option>patch</option>
               <option>puffs</option>
@@ -278,9 +263,7 @@ include_once("Globals.php");
             <input type="text" class="form-control" id="medQty2" name="inputMedicationQty2" placeholder="Enter daily dose a patient would take for Medication">
             <label>Select Unit for Medication 2</label>
             <select class="form-control" id="medUnit2" name= "inputMedicationUnit2">
-              <option>gel</option>
               <option>tablet</option>
-              <option>mcg</option>
               <option>ml</option>
               <option>patch</option>
               <option>puffs</option>
@@ -305,9 +288,7 @@ include_once("Globals.php");
             <input type="text" class="form-control" id="medQty3" name="inputMedicationQty3" placeholder="Enter daily dose a patient would take for Medication">
             <label>Select Unit for Medication 3</label>
             <select class="form-control" id="medUnit3" name= "inputMedicationUnit3">
-              <option>gel</option>
               <option>tablet</option>
-              <option>mcg</option>
               <option>ml</option>
               <option>patch</option>
               <option>puffs</option>
@@ -334,7 +315,6 @@ include_once("Globals.php");
             <select class="form-control" id="medUnit4" name= "inputMedicationUnit4">
               <option>gel</option>
               <option>tablet</option>
-              <option>mcg</option>
               <option>ml</option>
               <option>patch</option>
               <option>puffs</option>
