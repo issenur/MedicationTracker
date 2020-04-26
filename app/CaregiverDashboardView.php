@@ -88,6 +88,12 @@
                   <p>Self-Assign Order</p>
                 </a>
               </li>
+              <li class="nav-item">
+                  <a href="./CaregiverFulfillsOrderView.php" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Fulfill Order</p>
+                  </a>
+              </li>
             </ul>
           </li>
       </nav>

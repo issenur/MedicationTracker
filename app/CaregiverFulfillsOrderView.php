@@ -97,12 +97,6 @@ global $model;
                                     <p>Self-Assign Order</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="./CaregiverFulfillsOrderView.php" class="nav-link active">
-                                    <i class="far fa-check-circle nav-icon"></i>
-                                    <p>Fulfill Order</p>
-                                </a>
-                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -164,7 +158,7 @@ global $model;
                                 $sql .= " `order`.`patient_id` AS `patient_id`";
                                 $sql .= " FROM `order` ";
                                 $sql .= " JOIN `patient` ON (`patient`.`patient_id` = `order`.`patient_id`)";
-                                $sql .= " WHERE `care_giver_id` = 0000";
+                                $sql .= " WHERE `care_giver_id` = '$Care_Giver_ID'";
                                 $result = $conn->query($sql);
                                 echo "<id='example2'>";
                                 echo "<tbody>";
