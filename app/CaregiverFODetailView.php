@@ -2,6 +2,7 @@
     session_start();
     include_once("Globals.php");
     include_once("Model.php");
+    include_once("CaregiverCompleteCodeHelper.php");
 
     if(!isset($_SESSION['username']) || $_SESSION['role'] != "caregiver"){
       header("location:index.php");
@@ -101,14 +102,14 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./CaregiverClaimsOrderView.php" class="nav-link active">
-                                    <i class="far fa-check-circle nav-icon"></i>
+                                <a href="./CaregiverClaimsOrderView.php" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
                                     <p>Self-Assign Order</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./CaregiverFulfillsOrderView.php" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                <a href="./CaregiverFulfillsOrderView.php" class="nav-link active">
+                                    <i class="far fa-check-circle nav-icon"></i>
                                     <p>Fulfill Order</p>
                                 </a>
                             </li>
@@ -136,27 +137,9 @@
                     </div>
                     <div class ="col-auto">
 
-                        <a class="btn btn-app"  href ="CaregiverCODetailView.php?button_claim=$care_giver_id" style="background-color:lightblue" >
-                            <i class="fas fa-edit" type ="submit" name="button_claim"  style="background-color:lightblue">Click To Confirm Claim</i>
+                        <a class="btn btn-app"  href ="CaregiverOrderConfirmView.php" style="background-color:lightblue" >
+                            <i class="fas fa-edit" type ="submit"  style="background-color:lightblue">Click To Update Order</i>
                         </a>
-                        <?php
-                            if(isset($_GET["button_claim"])){
-
-                                $model = Model::getInstance();
-                                $care_giver_id = $model->getCurrentUserId();
-
-
-                                $order_id = $_SESSION['order_id'];
-
-                                $sql = "UPDATE `order` SET `care_giver_id` = '$care_giver_id'  WHERE `order_id` = '$order_id'";
-
-                                if(!mysqli_query($conn, $sql)){
-                                    header("Location: fail.php");
-                                }else{
-                                    header("Location: CaregiverOrderConfirmView.php");
-                                }
-                            }
-                        ?>
                     </div>
                 </div>
                 <div class="row pl-5" style="min-height:62vh" style="min-width:100vw" >
@@ -168,6 +151,7 @@
                                     <th>Dosage Amount</th>
                                     <th>Class/Category</th>
                                     <th>Due Time</th>
+                                    <th>Fulfill</th>
                                 </tr>
                             </thead>
                             <?php
@@ -179,12 +163,15 @@
                                     die("Connection failed: " . $conn->connect_error);
                                 }
 
+                                $break_down_completed = 0;
+
                                 $sql  = "SELECT";
                                 $sql .= " `medication`.`name` as `name`,";
                                 $sql .= " `medication`.`physical_form` as `form`,";
                                 $sql .= " `medication`.`units` as `units`,";
                                 $sql .= " `break_down`.`administer_time` as `time`,";
                                 $sql .= " `break_down`.`quantity` as `quantity`";
+                                //$sql .= " `break_down`.`completed` as `completed`";
                                 $sql .= " FROM `break_down`";
                                 $sql .= " JOIN `medication` on (`medication`.`medication_id` = `break_down`.`medication_id`)";
                                 $sql .= " WHERE `break_down`.`order_id` = '$order_id'";
@@ -197,10 +184,12 @@
                                     while($row = $result->fetch_assoc()) {
                                         echo "<tr>";
                                             echo "<td>" . $row['name'] . "</td>";
-                                            $med_name = $row['name'];
                                             echo "<td>" . $row['quantity'] . "  " .$row['units']. "</td>";
                                             echo "<td>" . $row['form'] . "</td>";
                                             echo "<td>" . $row['time'] . "</td>";
+                                            echo "<td>";
+                                            echo "<a href ='CaregiverCompleteCodeHelper.php?completed" . $row['completed']. "'><input type='checkbox'><a/>"; // add if/else
+                                            echo "</td>";
                                         echo "</tr>";
                                     }
                                     echo "</tbody>";
@@ -208,7 +197,7 @@
                                 } else {
                                     echo "</tbody>";
                                     echo "</table>";
-                                    echo "<h4>ORDERS DATABASE EMPTY</h4>";
+                                    echo "<h4>No Orders To Fulfill</h4>";
                                 }
                             ?>
                     </div>

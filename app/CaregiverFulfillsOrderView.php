@@ -61,7 +61,7 @@ global $model;
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="CaregiverDashboardView.php" class="brand-link">
-            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            <img src="dist/img/pill.png" class="brand-image img-circle elevation-3"
             style="opacity: .8">
             <span class="brand-text font-weight-light">MedicationTracker</span>
         </a>
@@ -164,7 +164,7 @@ global $model;
                                 $sql .= " `order`.`patient_id` AS `patient_id`";
                                 $sql .= " FROM `order` ";
                                 $sql .= " JOIN `patient` ON (`patient`.`patient_id` = `order`.`patient_id`)";
-                                $sql .= " WHERE `care_giver_id` = 0000";
+                                $sql .= " WHERE `care_giver_id` = '$Care_Giver_ID'";
                                 $result = $conn->query($sql);
                                 echo "<id='example2'>";
                                 echo "<tbody>";
@@ -175,7 +175,7 @@ global $model;
                                         echo "<td>" . $row['pfirst'] . " " .  $row['plast'] . "</td>";
                                         echo "<td>" . $row['date'] . "</td>";
                                         echo "<td>";
-                                        echo "<a href ='CaregiverCODetailView.php?claim_order=".  $row['order_id'] ."'><button class='btn btn-dark'>Fulfill Order</button>"."<a/>";
+                                        echo "<a href ='CaregiverFODetailView.php?claim_order=".  $row['order_id'] ."'><button class='btn btn-dark'>Fulfill Order</button>"."<a/>";
                                         echo "</td>";
                                         echo "</tr>";
                                     }
@@ -184,7 +184,7 @@ global $model;
                                 } else {
                                     echo "</tbody>";
                                     echo "</table>";
-                                    echo "<h4>ORDERS DATABASE EMPTY</h4>";
+                                    echo "<h4>No Orders To Fulfill</h4>";
                                 }
                             ?>
                     </div>
