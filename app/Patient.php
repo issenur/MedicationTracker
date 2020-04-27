@@ -21,7 +21,7 @@ class Patient {
     *when admin create Patient as user, they can use this method
     */
     public function setPatientID(int $patientID1){
-        $this->$patientID = $patientID1;  //set patientID for the object
+        $this->patientID = $patientID1;  //set patientID for the object
         
     }
 
@@ -29,11 +29,12 @@ class Patient {
     * Order will call this method to obtain ID from DB
     */
 	public static function getPatientID($patientID){
-        
+
+       $model = Model::getInstance();
        $realPatientID =  $model->getPatientID($patientID);
        if($realPatientID !=0){ //check if we have the patientID instead of number 0,
-        $this->$patientID =  $realPatientID;
-        return $patientID;
+        $patientID =  $realPatientID;
+        return $realPatientID;
 
        }
     

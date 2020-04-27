@@ -10,7 +10,7 @@ class Medication {
 /* instance var of an Med */
     private  $medID;
     private  $medQty;
-    private  $medUnit;  
+    private  $medUnit;  //ml, mg, tablet, capsule
 
     public function __construct($medID,$medQty,$medUnit) {
 

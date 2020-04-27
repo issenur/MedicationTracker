@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2020 at 10:08 PM
+-- Generation Time: Apr 26, 2020 at 12:14 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.15
 
@@ -61,15 +61,16 @@ CREATE TABLE `break_down` (
 --
 
 INSERT INTO `break_down` (`order_id`, `medication_id`, `quantity`, `administer_time`, `completed`) VALUES
-(400001, 100000, '5.00', '09:00:00', 0),
+(400001, 100000, '1.00', '09:00:00', 0),
+(400003, 100000, '1.00', '15:00:00', 0),
 (400000, 100001, '1.00', '09:00:00', 0),
 (400002, 100004, '0.20', '09:00:00', 0),
 (400000, 100005, '1.00', '09:00:00', 0),
 (400000, 100005, '1.00', '21:00:00', 0),
 (400002, 100005, '1.00', '09:00:00', 0),
 (400002, 100005, '1.00', '21:00:00', 0),
-(400000, 100006, '100.00', '09:00:00', 0),
-(400001, 100006, '200.00', '09:00:00', 0),
+(400000, 100006, '2.00', '09:00:00', 0),
+(400001, 100006, '2.00', '09:00:00', 0),
 (400000, 100007, '1.00', '09:00:00', 0),
 (400000, 100007, '1.00', '15:00:00', 0),
 (400003, 100007, '1.00', '09:00:00', 0),
@@ -98,7 +99,7 @@ CREATE TABLE `care_giver` (
 INSERT INTO `care_giver` (`care_giver_id`, `first`, `last`, `is_nurse`, `active`) VALUES
 (0000, 'NULL', 'NULL', 1, 1),
 (5000, 'Samuel', 'Ray', 1, 1),
-(5001, 'Nina', 'Rodgers', 1, 0),
+(5001, 'Nina', 'Rodgers', 1, 1),
 (5002, 'Anisa', 'Abdi', 1, 1),
 (5003, 'Sean', 'Carter', 1, 1);
 
@@ -121,7 +122,7 @@ CREATE TABLE `doctor` (
 
 INSERT INTO `doctor` (`doctor_id`, `first`, `last`, `active`) VALUES
 (7000, 'Leroy', 'James', 1),
-(7001, 'Najma', 'Jama', 0),
+(7001, 'Najma', 'Jama', 1),
 (7002, 'Jose', 'Nunez', 1);
 
 -- --------------------------------------------------------
@@ -142,15 +143,15 @@ CREATE TABLE `medication` (
 --
 
 INSERT INTO `medication` (`medication_id`, `name`, `units`, `physical_form`) VALUES
-(100000, 'lidocaine patch', '%', 'Gel'),
-(100001, 'furosemide', '', 'Tablet'),
-(100002, 'fluticasone', 'mcg', 'Nasal Spray'),
-(100003, 'insulin', 'ml', 'Injected'),
-(100004, 'clonidine', '%', 'Patch'),
-(100005, 'atenolol', '', 'Tablet'),
-(100006, 'albuterol', 'mcg', 'Inhaled'),
-(100007, 'omeperazol', '', 'Capsule'),
-(100008, 'carafate', 'ml', 'Syrup');
+(100000, 'lidocaine patch 5%', 'patch', 'NSAID'),
+(100001, 'furosemide', 'tablet', 'beta-blocker'),
+(100002, 'fluticasone 100mcg', 'sprays', 'antihistamine'),
+(100003, 'metformin', 'ml', 'diabetes medicine'),
+(100004, 'clonidine', 'ml', 'ADHD'),
+(100005, 'atenolol', 'tablet', 'beta-blocker'),
+(100006, 'albuterol 100mcg', 'puffs', 'corticosteriod'),
+(100007, 'omeperazole', 'capsule', 'pump inhibitor'),
+(100008, 'carafate', 'ml', 'pump inhibitor');
 
 -- --------------------------------------------------------
 
@@ -195,10 +196,10 @@ CREATE TABLE `patient` (
 --
 
 INSERT INTO `patient` (`patient_id`, `first`, `last`, `date_of_birth`, `active`) VALUES
-(3000, 'Kyle', 'Omar', '2001-02-06', 0),
-(3001, 'Guled', 'Farah', '1995-09-27', 0),
-(3002, 'Angie', 'Simpson', '1929-12-01', 0),
-(3003, 'David', 'Lucas', '1974-08-27', 0);
+(3000, 'Kyle', 'Omar', '2001-02-06', 1),
+(3001, 'Guled', 'Farah', '1995-09-27', 1),
+(3002, 'Angie', 'Simpson', '1929-12-01', 1),
+(3003, 'David', 'Lucas', '1974-08-27', 1);
 
 -- --------------------------------------------------------
 
@@ -224,16 +225,15 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`username`, `password`, `doctor_id`, `patient_id`, `care_giver_id`, `admin_id`, `user_type`, `active`) VALUES
 ('Admin2020', 'fea7f657f56a2a448da7d4b535ee5e279caf3d9a', NULL, NULL, NULL, 2000, 'admin', 2),
 ('Anisa2020', 'ab874467a7d1ff5fc71a4ade87dc0e098b458aae', NULL, NULL, 5002, NULL, 'caregiver', 1),
-('Farah500!', 'f56d6351aa71cff0debea014d13525e42036187a', NULL, 3001, NULL, NULL, 'patient', 0),
+('Farah500!', 'f56d6351aa71cff0debea014d13525e42036187a', NULL, 3001, NULL, NULL, 'patient', 1),
 ('JoseNunez', '501ab5444eae9ad32b562570b36ff628ec3790ce', 7002, NULL, NULL, NULL, 'doctor', 1),
-('KyleOmar', 'f56d6351aa71cff0debea014d13525e42036187a', NULL, 3000, NULL, NULL, 'patient', 0),
+('KyleOmar', 'f56d6351aa71cff0debea014d13525e42036187a', NULL, 3000, NULL, NULL, 'patient', 1),
 ('LeeROY1', '501ab5444eae9ad32b562570b36ff628ec3790ce', 7000, NULL, NULL, NULL, 'doctor', 1),
-('LU8989', 'f56d6351aa71cff0debea014d13525e42036187a', NULL, 3003, NULL, NULL, 'patient', 0),
-('Najma@100', '501ab5444eae9ad32b562570b36ff628ec3790ce', 7001, NULL, NULL, NULL, 'doctor', 0),
-('NinaR$007', 'ab874467a7d1ff5fc71a4ade87dc0e098b458aae', NULL, NULL, 5001, NULL, 'caregiver', 0),
+('LU8989', 'f56d6351aa71cff0debea014d13525e42036187a', NULL, 3003, NULL, NULL, 'patient', 1),
+('NinaR$007', 'ab874467a7d1ff5fc71a4ade87dc0e098b458aae', NULL, NULL, 5001, NULL, 'caregiver', 1),
 ('SamuelRay1', 'ab874467a7d1ff5fc71a4ade87dc0e098b458aae', NULL, NULL, 5000, NULL, 'caregiver', 1),
 ('SeanCarter', 'ab874467a7d1ff5fc71a4ade87dc0e098b458aae', NULL, NULL, 5003, NULL, 'caregiver', 1),
-('Simpson6000', 'f56d6351aa71cff0debea014d13525e42036187a', NULL, 3002, NULL, NULL, 'patient', 0);
+('Simpson6000', 'f56d6351aa71cff0debea014d13525e42036187a', NULL, 3002, NULL, NULL, 'patient', 1);
 
 --
 -- Indexes for dumped tables
@@ -310,13 +310,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `care_giver`
 --
 ALTER TABLE `care_giver`
-  MODIFY `care_giver_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7003;
+  MODIFY `care_giver_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7005;
 
 --
 -- AUTO_INCREMENT for table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `doctor_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7005;
+  MODIFY `doctor_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7015;
 
 --
 -- AUTO_INCREMENT for table `medication`
@@ -334,7 +334,7 @@ ALTER TABLE `order`
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `patient_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3005;
+  MODIFY `patient_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3012;
 
 --
 -- Constraints for dumped tables
