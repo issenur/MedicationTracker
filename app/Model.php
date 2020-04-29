@@ -241,19 +241,28 @@ class Model{
         }
     }
 
-    public function updateMedStatus($order_id){
-        global $conn;
+    public function updateMedStatus($med_id){
+            global $conn;
 
-        //
-        $sql = "UPDATE break_down SET completed = '1' WHERE medication_id = $med_id";
+            $sql = "SELECT medication_id from break_down WHERE medication_id = '$med_id'";
+            $result = $conn->query($sql);
+            $row = $result -> fetch_array();
+            $completed = $row['completed'];
 
-        if(!mysqli_query($conn, $sql)){
-            return false;
-        }else{
+            if($completed == 0){
 
-            return true;
+                $sql = "UPDATE break_down SET completed = 1 where order_id = `$order_id` AND medication_id = `$medication_id`";
+                if(!mysqli_query($conn, $sql)){
+                  header("location:fail.php");
+                    return false;
+                }else{
+
+                    return true;
+                }
+            }else{
+                return false;
+            }
         }
-    }
 
 
     public function updateUserUsername($username, $newusername) {
