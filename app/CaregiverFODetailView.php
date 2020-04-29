@@ -41,25 +41,9 @@
                 <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
+                <a href="CaregiverDashboardView.php" class="nav-link">Home</a>
             </li>
         </ul>
-
-        <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
-            <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
-                    <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <li class="nav-item d-none d-sm-inline-block">
@@ -71,8 +55,6 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="CaregiverDashboardView.php" class="brand-link">
-            <img src="dist/img/pill.png" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
             <span class="brand-text font-weight-light">MedicationTracker</span>
         </a>
 
@@ -135,12 +117,7 @@
                         ?>
                         </h1>
                     </div>
-                    <div class ="col-auto">
-
-                        <a class="btn btn-app"  href ="CaregiverOrderConfirmView.php" style="background-color:lightblue" >
-                            <i class="fas fa-edit" type ="submit"  style="background-color:lightblue">Click To Update Order</i>
-                        </a>
-                    </div>
+                    <br>
                 </div>
                 <div class="row pl-5" style="min-height:62vh" style="min-width:100vw" >
                     <div class= "col" style="min-height:62vh" style="min-width:100vw" >
@@ -151,47 +128,55 @@
                                     <th>Dosage Amount</th>
                                     <th>Class/Category</th>
                                     <th>Due Time</th>
-                                    <th>Fulfill</th>
+                                    <th>Fulfilled?<br><font size="2">0 = Unfulfilled<br>1 = Fulfilled</font></th>
                                 </tr>
                             </thead>
                             <?php
 
+
                                 global $conn;
                                 global $order_id;
+                                global $medication_id;
+                                global $administer_time;
+                                global $quantity;
 
                                 if ($conn->connect_error) {
                                     die("Connection failed: " . $conn->connect_error);
                                 }
 
-                                $break_down_completed = 0;
-
                                 $sql  = "SELECT";
                                 $sql .= " `medication`.`name` as `name`,";
                                 $sql .= " `medication`.`physical_form` as `form`,";
                                 $sql .= " `medication`.`units` as `units`,";
-                                $sql .= " `break_down`.`administer_time` as `time`,";
-                                $sql .= " `break_down`.`quantity` as `quantity`";
-                                //$sql .= " `break_down`.`completed` as `completed`";
+                                $sql .= " TIME_FORMAT(`break_down`.`administer_time`,'%h:%i %p') as `time`,";
+                                $sql .= " `break_down`.`quantity` as `quantity`,";
+                                $sql .= " `break_down`.`completed` as `completed`";
                                 $sql .= " FROM `break_down`";
                                 $sql .= " JOIN `medication` on (`medication`.`medication_id` = `break_down`.`medication_id`)";
                                 $sql .= " WHERE `break_down`.`order_id` = '$order_id'";
                                 $sql .= " ORDER BY `break_down`.`administer_time`";
 
                                 $result = $conn->query($sql);
-                                echo "<id='example4'>";
+                              echo "<id='example4'>";
                                 echo "<tbody>";
                                 if ($result->num_rows > 0) {
                                     while($row = $result->fetch_assoc()) {
+                                      $medName = $row['name'];
+                                      // $completedStatus = $row['completed'];
                                         echo "<tr>";
                                             echo "<td>" . $row['name'] . "</td>";
                                             echo "<td>" . $row['quantity'] . "  " .$row['units']. "</td>";
                                             echo "<td>" . $row['form'] . "</td>";
                                             echo "<td>" . $row['time'] . "</td>";
+                                            echo "<td>" . $row['completed'] . "</td>";
                                             echo "<td>";
-                                            echo "<a href ='CaregiverCompleteCodeHelper.php?completed" . $row['completed']. "'><input type='checkbox'><a/>"; // add if/else
+                                            echo "<form method='post' action=''>";
+                                            echo "<select class='form-control select2' name='completedInput' style='width:50%'><option value='0'>Unfulfilled</option><option value='1'>Fulfilled</option></select>";
+                                            echo "<input type='submit' name='update' value='UPDATE' style='width:50%'>";
+                                            echo "</form>";
                                             echo "</td>";
                                         echo "</tr>";
-                                    }
+                                      }
                                     echo "</tbody>";
                                     echo "</table>";
                                 } else {
@@ -199,10 +184,30 @@
                                     echo "</table>";
                                     echo "<h4>No Orders To Fulfill</h4>";
                                 }
+                                if(isset($_POST['update'])){
+                                  $connct = mysqli_connect('localhost','root','','medicationtracker');
+                                  $value = $_POST['completedInput'];
+                                  $result = mysqli_query($connct,"UPDATE break_down SET completed = $value where order_id = '$order_id' AND medication_id = '$medication_id' AND administer_time = '$administer_time' AND quantity = '$quantity'");
+echo "Status Updated";
+                                }
+
                             ?>
                     </div>
                 </div>
-              </div>
+              <!--  <form action="CaregiverCompleteCodeHelper.php" method="post">
+                  <div class="card-body">
+                    <div class="form-group">
+                      <input type="hidden" class="form-control" id="medNameInput" name="medNameInput"  value="<?php echo $medName; ?>">
+                    </div>
+                    <div class="card-body">
+                      <div class="form-group">
+                        <label for="inputDate1">Order Creation Date</label>
+                        <input type="checkbox" class="form-control" id="checkboxInput" name="checkboxInput"   value="<?php echo $completedStatus; ?>">
+                      </div>
+                    </div>
+                  </div>
+                  </form>
+                  -->
             </section>
                 <div class="row" style="min-height:15vh" style="min-width:100vw">
                     <div class= "col" style="background-color:lightblue" style="min-height:15vh" >
@@ -263,5 +268,16 @@ $(document).ready(function () {
   bsCustomFileInput.init();
 });
 </script>
+
+<script>
+$(."form-control select2").each(function( index ) {
+    if ($( this ).text()=="0") {
+        $( this ).html("Unfulfilled");
+    } else if($( this ).text()=="1") {
+        $( this ).html("Fulfilled");
+    }
+});
+</script>
+
 </body>
 </html>

@@ -1,17 +1,19 @@
 <?php
    include_once("CaregiverFODetailView.php");
+   include_once("Model.php");
+   include_once("Globals.php");
 
    // Get order data from the table
-   if (isset($_POST["completed"])) {
-     $completedValue = $_POST["completed"];
-     $medName = $_POST["med_name"];
+ if (isset($_POST["checkboxInput"])) {
+     $completedValue = $_POST["checkboxInput"];
+     $medName = $_POST["medNameInput"];
 
      if ($completedValue = 1){
        $Model-> $Model::getInstance();
        $medID = $Model-> getMedID($medName);
-       $Model-> updateMedStatus($order_id);
+       $Model-> updateMedStatus($medID);
+       header("location:CaregiverOrderConfirmView.php");
      }
-
-
    }
+
    ?>
