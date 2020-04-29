@@ -94,11 +94,11 @@ if(isset($_GET['claim_order'])){
                     </div>
                     <div class ="col-auto">
                     
-                        <a class="btn btn-app"  href ="CaregiverCODetailView.php?button_claim=$care_giver_id"style="background-color:chartreuse" style="background-color:orange" >
-                            <i class="fas fa-edit" type ="submit" name="button_claim2"  style="background-color:chartreuse">Order Claimed</i>
+                        <a class="btn btn-app"  href ="CaregiverCODetailView.php?button_claim=$care_giver_id"style="background-color:chartreuse" style="background-color:#7dff90" >
+                            <i class="fas fa-edit" type ="submit" name="button_claim2"  style="background-color:#7dff90">Order Claimed</i>
                         </a>
                         <?php
-                               header("refresh:0.7; url=CaregiverDashboardView.php");
+                               header("refresh:0.8; url=CaregiverDashboardView.php");
 
                                
                         ?>
