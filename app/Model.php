@@ -4,7 +4,6 @@ include_once("UserModel.php");
 include_once("Globals.php");
 
 class Model{
-
     private $currentview = "";
     private $currentuserid = 0;
     public static $instance = null;

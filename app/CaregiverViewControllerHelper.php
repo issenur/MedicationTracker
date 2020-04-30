@@ -8,7 +8,6 @@
 
     }
 
-
    if(isset($_GET['fulfill_order'])){
      $order_id = $_GET['fulfill_order'];
      $patient_id = $_GET['patient_id'];
@@ -17,5 +16,5 @@
      $date = gettimeofday;
      $order_status = $_POST['order_status'];
    }
-    
+
 ?>

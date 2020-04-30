@@ -11,7 +11,6 @@ if(isset($_GET['claim_order'])){
    $_SESSION['order_id'] = $_GET['claim_order'];
 }
 
-
 ?>
 
 <!DOCTYPE html>

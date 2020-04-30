@@ -15,5 +15,4 @@
        header("location:CaregiverOrderConfirmView.php");
      }
    }
-
    ?>

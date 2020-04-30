@@ -2,6 +2,7 @@
 
 include_once("Globals.php");
 
+
 class Caregiver{ // instance var of a Caregiver
   private $care_giver_id;
   private $firstname;

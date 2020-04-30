@@ -4,7 +4,6 @@
     if(!isset($_SESSION['username']) || $_SESSION['role'] != "caregiver"){
         header("location:index.php");
     }
-
     include_once("Globals.php");
     include_once("Model.php");
 
