@@ -53,5 +53,7 @@
          $user_name = $_GET['activate_care_giver'];
          $controller->activateCaregiverUser($user_name);
     }  
+
+    
      
 ?>

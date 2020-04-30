@@ -43,8 +43,8 @@ class  OrderController {
          //check to make sure doctorID is in the DB, if so proceed
 		//check to make sure patientID is in DB, if so proceed
         //create Order object
-        $this->$order = new Order($order_id,$doctor_id,$patient_id);
-        $this->$ordersList.add($order); //add new order to our list of orders
+        $order = new Order($order_id,$doctor_id,$patient_id);
+        array_push($ordersList,$order);
   
         //OrderController redirects to the page where all Orders are displayed
         $model = Model::getInstance();
@@ -56,7 +56,7 @@ class  OrderController {
     /**Method add additional medication via medID to an order
      * returns boolean succesful addition = true, failure to add = false
      */
-    function addMeds2Order($order_id, $medName,$medQty,$medUnit){
+    function addMeds2Order($order_id, $medName,$medQty,$adminTime){
         //validate medid, medQty,medUnit
     if(strlen($medQty > 3) || strlen($medQty == 0) ) {
         echo "Sorry the Medication Qty entered must between 1 and equal to 999";
@@ -65,7 +65,7 @@ class  OrderController {
     //check if orderID is equal to this order
     if($this->$order->getOrderID() == $order_id){
         //add Medications to Order list and the DB as well
-        $this->$order->addMeds2Order($medName,$medQty,$medUnit);
+        $this->$order->addMeds2Order($medName,$medQty,$adminTime);
         return true;
     }
     else{

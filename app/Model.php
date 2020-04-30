@@ -1,10 +1,13 @@
 <?php
 
+//session_start();
+
+include_once("UserModel.php");
+include_once("Globals.php");
 
 class Model{
     
     private $currentview = "";
-    private $currentauthorizationlevel = 0;
     private $currentuserid = 0;
     public static $instance = null;
      
@@ -25,16 +28,17 @@ class Model{
         return self::$instance;
     } 
     
-    public function addDoctorUser($user_name, $pin, $first, $last, $active) {
+    public function addDoctorUser($user_name, $password, $first, $last, $user_type, $active) {
     
         global $conn;
         global $userModel;
-        $userModel = new ModelUser();
+        $userModel = new UserModel();
         $doctor_id = $userModel->addDoctor($first, $last, $active);  //UserModel class
         
         if($doctor_id > 0){
         
-            $sql = "INSERT INTO user (username, pin, doctor_id, patient_id, care_giver_id , active) values('$user_name' ,'$pin', '$doctor_id', NULL, NULL,'$active')";
+            $sql = "INSERT INTO user (username, password, doctor_id, patient_id, care_giver_id , admin_id, user_type, active)";
+            $sql .= "values('$user_name', SHA1('$password'), '$doctor_id', NULL, NULL, NULL, '$user_type', '$active')";
         
             if(!mysqli_query($conn, $sql)){
                 return false;
@@ -97,16 +101,16 @@ class Model{
         }
     }
     
-    public function addPatientUser($user_name, $pin, $first, $last, $date_of_birth, $active) {
+    public function addPatientUser($user_name, $password, $first, $last, $date_of_birth, $user_type, $active) {
     
         global $conn;
         global $userModel;
         $userModel = new UserModel();
-        $patient_id = $modelUser->addPatient($first, $last, $date_of_birth, $active);
+        $patient_id = $userModel->addPatient($first, $last, $date_of_birth, $active);
         
         if($patient_id > 0){
         
-            $sql = "INSERT INTO user (username, pin, doctor_id, patient_id, care_giver_id , active) values('$user_name' ,'$pin', NULL, '$patient_id', NULL,'$active')";
+            $sql = "INSERT INTO user(username, password, doctor_id, patient_id, care_giver_id, admin_id, user_type, active) values('$user_name' , SHA1('$password'), NULL, '$patient_id', NULL, NULL, '$user_type',  '$active')";
             
             if(!mysqli_query($conn, $sql)){
                 return false;
@@ -169,23 +173,20 @@ class Model{
         }
     }
     
-    public function addCareGiverUser($user_name, $pin, $first, $last, $is_nurse, $active) {
+    public function addCareGiverUser($user_name, $password, $first, $last, $user_type, $is_nurse, $active) {
     
         global $conn;
         global $userModel;
         $userModel = new UserModel();
         $care_giver_id = $userModel->addCareGiver($first, $last, $is_nurse, $active);
         
-        if($care_giver_id > 0){
-        
-            $sql = "INSERT INTO user (username, pin, doctor_id, patient_id, care_giver_id , active) values('$user_name' ,'$pin', NULL, NULL, '$care_giver_id', '$active')";
-            
+        if($care_giver_id > 0){       
+            $sql = "INSERT INTO user (username, password, doctor_id, patient_id, care_giver_id , admin_id, user_type, active) values('$user_name' , SHA1('$password'), NULL, NULL, '$care_giver_id', NULL, '$user_type', '$active')";        
             if(!mysqli_query($conn, $sql)){
                 return false;
             }else{
                 return true;
-            }
-            
+            }          
         }else{
             return false;
         }
@@ -275,7 +276,7 @@ class Model{
         //this id number. It represents NULL. Which means we havent assigned a
         //care_giver yet.
         
-        $sql = "INSERT INTO `order` (`order_id`,`doctor_id`, `patient_id`, `care_giver_id`, `date`) VALUES ('$order_id','$doctor_id', '$patient_id', '0000', CURDATE())";
+        $sql = "INSERT INTO `order` (`doctor_id`, `patient_id`, `care_giver_id`, `date`) VALUES ('$doctor_id', '$patient_id', '0000', CURDATE())";
         if(!mysqli_query($conn, $sql)){
            return false; 
         }else{
@@ -288,15 +289,28 @@ class Model{
     /**
     * Methods adds medications to an Order
     */
-    public function addMeds2Order($order_id , $med_id, $med_qty){
+    public function addMeds2Order($order_id , $med_id, $med_qty,$admin_time){
         global $conn;
-        
+        $adminTime = date('H:i:s');
         //administertime is blank, when an order doesnt have a caregiver yet
-        $sql = "INSERT INTO break_down(order_id, medication_id, quantity, administer_time) values('$order_id', '$med_id', '$med_qty', '')";
+       // $sql = "INSERT INTO `break_down`(`order_id`,`medication_id`, `quantity`, `administer_time`, `completed`) VALUES ('$order_id','$med_id', '$med_qty', '$admin_time', '0')";
+        //$sql = "INSERT INTO `break_down`(order_id, medication_id, quantity, administer_time, completed) values('$order_id', '$med_id', '$med_qty', '$admin_time, '0')";
+        $sql = "INSERT INTO `break_down`(order_id, medication_id, quantity, administer_time, completed) values('$order_id', '$med_id', '$med_qty', '$admin_time, 0)";
+
         
         if(!mysqli_query($conn, $sql)){
             return false;
         }else{
+
+            //update the units that the Doctor entered into the med table
+            /*
+            $sql = "UPDATE medication SET units = '$med_unit' WHERE medication_id = $med_id";
+            if(!mysqli_query($conn, $sql)){
+                return false;
+            }else{
+                return true;
+            }
+            */ 
             return true;   
         }
     
