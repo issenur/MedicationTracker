@@ -34,7 +34,7 @@ if(isset($_GET['claim_order'])){
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-    
+
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
@@ -43,7 +43,7 @@ if(isset($_GET['claim_order'])){
             style="opacity: .8">
             <span class="brand-text font-weight-light">MedicationTracker</span>
         </a>
-        
+
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
@@ -55,7 +55,7 @@ if(isset($_GET['claim_order'])){
                     <a href="#" class="d-block">Role: Caregiver</a>
                 </div>
             </div>
-            
+
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -77,7 +77,7 @@ if(isset($_GET['claim_order'])){
         </div>
         <!-- /.sidebar -->
     </aside>
-    
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -93,14 +93,14 @@ if(isset($_GET['claim_order'])){
                         </h1>
                     </div>
                     <div class ="col-auto">
-                    
+
                         <a class="btn btn-app"  href ="CaregiverCODetailView.php?button_claim=$care_giver_id"style="background-color:chartreuse" style="background-color:orange" >
                             <i class="fas fa-edit" type ="submit" name="button_claim2"  style="background-color:chartreuse">Order Claimed</i>
                         </a>
                         <?php
                                header("refresh:0.7; url=CaregiverDashboardView.php");
 
-                               
+
                         ?>
                     </div>
                 </div>
