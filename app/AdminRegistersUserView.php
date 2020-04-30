@@ -31,6 +31,9 @@
         } else{
           
         }
+        //redirect to home page with list of all users
+        $model = Model::getInstance();
+        $model->setCurrentView("AdminDashboardView");
     }
 ?>
 
@@ -63,9 +66,7 @@
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="#" class="nav-link">Home</a>
             </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
-            </li>
+            
         </ul> 
         <!-- SEARCH FORM -->
         <form class="form-inline ml-3">
@@ -89,8 +90,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="" class="brand-link">
-            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
+            
             <span class="brand-text font-weight-light">MedicationTracker</span>
         </a>
         
@@ -98,14 +98,33 @@
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="dist/img/doctorimage.png" class="img-circle elevation-2" alt="User Image">
-                </div>
+              <div class="image">
+                  
+                 </div>
                 <div class="info">
                     <a href="#" class="d-block">Role: Admin</a>
                 </div>
             </div>
             <!-- /.sidebar-menu -->
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                    with font-awesome or any other icon font library -->
+                    <li class="nav-item has-treeview menu-open">
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="./AdminDashboardView.php" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Admin Dashboard</p>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
         </div>
         <!-- /.sidebar -->
     </aside>
@@ -144,11 +163,11 @@
                         <input type="text" name="last" class="form-control"  placeholder="Enter Last Name">
                       </div>
                       <div class="form-group">
-                        <label for="exampleInputPassword1">Date of Birth (Only for Nurse)</label>
+                        <label for="exampleInputPassword1">DOB (ONLY FOR PATIENTS)</label>
                         <input type="text" name="date_of_birth" class="form-control"  placeholder="YYYY-MM-DD">
                       </div>
                       <div class="form-group">
-                        <label for="exampleInputPassword1">I Am a Nurse</label>
+                        <label for="exampleInputPassword1">Is Nurse? (ONLY FOR NURSES)</label>
                         <input type="text" name="is_nurse" class="form-control"  placeholder="Enter Yes or No">
                       </div>
                        <div class="form-group">

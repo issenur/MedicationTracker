@@ -1,5 +1,7 @@
 <?php
 
+//session_start();
+
 include_once("UserModel.php");
 include_once("Globals.php");
 
@@ -274,7 +276,7 @@ class Model{
         //this id number. It represents NULL. Which means we havent assigned a
         //care_giver yet.
         
-        $sql = "INSERT INTO `order` (`order_id`,`doctor_id`, `patient_id`, `care_giver_id`, `date`) VALUES ('$order_id','$doctor_id', '$patient_id', '0000', CURDATE())";
+        $sql = "INSERT INTO `order` (`doctor_id`, `patient_id`, `care_giver_id`, `date`) VALUES ('$doctor_id', '$patient_id', '0000', CURDATE())";
         if(!mysqli_query($conn, $sql)){
            return false; 
         }else{
@@ -287,24 +289,28 @@ class Model{
     /**
     * Methods adds medications to an Order
     */
-    public function addMeds2Order($order_id , $med_id, $med_qty,$med_unit){
+    public function addMeds2Order($order_id , $med_id, $med_qty,$admin_time){
         global $conn;
-        
+        $adminTime = date('H:i:s');
         //administertime is blank, when an order doesnt have a caregiver yet
-        $sql = "INSERT INTO `break_down` (`order_id`,`medication_id`, `quantity`, `administer_time`, `completed`) VALUES ('$order_id','$med_id', '$med_qty', '', '0')";
+       // $sql = "INSERT INTO `break_down`(`order_id`,`medication_id`, `quantity`, `administer_time`, `completed`) VALUES ('$order_id','$med_id', '$med_qty', '$admin_time', '0')";
+        //$sql = "INSERT INTO `break_down`(order_id, medication_id, quantity, administer_time, completed) values('$order_id', '$med_id', '$med_qty', '$admin_time, '0')";
+        $sql = "INSERT INTO `break_down`(order_id, medication_id, quantity, administer_time, completed) values('$order_id', '$med_id', '$med_qty', '$admin_time, 0)";
+
         
         if(!mysqli_query($conn, $sql)){
             return false;
         }else{
 
             //update the units that the Doctor entered into the med table
+            /*
             $sql = "UPDATE medication SET units = '$med_unit' WHERE medication_id = $med_id";
             if(!mysqli_query($conn, $sql)){
                 return false;
             }else{
                 return true;
             }
-
+            */ 
             return true;   
         }
     
@@ -332,7 +338,8 @@ class Model{
             $message = "MedID could not be found ";  
         }
     }
-      /**Method takes a patientID and returns 
+    
+     /**Method takes a patientID and returns 
       * the patientID stored in the DB only if Patient is active
      * 
      */
@@ -351,12 +358,9 @@ class Model{
         if($real_patientID == $patientID && $real_active == 1){
             return $real_patientID;
         }
-        else{
-            return 0;
-        }
-        
+        return 0;
     }
-
+   
     /**Method takes a doctorID and returns 
      * the doctorID stored in the DB only if Patient is active
      * 
@@ -366,7 +370,7 @@ class Model{
         global $model;
         global $conn;
         global $message;
-        $sql = "SELECT * from doctor WHERE doctor_id = '$doctorID'";
+        $sql = "SELECT * from doctor WHERE doctor_id= '$doctorID'";
         $result = $conn->query($sql);
         $row = $result -> fetch_array();
         $real_doctorID = $row['doctor_id'];
@@ -378,8 +382,7 @@ class Model{
         }
         return 0;
     }
-   
-
+    
     public function setCurrentView($newView) {
         
         $model->currentView = $newView;
@@ -404,8 +407,16 @@ class Model{
     public function getCurrentView() {
         return($this->currentview);
     }
-  
-    public function setCurrentUserId($user_id) {
+    
+    public function setCurrentAuthorizationLevel($auth_num) {
+        $this->currentauthorizationlevel = $auth_num;   
+    }
+    
+    public function getCurrentAuthorizationLevel() {
+        return($this->currentauthorizationlevel);
+    }
+    
+     public function setCurrentUserId($user_id) {
         $this->currentuserid = $user_id;   
     }
     

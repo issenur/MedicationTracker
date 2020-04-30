@@ -1,23 +1,32 @@
 <?php
+include_once("Globals.php");
     
     session_start();
+    
     if(!isset($_SESSION['username']) || $_SESSION['role'] != "doctor"){
         header("location:index.php");
     }
-    
-    include_once("Globals.php");
-    global $model;
-    
-?>
 
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
   <title>MedicationTracker | Doctor Dashboard</title>
+
+  <style>
+
+  div.med1 {border-style: groove;}
+  div.med2 {border-style: groove;}
+  div.med3 {border-style: groove;}
+  div.med4 {border-style: groove;}
+  </style>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -40,8 +49,8 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="DoctorPatientsListView.php" class="nav-link">Home</a>
       </li>
+      
     </ul>
-
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -51,8 +60,8 @@
       </li>
     </ul>
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
+     <!-- Right navbar links -->
+     <ul class="navbar-nav ml-auto">
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="logout.php" class="nav-link">Logout</a>
             </li>
@@ -60,8 +69,8 @@
   </nav>
   <!-- /.navbar -->
 
-   <!-- Main Sidebar Container -->
-   <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="DoctorPatientsListView.php" class="brand-link">
       <img src="" alt="" class="brand-image img-circle elevation-3"
@@ -87,11 +96,10 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
-            
             <ul class="nav nav-treeview">
             <li class="nav-item">
-                <a href="./DoctorPatientsListView.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                <a href="./DoctorPatientsListView.php" class="nav-link active">
+                  <i class="far fa-check-circle nav-icon"></i>
                   <p>Display Patient IDs </p>
                 </a>
               </li>
@@ -102,15 +110,16 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./DoctorDisplaysOrdersView.php" class="nav-link active">
-                  <i class="far fa-check-circle nav-icon"></i>
+                <a href="./DoctorDisplaysOrdersView.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
                   <p>Display All Orders</p>
                 </a>
               </li>
-             
+              
             </ul>
           </li>
-        
+          
+
       </nav>
       <!-- /.sidebar-menu -->
     </div>
@@ -124,39 +133,64 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Hello, Doctor! </h1>
+            <h1 class="m-0 text-dark"> Hello, Doctor! </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Display All Orders</li>
+              <li class="breadcrumb-item active">Display Patient IDs</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
 
-        <!-- Main content -->
-         <section class="content">
-          <div class="container-fluid">
+    <!-- Main content -->
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
         
-       
-      <!-- TABLE: LATEST ORDERS -->
-      <div class="card">
-          <div class="card-header border-transparent">
-            <h3 class="card-title">Your Orders</h3>
-          </div>
 
+        
+      
+      
 
-          <!-- /.card-header -->
-          <div class="row mb-2">
-                    <div class="col-sm-12">
-                       <table id="example2" class="table table-bordered table-hover">
-                            <thead>
+    </div>
+
+    
+  
+            <!-- TABLE: LATEST ORDERS -->
+              <div class="col">
+                <div class="card card-secondary collapsed-card">
+                  <div class="card-header">
+                    <h3 class="card-title"><b>PATIENTS LIST</b></h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                  </button>
+                  
+                  
+              </div>
+            </div>
+              <!-- /.card-header -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <div class="card-tools">
+                        
+                      </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                      <table class="table table-hover text-nowrap">
+                      <thead>
                                 <tr>
-                                    <th>Order ID</th>
-                                    <th>Doctor ID</th>
                                     <th>Patient ID</th>
-                                    <th>Caregiver ID</th>
-                                    <th>Order Creation Date</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
                                 </tr>
                             </thead>
                             <?php
@@ -168,24 +202,20 @@
                                 }
                                 
                                 $sql = "SELECT ";
-                                $sql .= " `order`.`order_id` AS `order_id` ,";
-                                $sql .= " `order`.`doctor_id` AS `doctor_id` ,";
-                                $sql .= " `order`.`care_giver_id` AS `caregiver_id` ,";
-                                $sql .= " `order`.`patient_id` AS `patient_id`,";
-                                $sql .= " DATE_FORMAT(`date`, '%d-%b-%Y') AS `date` ";
-                                $sql .= " FROM `order` ";
-                                $sql .= " JOIN `user` ON (`user`.`doctor_id` = `order`.`doctor_id`)";
+                                $sql .= " `patient`.`patient_id` AS `patient_id` ,";
+                                $sql .= " `patient`.`first` AS `first` ,";
+                                $sql .= " `patient`.`last` AS `last` ";
+                                $sql .= " FROM `patient` ";
+                                $sql .= " JOIN `user` ON (`user`.`patient_id` = `patient`.`patient_id`)";
                                 $result = $conn->query($sql);
                                 echo "<id='example2'>";
                                 echo "<tbody>";
                                 if ($result->num_rows > 0) {
                                     while($row = $result->fetch_assoc()) {
                                         echo "<tr>";
-                                        echo "<td>" . (int)$row['order_id'] . "</td>";
-                                        echo "<td>" . (int)$row['doctor_id'] . "</td>";
-                                        echo "<td>" . $row['patient_id'] . "</td>"; 
-                                        echo "<td>" . $row['caregiver_id'] . "</td>";
-                                        echo "<td>" . $row['date'] . "</td>";
+                                        echo "<td>" . (int)$row['patient_id'] . "</td>";
+                                        echo "<td>" . $row['first'] . "</td>";
+                                        echo "<td>" . $row['last'] . "</td>"; 
                                         echo "</tr>";
                                     }
                                     echo "</tbody>";
@@ -193,24 +223,28 @@
                                 } else {
                                     echo "</tbody>";
                                     echo "</table>";
-                                    echo "<h4>Sorry! All orders cannot be presented at the moment</h4>";
+                                    echo "<h4>Sorry! All patient information cannot be displayed at the moment</h4>";
                                 }
                             ?>
                     </div>
+                    <!-- /.card-body -->
+                  </div>
+                  <!-- /.card -->
                 </div>
-          <!-- /.card-body -->
-        
-
+              </div>
+                <div class="card-footer clearfix">
+                  
+                </div>
+                <!-- /.table-responsive -->
+              </div>
+              <!-- /.card-body -->
+              <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
       </div><!--/. container-fluid -->
     </section>
-
-
-
-    </div>
-    <!-- /.content-header -->
-
-    
-   
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -219,6 +253,7 @@
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
   </aside>
+  <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
   <footer class="main-footer">
@@ -231,5 +266,42 @@
 </div>
 <!-- ./wrapper -->
 
+<!-- REQUIRED SCRIPTS -->
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.js"></script>
+
+<!-- OPTIONAL SCRIPTS -->
+<script src="dist/js/demo.js"></script>
+
+<!-- PAGE PLUGINS -->
+<!-- jQuery Mapael -->
+<script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+<script src="plugins/raphael/raphael.min.js"></script>
+<script src="plugins/jquery-mapael/jquery.mapael.min.js"></script>
+<script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
+<!-- ChartJS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+
+<!-- PAGE SCRIPTS -->
+<script src="dist/js/pages/dashboard2.js"></script>
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables -->
+<script src="../../plugins/datatables/jquery.dataTables.js"></script>
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+<!-- page script -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 </body>
 </html>

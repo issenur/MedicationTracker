@@ -30,7 +30,7 @@
         
         
         if($result->num_rows == 1 && $_SESSION['role'] == "doctor" && $_SESSION['active'] > 0 ){
-            header("location:DoctorDashboardView.php");
+            header("location:DoctorPatientsListView.php");
         } else if($result->num_rows == 1 && $_SESSION['role'] == "caregiver" && $_SESSION['active'] > 0){
            header("location:CaregiverDashboardView.php");
         } else if($result->num_rows == 1 && $_SESSION['role'] == "admin" && $_SESSION['active'] > 0){

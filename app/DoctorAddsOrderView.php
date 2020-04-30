@@ -5,7 +5,7 @@ if(!isset($_SESSION['username']) || $_SESSION['role'] != "doctor"){
     header("location:index.php");
 }
 include_once("OrderController.php");
-include_once("DoctorInputsCodeHelper.php");
+include_once("DoctorInputsCode.php");
 include_once("Model.php");
 
 include_once("Globals.php");
@@ -48,7 +48,7 @@ include_once("Globals.php");
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="DoctorDashboardView.php" class="nav-link">Home</a>
+        <a href="DoctorPatientsListView.php" class="nav-link">Home</a>
       </li>
      
     </ul>
@@ -73,8 +73,8 @@ include_once("Globals.php");
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="DoctorDashboardView.php" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+    <a href="DoctorPatientsListView.php" class="brand-link">
+      <img src="" alt="" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">MedicationTracker</span>
     </a>
@@ -99,9 +99,9 @@ include_once("Globals.php");
           <li class="nav-item has-treeview menu-open">
             <ul class="nav nav-treeview">
             <li class="nav-item">
-                <a href="./DoctorDashboardView.php" class="nav-link">
+                <a href="./DoctorPatientsListView.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Doctor Dashboard</p>
+                  <p>Display Patient IDs </p>
                 </a>
               </li>
               <li class="nav-item">
@@ -210,8 +210,13 @@ include_once("Globals.php");
             </script>
             </div>
           <div class="form-group">
-            <label for="inputDoctorID1">DoctorID</label>
-            <input type="text" class="form-control" id = "doctorID" name="inputDoctorID1" placeholder="Enter your DoctorID">
+            <?php 
+             //Code gets doctor's id from Model to be used for creating order
+             include_once("Model.php");
+             $model = Model::getInstance(); 
+             $currDoctor = $model->getCurrentUserId(); 
+             ?>
+            <input type="hidden" class="form-control" id = "doctorID" name="inputDoctorID1"  value="<?php echo $currDoctor; ?>">
           </div>
           <div class="form-group">
             <label for="inputPatientID1">PatientID</label>
@@ -236,15 +241,13 @@ include_once("Globals.php");
             <label for="inputMedicationQty1">Medication 1 Quantity </label>
             <input type="text" class="form-control" id="medQty1" name="inputMedicationQty1" placeholder="Enter daily dose a patient would take for Medication">
             <div class="form-group">
-            <label>Select Unit for Medication 1</label>
-            <select class="form-control" id="medUnit1" name= "inputMedicationUnit1">
-              <option>patch</option>
-              <option>tablet</option>
-              <option>sprays</option>
-              <option>ml</option>
-              <option>tablet</option>
-              <option>puffs</option>
-              <option>capsule</option>
+            <label>Select Administer Time(AM to PM)</label>
+            <select class="form-control" id="medTime1" name= "inputMedicationTime1">
+              <option>08:00:00</option>
+              <option>12:00:00</option>
+              <option>04:00:00</option>
+              <option>08:00:00</option>
+            </select>
             </select>
           </div>
           <div class="med2">
@@ -262,18 +265,14 @@ include_once("Globals.php");
             </select>
             <label for="inputMedicationQty1">Medication 2 Quantity </label>
             <input type="text" class="form-control" id="medQty2" name="inputMedicationQty2" placeholder="Enter daily dose a patient would take for Medication">
-            <label>Select Unit for Medication 2</label>
-            <select class="form-control" id="medUnit2" name= "inputMedicationUnit2">
-              <option>patch</option>
-              <option>tablet</option>
-              <option>sprays</option>
-              <option>ml</option>
-              <option>tablet</option>
-              <option>puffs</option>
-              <option>capsule</option>
+            <label>Select Administer Time(AM to PM)</label>
+            <select class="form-control" id="medTime2" name= "inputMedicationTime2">
+              <option>08:00:00</option>
+              <option>12:00:00</option>
+              <option>04:00:00</option>
+              <option>08:00:00</option>
             </select>
           </div>
-
           <div class="med3">
             <label>Medication Name</label>
             <select class="form-control" id="med3" name= "inputMedication3">
@@ -289,15 +288,12 @@ include_once("Globals.php");
             </select>
             <label for="inputMedicationQty3">Medication 3 Quantity </label>
             <input type="text" class="form-control" id="medQty3" name="inputMedicationQty3" placeholder="Enter daily dose a patient would take for Medication">
-            <label>Select Unit for Medication 3</label>
-            <select class="form-control" id="medUnit3" name= "inputMedicationUnit3">
-              <option>patch</option>
-              <option>tablet</option>
-              <option>sprays</option>
-              <option>ml</option>
-              <option>tablet</option>
-              <option>puffs</option>
-              <option>capsule</option>
+            <label>Select Administer Time(AM to PM)</label>
+            <select class="form-control" id="medTime3" name= "inputMedicationTime3">
+              <option>08:00:00</option>
+              <option>12:00:00</option>
+              <option>04:00:00</option>
+              <option>08:00:00</option>
             </select>
           </div>
 
@@ -316,15 +312,12 @@ include_once("Globals.php");
             </select>
             <label for="inputMedicationQty1">Medication 4 Quantity </label>
             <input type="text" class="form-control" id="medQty4" name="inputMedicationQty4" placeholder="Enter daily dose a patient would take for Medication">
-            <label>Select Unit for Medication 4</label>
-            <select class="form-control" id="medUnit4" name= "inputMedicationUnit4">
-              <option>patch</option>
-              <option>tablet</option>
-              <option>sprays</option>
-              <option>ml</option>
-              <option>tablet</option>
-              <option>puffs</option>
-              <option>capsule</option>
+            <label>Select Administer Time(AM to PM)</label>
+            <select class="form-control" id="medTime4" name= "inputMedicationTime4">
+              <option>08:00:00</option>
+              <option>12:00:00</option>
+              <option>04:00:00</option>
+              <option>08:00:00</option>
             </select>
           </div>
         </div>
@@ -338,75 +331,6 @@ include_once("Globals.php");
 
     
     
-    
-<!-- Old Code 
-                      <label>Doctor ID</label>
-                      <input type="text" class="form-control" placeholder="Type Here...">
-                    </div>
-                    <div class="col-2">
-                      <label>Patient ID</label>
-                      <input type="text" class="form-control" placeholder="Type Here...">
-                    </div>
-                    <div class="col-2">
-                      <label>Medication</label>
-                      <input type="text" class="form-control" placeholder="Type Here...">
-                    </div>
-                    <div class="col-2">
-                      <label>Dosage</label>
-                      <input type="text" class="form-control" placeholder="Type Here...">
-                    </div>
-                    <div class="col-1">
-                      <div class="form-group">
-                        <label>Unit</label>
-                        <select class="form-control select2" style="width: 100%;">
-                          <option selected="selected">g</option>
-                          <option>mg</option>
-                          <option>mcg</option>
-                          <option>units</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-2">
-                      <div class="form-group">
-                        <label>Status</label>
-                        <select class="form-control select2" style="width: 100%;">
-                          <option selected="selected">Unfulfilled</option>
-                          <option>Fulfilled</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-1">
-                      <label>Add More?</label>
-                    <button onclick="javascript:void(0)" class="btn btn-flat btn-secondary"><b>Add </b>
-                      <span class="fas fa-capsules"></span>
-                    </button>
-                  </div>
-                </div>
-                </div>
-              </div>
-            </div>
-                -->
-            <!-- /.table-responsive -->
-          </div>
-          </div>
-          </div>
-          </div>
-          </div>
-          </div>
-          <!-- /.card-body -->
-          <!-- Old code
-          <div class="card-footer clearfix">
-            <a href="javascript:void(0)" class="btn btn-sm btn-info float-right">Submit Order</a>
-          </div>
-                -->
-          <!-- /.card-footer -->
-        </div>
-        <!-- /.card -->
-      </div>
-      <!-- /.col -->
-      <!-- /.card -->
-  
-      </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->
   </div>

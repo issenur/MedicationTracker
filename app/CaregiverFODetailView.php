@@ -2,6 +2,7 @@
     session_start();
     include_once("Globals.php");
     include_once("Model.php");
+    
 
     if(!isset($_SESSION['username']) || $_SESSION['role'] != "caregiver"){
       header("location:index.php");
@@ -33,7 +34,23 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-      
+      <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="CaregiverDashboardView.php" class="nav-link">Home</a>
+            </li>
+        </ul>
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="logout.php" class="nav-link">Logout</a>
+            </li>
+        </ul>
+    </nav>
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
@@ -60,10 +77,22 @@
                     with font-awesome or any other icon font library -->
                     <li class="nav-item has-treeview menu-open">
                         <ul class="nav nav-treeview">
-                            <li class="nav-item active">
-                                <a href="./CaregiverDashboardView.php" class="nav-link active">
+                            <li class="nav-item">
+                                <a href="./CaregiverDashboardView.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Caregiver Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./CaregiverClaimsOrderView.php" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Self-Assign Order</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./CaregiverFulfillsOrderView.php" class="nav-link active">
+                                    <i class="far fa-check-circle nav-icon"></i>
+                                    <p>Fulfill Order</p>
                                 </a>
                             </li>
                         </ul>
@@ -88,33 +117,10 @@
                         ?>
                         </h1>
                     </div>
-                    <div class ="col-auto">
-
-                        <a class="btn btn-app"  href ="CaregiverCODetailView.php?button_claim=$care_giver_id" style="background-color:lightblue" >
-                            <i class="fas fa-edit" type ="submit" name="button_claim"  style="background-color:lightblue">Click To Confirm Claim</i>
-                        </a>
-                        <?php
-                            if(isset($_GET["button_claim"])){
-
-                                $model = Model::getInstance();
-                                $care_giver_id = $model->getCurrentUserId();
-
-
-                                $order_id = $_SESSION['order_id'];
-
-                                $sql = "UPDATE `order` SET `care_giver_id` = '$care_giver_id'  WHERE `order_id` = '$order_id'";
-
-                                if(!mysqli_query($conn, $sql)){
-                                    header("Location: fail.php");
-                                }else{
-                                    header("Location: CaregiverOrderConfirmView.php");
-                                }
-                            }
-                        ?>
-                    </div>
+                    <br>
                 </div>
-                <div class="row pl-5" style="min-height:72vh" style="min-width:100vw" >
-                    <div class= "col" style="min-height:72vh" style="min-width:100vw" >
+                <div class="row pl-5" style="min-height:62vh" style="min-width:100vw" >
+                    <div class= "col" style="min-height:62vh" style="min-width:100vw" >
                         <table id="example4" class="table table-borderless table-hover">
                             <thead>
                                 <tr>
@@ -122,53 +128,86 @@
                                     <th>Dosage Amount</th>
                                     <th>Class/Category</th>
                                     <th>Due Time</th>
+                                    <th>Fulfilled?<br><font size="2">0 = Unfulfilled<br>1 = Fulfilled</font></th>
                                 </tr>
                             </thead>
                             <?php
 
+
                                 global $conn;
                                 global $order_id;
+                                global $medication_id;
+                                global $administer_time;
+                                global $quantity;
 
                                 if ($conn->connect_error) {
                                     die("Connection failed: " . $conn->connect_error);
                                 }
 
-                                $break_down_completed = 0;
-
                                 $sql  = "SELECT";
                                 $sql .= " `medication`.`name` as `name`,";
                                 $sql .= " `medication`.`physical_form` as `form`,";
                                 $sql .= " `medication`.`units` as `units`,";
-                                $sql .= " TIME_FORMAT(`break_down`.`administer_time`, '%h:%i %p') as `time`,";
-                                $sql .= " `break_down`.`quantity` as `quantity`";
+                                $sql .= " TIME_FORMAT(`break_down`.`administer_time`,'%h:%i %p') as `time`,";
+                                $sql .= " `break_down`.`quantity` as `quantity`,";
+                                $sql .= " `break_down`.`completed` as `completed`";
                                 $sql .= " FROM `break_down`";
                                 $sql .= " JOIN `medication` on (`medication`.`medication_id` = `break_down`.`medication_id`)";
                                 $sql .= " WHERE `break_down`.`order_id` = '$order_id'";
                                 $sql .= " ORDER BY `break_down`.`administer_time`";
 
                                 $result = $conn->query($sql);
-                                echo "<id='example2'>";
+                              echo "<id='example4'>";
                                 echo "<tbody>";
                                 if ($result->num_rows > 0) {
                                     while($row = $result->fetch_assoc()) {
+                                      $medName = $row['name'];
+                                      // $completedStatus = $row['completed'];
                                         echo "<tr>";
                                             echo "<td>" . $row['name'] . "</td>";
                                             echo "<td>" . $row['quantity'] . "  " .$row['units']. "</td>";
                                             echo "<td>" . $row['form'] . "</td>";
                                             echo "<td>" . $row['time'] . "</td>";
+                                            echo "<td>" . $row['completed'] . "</td>";
+                                            echo "<td>";
+                                            echo "<form method='post' action=''>";
+                                            echo "<select class='form-control select2' name='completedInput' style='width:50%'><option value='0'>Unfulfilled</option><option value='1'>Fulfilled</option></select>";
+                                            echo "<input type='submit' name='update' value='UPDATE' style='width:50%'>";
+                                            echo "</form>";
+                                            echo "</td>";
                                         echo "</tr>";
-                                    }
+                                      }
                                     echo "</tbody>";
                                     echo "</table>";
                                 } else {
                                     echo "</tbody>";
                                     echo "</table>";
-                                    echo "<h4>ORDERS DATABASE EMPTY</h4>";
+                                    echo "<h4>No Orders To Fulfill</h4>";
                                 }
+                                if(isset($_POST['update'])){
+                                  $connct = mysqli_connect('localhost','root','','medicationtracker');
+                                  $value = $_POST['completedInput'];
+                                  $result = mysqli_query($connct,"UPDATE break_down SET completed = $value where order_id = '$order_id' AND medication_id = '$medication_id' AND administer_time = '$administer_time' AND quantity = '$quantity'");
+echo "Status Updated";
+                                }
+
                             ?>
                     </div>
                 </div>
-              </div>
+              <!--  <form action="CaregiverCompleteCodeHelper.php" method="post">
+                  <div class="card-body">
+                    <div class="form-group">
+                      <input type="hidden" class="form-control" id="medNameInput" name="medNameInput"  value="<?php echo $medName; ?>">
+                    </div>
+                    <div class="card-body">
+                      <div class="form-group">
+                        <label for="inputDate1">Order Creation Date</label>
+                        <input type="checkbox" class="form-control" id="checkboxInput" name="checkboxInput"   value="<?php echo $completedStatus; ?>">
+                      </div>
+                    </div>
+                  </div>
+                  </form>
+                  -->
             </section>
                 <div class="row" style="min-height:15vh" style="min-width:100vw">
                     <div class= "col" style="background-color:lightblue" style="min-height:15vh" >
@@ -229,5 +268,16 @@ $(document).ready(function () {
   bsCustomFileInput.init();
 });
 </script>
+
+<script>
+$(."form-control select2").each(function( index ) {
+    if ($( this ).text()=="0") {
+        $( this ).html("Unfulfilled");
+    } else if($( this ).text()=="1") {
+        $( this ).html("Fulfilled");
+    }
+});
+</script>
+
 </body>
 </html>

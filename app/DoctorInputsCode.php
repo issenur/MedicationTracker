@@ -16,56 +16,55 @@
       
         $medName1 = $_POST["inputMedication1"];
         $medQty1 = $_POST["inputMedicationQty1"];
-        $medUnit1 = $_POST["inputMedicationUnit1"];
+        $medTime1 = $_POST["inputMedicationTime1"];
 
         //validate user entered data
-        if($medName1 != "" && $medQty1 != "" && $medUnit1 != ""){
+        if($medName1 != "" && $medQty1 != ""){
             //add Meds to the order
-            $orderController->addMeds2Order($order_id, $medName1,$medQty1,$medUnit1);
+            $orderController->addMeds2Order($order_id, $medName1,$medQty1,$medTime1);
         }
         else{
-            echo "Med Quantity cannot be greater than 999";
+            echo "Sorry! The Med Quantity, Name, or  Time cannot be added!";
         }
 
 
         $medName2 = $_POST["inputMedication2"];
         $medQty2 = $_POST["inputMedicationQty2"];
-        $medUnit2 = $_POST["inputMedicationUnit2"];
+        $medTime2 = $_POST["inputMedicationTime2"];
 
-        if($medName2 != "" && $medQty2 != "" && $medUnit2 != ""){
+        if($medName2 != "" && $medQty2 != "" ){
             //add Meds to the order
-            $orderController->addMeds2Order($order_id, $medName2,$medQty2,$medUnit2);
+            $orderController->addMeds2Order($order_id, $medName2,$medQty2,$medTime2 );
         }
         else{
-            echo "Sorry! The Med Quantity, Name, or  Unit is missing!";
+            echo "Sorry! The Med Quantity, Name, or  Time cannot be added!";
         }
 
     
 
         $medName3 = $_POST["inputMedication3"];
         $medQty3 = $_POST["inputMedicationQty3"];
-        $medUnit3 = $_POST["inputMedicationUnit3"];
+        $medTime3 = $_POST["inputMedicationTime3"];
 
-        if($medName3 != "" && $medQty3 != "" && $medUnit3 != ""){
+        if($medName3 != "" && $medQty3 != "" ){
             //add Meds to the order
-            $orderController->addMeds2Order($order_id, $medName3,$medQty3,$medUnit3);
+            $orderController->addMeds2Order($order_id, $medName3,$medQty3,$medTime3);
         }
         else{
-            echo "Sorry! The Med Quantity, Name, or  Unit is missing!";
+            echo "Sorry! The Med Quantity, Name, or  Time cannot be added!";
         }
         
         $medName4 = $_POST["inputMedication4"];
         $medQty4 = $_POST["inputMedicationQty4"];
-        $medUnit4 = $_POST["inputMedicationUnit4"];
-        if($medName4 != "" && $medQty4 != "" && $medUnit4 != ""){
+        $medTime4 = $_POST["inputMedicationTime4"];
+        if($medName4 != "" && $medQty4 != "" ){
             //add Meds to the order
-            $orderController->addMeds2Order($order_id, $medName4,$medQty4,$medUnit4);
+            $orderController->addMeds2Order($order_id, $medName4,$medQty4,$medTime4);
         }
         else{
-            echo "Sorry! The Med Quantity, Name, or  Unit is missing!";
+            echo "Sorry! The Med Quantity, Name, or Time cannot be missed!";
         }
-        
-        
+             
 
     }
 

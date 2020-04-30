@@ -37,19 +37,6 @@ global $model;
             <a href="http://localhost/CaregiverDashboardView.php" class="nav-link">Home</a>
         </li>
     </ul>
-
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-        <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-            <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </div>
-    </form>
-
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item d-none d-sm-inline-block">
@@ -61,8 +48,6 @@ global $model;
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="CaregiverDashboardView.php" class="brand-link">
-            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
             <span class="brand-text font-weight-light">MedicationTracker</span>
         </a>
 
@@ -164,7 +149,7 @@ global $model;
                                 $sql .= " `order`.`patient_id` AS `patient_id`";
                                 $sql .= " FROM `order` ";
                                 $sql .= " JOIN `patient` ON (`patient`.`patient_id` = `order`.`patient_id`)";
-                                $sql .= " WHERE `care_giver_id` = 0000";
+                                $sql .= " WHERE `care_giver_id` = '$Care_Giver_ID'";
                                 $result = $conn->query($sql);
                                 echo "<id='example2'>";
                                 echo "<tbody>";
@@ -175,7 +160,7 @@ global $model;
                                         echo "<td>" . $row['pfirst'] . " " .  $row['plast'] . "</td>";
                                         echo "<td>" . $row['date'] . "</td>";
                                         echo "<td>";
-                                        echo "<a href ='CaregiverCODetailView.php?claim_order=".  $row['order_id'] ."'><button class='btn btn-dark'>Fulfill Order</button>"."<a/>";
+                                        echo "<a href ='CaregiverFODetailView.php?claim_order=".  $row['order_id'] ."'><button class='btn btn-dark'>Fulfill Order</button>"."<a/>";
                                         echo "</td>";
                                         echo "</tr>";
                                     }
@@ -184,7 +169,7 @@ global $model;
                                 } else {
                                     echo "</tbody>";
                                     echo "</table>";
-                                    echo "<h4>ORDERS DATABASE EMPTY</h4>";
+                                    echo "<h4>No Orders To Fulfill</h4>";
                                 }
                             ?>
                     </div>
